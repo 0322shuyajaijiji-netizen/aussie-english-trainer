@@ -1,16 +1,18 @@
 # GitHub Pages 公開直前の手順
 
-このプロジェクトは**まだGitHub Pagesでは公開していません**。コードを非公開（Private）のリポジトリに用意し、Pagesを有効にする操作は残しています。
+このプロジェクトはGitHub Pagesで公開済みです。
+
+https://0322shuyajaijiji-netizen.github.io/aussie-english-trainer/
 
 ## 現在の状態
 
 - 最新版のアプリ、129フレーズ、全会話例、追加分岐、テスト、教材変更履歴を収録。
 - HTML / CSS / JavaScriptのみ。APIキー・ビルド・サーバー・DB・有料サービスは不要。
 - GitHub Pagesで使える相対パスと `.nojekyll` を配置済み。
-- 自動公開するワークフローはありません。コミットしただけで公開しません。
+- 独自の公開ワークフローはありません。GitHub Pagesの設定で `main` / `/(root)` を配信しているため、`main` の更新でサイトも更新されます。
 - ブラウザ実機での表示・マイク・音声認識は未確認。`TEST_REPORT.md` に確認項目があります。
 
-## 公開することを決めたときの最後の操作
+## GitHub Pagesの設定（現在は設定済み）
 
 GitHubの無料プランでGitHub Pagesを使うため、まずリポジトリを **Public（公開）** にします。Publicにするとアプリだけでなくソースコード・教材データ・Git履歴も閲覧可能になります。
 
@@ -19,7 +21,7 @@ GitHubの無料プランでGitHub Pagesを使うため、まずリポジトリ�
 3. Branchを **main**、フォルダを **/(root)** にします。
 4. **Save** を押します。**この操作でGitHub Pagesへの公開が始まります。**
 5. 数分後、Pages画面の **Visit site** で公開URLを開きます。URLは `https://GitHubユーザー名.github.io/aussie-english-trainer/` の形式です。
-6. HTTPSで開き、PCとスマートフォンからお手本音声・録音・音声認識を確認します。
+6. HTTPSで開き、PCとスマートフォンからお手本音声・音声認識を確認します。
 
 独自ドメイン・支払い方法・環境変数・APIキーの登録は不要です。教材の公開権限を確認した上で実行してください。
 
@@ -36,5 +38,5 @@ GitHubの無料プランでGitHub Pagesを使うため、まずリポジトリ�
 ```sh
 node scripts/build-data.mjs
 node scripts/check-release.mjs
-node --test tests/app.test.mjs
+node --test tests/*.test.mjs
 ```

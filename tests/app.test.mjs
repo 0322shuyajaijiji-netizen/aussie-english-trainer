@@ -17,12 +17,8 @@ function boot({stored=null,storageFails=false,media=false,sr=false,hash='',getMe
   setAttribute(k,v){this[k]=v;} focus(){} click(){} showModal(){this.open=true;} close(){this.open=false;}
  }
  for(const id of ['app','nav','main','toast','good-popup','good-note'])elements.set(id,new Element(id));
- class Recorder {
-  constructor(s){this.stream=s;this.mimeType='audio/webm';this.state='inactive';recorders.push(this);}
-  start(){this.state='recording';}stop(){this.state='inactive';this.ondataavailable?.({data:new Blob(['voice'],{type:'audio/webm'})});this.onstop?.();}
- }
  class Recognition {
-  constructor(){recognizers.push(this);}start(){}abort(){this.aborted=true;}
+  constructor(){recognizers.push(this);}start(){this.onstart?.();}stop(){this.stopped=true;}abort(){this.aborted=true;}deliver(e){this.onresult?.(e);this.onend?.();}
  }
  const storage=new Map(stored?[['aussie-english-v1',JSON.stringify(stored)]]:[]);
  const ctx={console,Blob,Date,Set,Map,Array,Object,String,Number,JSON,Math,Error,RegExp,Promise,
@@ -34,8 +30,8 @@ function boot({stored=null,storageFails=false,media=false,sr=false,hash='',getMe
  confirm:()=>true,setTimeout:(fn,ms)=>{timeouts.set(++timer,{fn,ms});return timer;},clearTimeout:id=>timeouts.delete(id),
  speechSynthesis:{cancel(){},getVoices:()=>[{name:'US voice',lang:'en-US'},{name:'Aussie',lang:'en-AU'}],speak:u=>spoken.push(u),addEventListener(){}},
  SpeechSynthesisUtterance:class{constructor(text){this.text=text;}},addEventListener:(t,fn)=>events[t]=fn,scrollTo(){}};
- if(media)ctx.MediaRecorder=Recorder;if(sr)ctx.SpeechRecognition=Recognition;ctx.window=ctx;
- vm.createContext(ctx);for(const f of ['phrases.js','core.js','scenarios.js','app.js'])vm.runInContext(read(f),ctx,{filename:f});
+ if(sr)ctx.SpeechRecognition=Recognition;ctx.window=ctx;
+ vm.createContext(ctx);for(const f of ['phrases.js','core.js','speech.js','scenarios.js','app.js'])vm.runInContext(read(f),ctx,{filename:f});
  const click=(action,props={})=>events.click({target:{closest:()=>({dataset:{action,...props},disabled:false})}});
  const flush=()=>new Promise(resolve=>setImmediate(resolve));
  const change=(id,value,checked)=>events.change({target:{id,value,checked}});
@@ -83,24 +79,13 @@ test('音声はen-AU優先、無ければ他の英語。非対応でも照合可
  b.ctx.speechSynthesis.getVoices=()=>[{name:'fallback',lang:'en-GB'}];b.click('speak-phrase');assert.equal(b.spoken.at(-1).voice.lang,'en-GB');
  b.elements.get('speech-input').value="How's it going?";b.click('compare');assert.match(b.elements.get('status').innerHTML,/100%/);assert.match(b.elements.get('status').innerHTML,/発音の点数ではありません/);
 });
-test('音声認識非対応でも録音・再生し、画面移動でトラック停止とURL解放',async()=>{
- const b=boot({media:true});b.click('tab',{value:'speak'});b.click('record');await new Promise(resolve=>setImmediate(resolve));assert.equal(b.recorders.length,1);b.click('record');assert.equal(b.recorders.length,1);b.click('record-stop');assert.ok(b.tracks[0].stopped);assert.equal(b.elements.get('playback').children[0].controls,true);
- b.click('tab',{value:'home'});assert.equal(b.revokes.length,1);
-});
-test('マイク権限要求中に画面を離れた場合、許可後のトラックも確実に停止',async()=>{
- let resolve;const pending=new Promise(r=>resolve=r),track={stopped:false,stop(){this.stopped=true;}};
- const b=boot({media:true,getMedia:()=>pending});b.click('tab',{value:'speak'});b.click('record');b.click('tab',{value:'home'});resolve({getTracks:()=>[track]});await new Promise(resolve=>setImmediate(resolve));assert.equal(track.stopped,true);assert.equal(b.recorders.length,0);
-});
-test('マイク拒否は日本語で表示し、再試行できる',async()=>{
- const b=boot({media:true,getMedia:async()=>{const e=new Error();e.name='NotAllowedError';throw e;}});b.click('tab',{value:'speak'});b.click('record');await new Promise(resolve=>setImmediate(resolve));assert.match(b.elements.get('record-status').textContent,/許可されません/);assert.equal(b.elements.get('record-start').disabled,false);
-});
-test('録音中の画面遷移・非表示はマイクを解放する',async()=>{
- const b=boot({media:true});b.click('tab',{value:'speak'});b.click('record');await new Promise(resolve=>setImmediate(resolve));b.click('next');assert.equal(b.tracks[0].stopped,true);assert.equal(b.recorders[0].state,'inactive');
- b.click('record');await new Promise(resolve=>setImmediate(resolve));b.ctx.document.hidden=true;b.events.visibilitychange();assert.equal(b.tracks[1].stopped,true);
-});
+
+
+
+
 test('音声認識の成功・ネットワーク失敗・遷移後の遅延コールバック',()=>{
- const b=boot({sr:true});b.click('tab',{value:'speak'});b.click('recognize');const r=b.recognizers[0],result=r.onresult;r.onresult({results:[[{transcript:"How's it going?"}]]});assert.match(b.elements.get('status').innerHTML,/100%/);
- b.click('recognize');b.recognizers[1].onerror({error:'network'});assert.match(b.elements.get('status').textContent,/ネットワーク/);
+ const b=boot({sr:true});b.click('tab',{value:'speak'});b.click('recognize');const r=b.recognizers[0],result=r.onresult;r.deliver({results:[[{transcript:"How's it going?"}]]});assert.match(b.elements.get('status').innerHTML,/100%/);
+ b.click('recognize');b.recognizers[1].onerror({error:'network'});assert.match(b.elements.get('speech-state').textContent,/接続できません/);
  b.click('recognize');const late=b.recognizers[2].onresult;b.click('tab',{value:'home'});assert.doesNotThrow(()=>late({results:[[{transcript:'late'}]]}));assert.match(b.html(),/Australia/);
 });
 test('教材ロールプレイはA/B両役で完了できる',()=>{
@@ -114,11 +99,11 @@ test('分岐練習の会話完了は重複カウントしない',()=>{
  const b=boot();b.click('tab',{value:'role'});b.click('role-branch');b.click('branch-hear');b.click('branch-choice',{index:'0'});b.click('branch-hear');b.click('branch-choice',{index:'0'});b.click('branch-hear');b.click('branch-hear');assert.match(b.html(),/会話完了/);assert.equal(Object.values(b.saved().days)[0],1);
 });
 test('解答・検索・会話・バックアップ由来の文字列はHTMLエスケープ',()=>{
- const b=boot({sr:true});b.click('tab',{value:'quiz'});b.click('quiz-recognize');b.recognizers[0].onresult({results:[[{transcript:'<img src=x onerror=alert(1)>'}]]});assert.doesNotMatch(b.html(),/<img src=x/);assert.match(b.html(),/&lt;img/);
+ const b=boot({sr:true});b.click('tab',{value:'quiz'});b.click('quiz-recognize');b.recognizers[0].deliver({results:[[{transcript:'<img src=x onerror=alert(1)>'}]]});assert.doesNotMatch(b.html(),/<img src=x/);assert.match(b.html(),/&lt;img/);
 });
 test('静的参照は全て相対パス・存在し、外部APIや有料依存がない',()=>{
  const html=read('index.html');for(const m of html.matchAll(/(?:src|href)="([^"#]+)"/g))assert.ok(fs.existsSync(path.join(root,m[1])),m[1]);
- for(const f of ['index.html','app.js','core.js','scenarios.js','styles.css'])assert.doesNotMatch(read(f).replace(/xmlns="[^"]*"/g,''),/https?:\/\/|fetch\(|XMLHttpRequest|api[_-]?key/i);
+ for(const f of ['index.html','app.js','core.js','speech.js','scenarios.js','styles.css'])assert.doesNotMatch(read(f).replace(/xmlns="[^"]*"/g,''),/https?:\/\/|fetch\(|XMLHttpRequest|api[_-]?key/i);
  assert.match(read('styles.css'),/@media\(max-width:700px\)/);assert.match(html,/<html lang="ja">/);
 });
 
@@ -131,13 +116,8 @@ test('バックアップ復元は確認後に置換し、不正・巨大ファ�
  b.ctx.confirm=()=>false;await load(JSON.stringify({done:{1:true},star:{}}));assert.equal(JSON.stringify(b.saved()),before);
  b.events.change({target:{id:'import-file',files:[{size:3*1024*1024,text:async()=>''}]}});await b.flush();assert.match(b.elements.get('toast').textContent,/大きすぎます/);
 });
-test('録音自動停止と認識タイムアウトが終了UIを更新',async()=>{
- const b=boot({media:true,sr:true});b.click('tab',{value:'speak'});b.click('record');await b.flush();[...b.timeouts.values()].find(t=>t.ms===60000).fn();assert.equal(b.tracks[0].stopped,true);assert.equal(b.elements.get('playback').children.length,1);
- b.click('recognize');[...b.timeouts.values()].find(t=>t.ms===20000).fn();assert.equal(b.recognizers[0].aborted,true);assert.match(b.elements.get('status').textContent,/停止しました/);
-});
-test('録音デバイスが自発停止しても再生でき、開始ボタンを復帰',async()=>{
- const b=boot({media:true});b.click('tab',{value:'speak'});b.click('record');await b.flush();b.recorders[0].stop();assert.equal(b.tracks[0].stopped,true);assert.equal(b.elements.get('playback').children.length,1);assert.equal(b.elements.get('record-start').disabled,false);
-});
+
+
 test('全129会話は空でなく、選択可能なA/B役がある',()=>{
  for(const p of data){assert.ok(p.dialogue.length>=2);assert.ok(p.dialogue.some(d=>d.role==='A'));assert.ok(p.dialogue.some(d=>d.role==='B'));for(const d of p.dialogue)assert.ok(typeof d.text==='string'&&d.text.length>0);}
 });
@@ -148,23 +128,23 @@ test('両学習画面からゆっくり聞くを削除、クイズに入力欄�
 });
 test('英語の音声回答が一致するとGOODポップアップ、正解を一度だけ記録',()=>{
  const b=boot({sr:true});b.click('tab',{value:'quiz'});b.click('quiz-recognize');const r=b.recognizers[0];assert.equal(r.lang,'en-AU');
- const callback=r.onresult;callback({results:[[{transcript:'How is it going?'}]]});
+ const callback=r.onresult;callback({results:[[{transcript:'How is it going?'}]]});r.onend?.();
  assert.equal(b.saved().quiz['1:en'].correct,1);assert.equal(b.elements.get('good-popup').open,true);assert.match(b.elements.get('good-note').textContent,/一致/);
  callback({results:[[{transcript:'How is it going?'}]]});b.click('quiz-correct');assert.equal(b.saved().quiz['1:en'].total,1);
  b.click('good-close');assert.equal(b.elements.get('good-popup').open,false);
 });
 test('認識が違う場合は即誤答にせず再挑戦・自己確認、GOODは出さない',()=>{
- const b=boot({sr:true});b.click('tab',{value:'quiz'});b.click('quiz-recognize');b.recognizers[0].onresult({results:[[{transcript:'Sorry'}]]});
+ const b=boot({sr:true});b.click('tab',{value:'quiz'});b.click('quiz-recognize');b.recognizers[0].deliver({results:[[{transcript:'Sorry'}]]});
  assert.notEqual(b.elements.get('good-popup').open,true);assert.equal(b.saved().quiz?.['1:en'],undefined);assert.match(b.html(),/もう一度話す/);
  b.click('quiz-wrong');assert.equal(b.saved().quiz['1:en'].misses,1);assert.equal(b.saved().star[1],true);
 });
 test('日本語の意味はja-JPで認識、一致時のGOOD、言い換えは自己確認',()=>{
  const b=boot({sr:true});b.click('tab',{value:'quiz'});b.click('quiz-ja');b.click('quiz-recognize');assert.equal(b.recognizers[0].lang,'ja-JP');
- b.recognizers[0].onresult({results:[[{transcript:'調子はどう'}]]});assert.equal(b.saved().quiz['1:ja'].correct,1);assert.equal(b.elements.get('good-popup').open,true);
- b.click('good-close');b.click('quiz-next');b.click('quiz-recognize');b.recognizers[1].onresult({results:[[{transcript:'元気です。あなたは'}]]});assert.match(b.html(),/自分でも確認/);assert.equal(b.saved().quiz['2:ja'],undefined);
+ b.recognizers[0].deliver({results:[[{transcript:'調子はどう'}]]});assert.equal(b.saved().quiz['1:ja'].correct,1);assert.equal(b.elements.get('good-popup').open,true);
+ b.click('good-close');b.click('quiz-next');b.click('quiz-recognize');b.recognizers[1].deliver({results:[[{transcript:'元気です。あなたは'}]]});assert.match(b.html(),/自分でも確認/);assert.equal(b.saved().quiz['2:ja'],undefined);
 });
-test('音声非対応時も声に出して自己確認でき、GOODを表示',()=>{
- const b=boot();b.click('tab',{value:'quiz'});assert.match(b.html(),/認識に非対応/);b.click('quiz-reveal');b.click('quiz-correct');assert.equal(b.saved().quiz['1:en'].correct,1);assert.equal(b.elements.get('good-popup').open,true);assert.match(b.elements.get('good-note').textContent,/声に出して/);
+test('音声非対応時は自己確認を記録し、GOODによる音声一致とは区別',()=>{
+ const b=boot();b.click('tab',{value:'quiz'});assert.match(b.html(),/認識に非対応/);b.click('quiz-reveal');b.click('quiz-correct');assert.equal(b.saved().quiz['1:en'].correct,1);assert.notEqual(b.elements.get('good-popup').open,true);
 });
 test('全文表示ロールプレイは開始前から両役の全セリフが見える',()=>{
  const b=boot();b.click('tab',{value:'role'});for(const d of data[0].dialogue)assert.ok(b.html().includes(d.text.replaceAll('’','’')),d.text);assert.match(b.html(),/aria-current="step"/);assert.match(b.html(),/会話の全文/);assert.doesNotMatch(b.html(),/セリフのヒント/);
@@ -182,4 +162,24 @@ test('短縮形・スラッシュ・括弧の正当な選択表現で一致、�
  assert.ok(C.spokenCheck('How’s it going?','Where am I').score<85);
  assert.equal(C.spokenCheck('調子はどう？','調子はどう','ja').score,100);
  assert.equal(C.spokenCheck('調子はどう？','','ja').score,0);
+});
+
+test('学習メニューは一箇所、ホームに重複した遷移ボタンを置かない',()=>{
+ const b=boot();assert.equal((b.elements.get('nav').innerHTML.match(/data-action="tab"/g)||[]).length,6);assert.doesNotMatch(b.html(),/data-action="tab"|start-learn|mode-grid/);
+ for(const value of ['learn','speak','quiz','role']){b.click('tab',{value});assert.doesNotMatch(b.html(),/録音|聞き直|record-stop|playback/);}
+ assert.doesNotMatch(read('app.js')+read('speech.js'),/MediaRecorder|getUserMedia|recordingUrl/);
+});
+test('発音練習で全体が一致したときGOOD、欠落があれば表示しない',()=>{
+ const b=boot({sr:true});b.click('tab',{value:'speak'});b.click('recognize');b.recognizers[0].deliver({results:[[{transcript:'How is it going'}]]});assert.equal(b.elements.get('good-popup').open,true);
+ b.click('good-close');b.click('recognize');b.recognizers[1].deliver({results:[[{transcript:'How is going'}]]});assert.equal(b.elements.get('good-popup').open,false);
+});
+test('教材会話は一致ならGOODと次の番、不一致なら同じ番で再挑戦',()=>{
+ const b=boot({sr:true});b.click('tab',{value:'role'});b.change('my-role','A');b.click('role-recognize');b.recognizers[0].deliver({results:[[{transcript:'Sorry'}]]});assert.notEqual(b.elements.get('good-popup').open,true);assert.match(b.html(),/1 \/ 4/);
+ b.click('role-recognize');b.recognizers[1].deliver({results:[[{transcript:data[0].dialogue[0].text}]]});assert.equal(b.elements.get('good-popup').open,true);assert.match(b.html(),/2 \/ 4/);
+});
+test('分岐会話も声で返答し、一致するとGOODと次の分岐へ進む',()=>{
+ const b=boot({sr:true});b.click('tab',{value:'role'});b.click('role-branch');b.click('branch-hear');b.click('branch-recognize');b.recognizers[0].deliver({results:[[{transcript:'Can I get a latte'}]]});assert.equal(b.elements.get('good-popup').open,true);assert.match(b.html(),/Having here, or take away/);
+});
+test('話し終わったボタンはabortせずstopし、遅い確定結果でGOODを表示',()=>{
+ const b=boot({sr:true});b.click('tab',{value:'speak'});b.click('recognize');const r=b.recognizers[0];const interim=[{transcript:'How is it'}];interim.isFinal=false;r.onresult({results:[interim]});assert.equal(b.elements.get('speech-transcript').textContent,'How is it');b.click('recognition-stop');assert.equal(r.stopped,true);assert.notEqual(r.aborted,true);r.deliver({results:[[{transcript:'How is it going'}]]});assert.equal(b.elements.get('good-popup').open,true);
 });
