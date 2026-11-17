@@ -1,0 +1,3098 @@
+window.PHRASES = [
+  {
+    "id": 1,
+    "en": "How’s it going?",
+    "ja": "調子はどう？",
+    "category": "あいさつ",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Hi! How’s it going?"
+      },
+      {
+        "role": "B",
+        "text": "Pretty good! How about you?"
+      },
+      {
+        "role": "A",
+        "text": "I’m good, thanks."
+      },
+      {
+        "role": "B",
+        "text": "Nice!"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "en": "Good, yourself?",
+    "ja": "いいよ、あなたは？",
+    "category": "あいさつ",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "How are you?"
+      },
+      {
+        "role": "B",
+        "text": "Good, yourself?"
+      },
+      {
+        "role": "A",
+        "text": "Pretty good!"
+      },
+      {
+        "role": "B",
+        "text": "That’s great!"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "en": "Let’s get to know each other.",
+    "ja": "仲良くなりましょう。",
+    "category": "あいさつ",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "We’re going to be classmates today."
+      },
+      {
+        "role": "B",
+        "text": "Yeah, I’m excited!"
+      },
+      {
+        "role": "A",
+        "text": "Let’s get to know each other."
+      },
+      {
+        "role": "B",
+        "text": "Sounds great!"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "en": "I was born and raised in Okazaki.",
+    "ja": "生まれも育ちも岡崎です。",
+    "category": "あいさつ",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Where are you from in Japan?"
+      },
+      {
+        "role": "B",
+        "text": "I’m from Okazaki."
+      },
+      {
+        "role": "A",
+        "text": "Really? Tell me about it."
+      },
+      {
+        "role": "B",
+        "text": "I was born and raised in Okazaki."
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "en": "Call me Shuya.",
+    "ja": "しゅうやと呼んでください。",
+    "category": "あいさつ",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "What’s your name?"
+      },
+      {
+        "role": "B",
+        "text": "My name is Shuya."
+      },
+      {
+        "role": "A",
+        "text": "How should I call you?"
+      },
+      {
+        "role": "B",
+        "text": "Call me Shuya."
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "en": "How do you spell that?",
+    "ja": "スペルはどう書きますか？",
+    "category": "あいさつ",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "My name is Liam."
+      },
+      {
+        "role": "B",
+        "text": "How do you spell that?"
+      },
+      {
+        "role": "A",
+        "text": "L-I-A-M."
+      },
+      {
+        "role": "B",
+        "text": "Got it.(わかった) Thanks!"
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "en": "What do you do in your free time?",
+    "ja": "趣味は何ですか？",
+    "category": "あいさつ",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "What do you do in your free time?"
+      },
+      {
+        "role": "B",
+        "text": "I play basketball."
+      },
+      {
+        "role": "A",
+        "text": "Nice! How often do you play?"
+      },
+      {
+        "role": "B",
+        "text": "Almost every day!"
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "en": "What made you interested in math?",
+    "ja": "なんで数学に興味をもったの？",
+    "category": "あいさつ",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "I heard you really like math."
+      },
+      {
+        "role": "B",
+        "text": "Yeah, I love it!"
+      },
+      {
+        "role": "A",
+        "text": "What made you interested in math?"
+      },
+      {
+        "role": "B",
+        "text": "My teacher made it fun."
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "en": "It’s not my cup of tea.",
+    "ja": "それは私の好みじゃない。",
+    "category": "あいさつ",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Do you like cricket?"
+      },
+      {
+        "role": "B",
+        "text": "Hmm, not really."
+      },
+      {
+        "role": "A",
+        "text": "Why not?"
+      },
+      {
+        "role": "B",
+        "text": "It’s just not my cup of tea."
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "en": "What a coincidence!",
+    "ja": "偶然だね！",
+    "category": "あいさつ",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "I’m from Okazaki, Japan."
+      },
+      {
+        "role": "B",
+        "text": "Really? My friend lives there!"
+      },
+      {
+        "role": "A",
+        "text": "No way!（まじで？）"
+      },
+      {
+        "role": "B",
+        "text": "What a coincidence!"
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "en": "We have so much in common.",
+    "ja": "私たち共通点たくさんあるね。",
+    "category": "あいさつ",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "I love basketball and video games."
+      },
+      {
+        "role": "B",
+        "text": "Do you? Me too!"
+      },
+      {
+        "role": "A",
+        "text": "We have so much in common."
+      },
+      {
+        "role": "B",
+        "text": "Yeah, we do!"
+      }
+    ]
+  },
+  {
+    "id": 12,
+    "en": "I’m not a big fan.",
+    "ja": "ちょっと苦手なんだよね。",
+    "category": "あいさつ",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Do you like spicy food?"
+      },
+      {
+        "role": "B",
+        "text": "I’m not a big fan."
+      },
+      {
+        "role": "A",
+        "text": "Is it too spicy for you?"
+      },
+      {
+        "role": "B",
+        "text": "Yeah, a little!"
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "en": "I’m not so crazy about ONE PIECE.",
+    "ja": "ワンピースはそんなに好きじゃない。",
+    "category": "あいさつ",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Do you like ONE PIECE?"
+      },
+      {
+        "role": "B",
+        "text": "I’ve seen it, but I’m not so crazy about ONE PIECE."
+      },
+      {
+        "role": "A",
+        "text": "Oh, really? What anime do you like?"
+      },
+      {
+        "role": "B",
+        "text": "I like Pokémon."
+      }
+    ]
+  },
+  {
+    "id": 14,
+    "en": "I’m really into Minecraft.",
+    "ja": "マインクラフトにはまってるんだ。",
+    "category": "あいさつ",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "What games do you play?"
+      },
+      {
+        "role": "B",
+        "text": "I’m really into Minecraft."
+      },
+      {
+        "role": "A",
+        "text": "Really? Do you play it a lot?"
+      },
+      {
+        "role": "B",
+        "text": "Yeah, almost every day!"
+      }
+    ]
+  },
+  {
+    "id": 15,
+    "en": "If I had to say…",
+    "ja": "どちらかと言うと",
+    "category": "あいさつ",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Which do you like better, cats or dogs?"
+      },
+      {
+        "role": "B",
+        "text": "If I had to say, dogs."
+      },
+      {
+        "role": "A",
+        "text": "Why do you like dogs?"
+      },
+      {
+        "role": "B",
+        "text": "They’re really friendly."
+      }
+    ]
+  },
+  {
+    "id": 16,
+    "en": "That’s about it, I guess.",
+    "ja": "そんな感じかな。",
+    "category": "あいさつ",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "What do you do after school?"
+      },
+      {
+        "role": "B",
+        "text": "I play soccer and watch movies."
+      },
+      {
+        "role": "A",
+        "text": "Anything else?"
+      },
+      {
+        "role": "B",
+        "text": "That’s about it, I guess."
+      }
+    ]
+  },
+  {
+    "id": 17,
+    "en": "Let’s keep in touch.",
+    "ja": "連絡を取り合いましょう。",
+    "category": "あいさつ",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "I had a great time with you."
+      },
+      {
+        "role": "B",
+        "text": "Me too!"
+      },
+      {
+        "role": "A",
+        "text": "Let’s keep in touch."
+      },
+      {
+        "role": "B",
+        "text": "Definitely!"
+      }
+    ]
+  },
+  {
+    "id": 18,
+    "en": "Good luck with everything.",
+    "ja": "元気でね。",
+    "category": "あいさつ",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "I’m going back to Japan tomorrow."
+      },
+      {
+        "role": "B",
+        "text": "Oh, I’ll miss you."
+      },
+      {
+        "role": "A",
+        "text": "I’ll miss you, too."
+      },
+      {
+        "role": "B",
+        "text": "Good luck with everything!"
+      }
+    ]
+  },
+  {
+    "id": 19,
+    "en": "Have a good one.",
+    "ja": "良い一日を。",
+    "category": "あいさつ",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Thanks for your help today."
+      },
+      {
+        "role": "B",
+        "text": "No problem!"
+      },
+      {
+        "role": "A",
+        "text": "I’ll see you tomorrow."
+      },
+      {
+        "role": "B",
+        "text": "Sure! Have a good one!"
+      }
+    ]
+  },
+  {
+    "id": 20,
+    "en": "I’ll miss you guys.",
+    "ja": "寂しくなるよ。",
+    "category": "あいさつ",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Today is our last day here."
+      },
+      {
+        "role": "B",
+        "text": "Yeah, time went by so fast."
+      },
+      {
+        "role": "A",
+        "text": "I’ll miss you guys."
+      },
+      {
+        "role": "B",
+        "text": "We’ll miss you, too!"
+      }
+    ]
+  },
+  {
+    "id": 21,
+    "en": "Catch you later.",
+    "ja": "またね。",
+    "category": "あいさつ",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "I have to go to class now."
+      },
+      {
+        "role": "B",
+        "text": "Okay, see you later, alligator!"
+      },
+      {
+        "role": "A",
+        "text": "Catch you later."
+      },
+      {
+        "role": "B",
+        "text": "Bye!"
+      }
+    ]
+  },
+  {
+    "id": 22,
+    "en": "Right.",
+    "ja": "そうだね。",
+    "category": "リアクション・フィラー",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "We have English class after lunch, right?"
+      },
+      {
+        "role": "B",
+        "text": "Yeah, that’s right."
+      },
+      {
+        "role": "A",
+        "text": "Right. I almost forgot."
+      },
+      {
+        "role": "B",
+        "text": "Me too!"
+      }
+    ]
+  },
+  {
+    "id": 23,
+    "en": "Awesome!",
+    "ja": "すげえ！",
+    "category": "リアクション・フィラー",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "I got tickets for the soccer game!"
+      },
+      {
+        "role": "B",
+        "text": "Awesome!"
+      },
+      {
+        "role": "A",
+        "text": "Do you want to go with me?"
+      },
+      {
+        "role": "B",
+        "text": "Sure!"
+      }
+    ]
+  },
+  {
+    "id": 24,
+    "en": "I see.",
+    "ja": "なるほど。",
+    "category": "リアクション・フィラー",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "We have to take off our shoes here."
+      },
+      {
+        "role": "B",
+        "text": "Oh, I see."
+      },
+      {
+        "role": "A",
+        "text": "It’s a Japanese custom."
+      },
+      {
+        "role": "B",
+        "text": "That makes sense."
+      }
+    ]
+  },
+  {
+    "id": 25,
+    "en": "That’s true.",
+    "ja": "たしかに。",
+    "category": "リアクション・フィラー",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Australia is really big."
+      },
+      {
+        "role": "B",
+        "text": "That’s true."
+      },
+      {
+        "role": "A",
+        "text": "It takes a long time to travel around."
+      },
+      {
+        "role": "B",
+        "text": "Yeah, it does."
+      }
+    ]
+  },
+  {
+    "id": 26,
+    "en": "Exactly.",
+    "ja": "その通り。",
+    "category": "リアクション・フィラー",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "So, we meet here at nine?"
+      },
+      {
+        "role": "B",
+        "text": "Exactly."
+      },
+      {
+        "role": "A",
+        "text": "Okay, I’ll be here at nine."
+      },
+      {
+        "role": "B",
+        "text": "Great!"
+      }
+    ]
+  },
+  {
+    "id": 27,
+    "en": "I got it.",
+    "ja": "わかった。",
+    "category": "リアクション・フィラー",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Turn left at the traffic lights."
+      },
+      {
+        "role": "B",
+        "text": "I got it."
+      },
+      {
+        "role": "A",
+        "text": "Then you’ll see the school."
+      },
+      {
+        "role": "B",
+        "text": "Okay, thanks!"
+      }
+    ]
+  },
+  {
+    "id": 28,
+    "en": "Is that right?",
+    "ja": "そうなんですか？",
+    "category": "リアクション・フィラー",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "We have a school holiday next week."
+      },
+      {
+        "role": "B",
+        "text": "Is that right?"
+      },
+      {
+        "role": "A",
+        "text": "Yeah, for a few days."
+      },
+      {
+        "role": "B",
+        "text": "That sounds nice!"
+      }
+    ]
+  },
+  {
+    "id": 29,
+    "en": "That’s so interesting.",
+    "ja": "面白いですね。",
+    "category": "リアクション・フィラー",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "My family has a kangaroo near our house."
+      },
+      {
+        "role": "B",
+        "text": "Really?"
+      },
+      {
+        "role": "A",
+        "text": "Yeah, we sometimes see it in the morning."
+      },
+      {
+        "role": "B",
+        "text": "That’s so interesting!"
+      }
+    ]
+  },
+  {
+    "id": 30,
+    "en": "That’s so sick!",
+    "ja": "超かっけえ！",
+    "category": "リアクション・フィラー",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Check out my NARUTO tatto!"
+      },
+      {
+        "role": "B",
+        "text": "Wow! That’s so sick!"
+      },
+      {
+        "role": "A",
+        "text": "Thanks!"
+      },
+      {
+        "role": "B",
+        "text": "Can you do tricks with it?"
+      }
+    ]
+  },
+  {
+    "id": 31,
+    "en": "Really?",
+    "ja": "本当に？",
+    "category": "リアクション・フィラー",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "I saw a kangaroo on my way to school!"
+      },
+      {
+        "role": "B",
+        "text": "Really?"
+      },
+      {
+        "role": "A",
+        "text": "Yeah, it was right by the road."
+      },
+      {
+        "role": "B",
+        "text": "That’s amazing!"
+      }
+    ]
+  },
+  {
+    "id": 32,
+    "en": "Do you? / Did you? / Are you?",
+    "ja": "そうなの？",
+    "category": "リアクション・フィラー",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "I play basketball every day."
+      },
+      {
+        "role": "B",
+        "text": "Do you?"
+      },
+      {
+        "role": "A",
+        "text": "Yeah, I love basketball."
+      },
+      {
+        "role": "B",
+        "text": "Me too!"
+      }
+    ]
+  },
+  {
+    "id": 33,
+    "en": "That’s too bad.",
+    "ja": "それは残念。",
+    "category": "リアクション・フィラー",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "I can’t go to the soccer game today."
+      },
+      {
+        "role": "B",
+        "text": "Oh, that’s too bad."
+      },
+      {
+        "role": "A",
+        "text": "I have to study for a test."
+      },
+      {
+        "role": "B",
+        "text": "Good luck!"
+      }
+    ]
+  },
+  {
+    "id": 34,
+    "en": "Is that so?",
+    "ja": "そうなの？",
+    "category": "リアクション・フィラー",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "I heard there are Ninjas and samurais in Japan. Is that so?"
+      },
+      {
+        "role": "B",
+        "text": "Yeah, just a few. Haha, I’m just kidding.（冗談だよ）"
+      },
+      {
+        "role": "A",
+        "text": "Oh, you surprised me."
+      },
+      {
+        "role": "B",
+        "text": "Sorry."
+      }
+    ]
+  },
+  {
+    "id": 35,
+    "en": "Seriously?",
+    "ja": "まじで？",
+    "category": "リアクション・フィラー",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "I can speak a little Japanese."
+      },
+      {
+        "role": "B",
+        "text": "Seriously?"
+      },
+      {
+        "role": "A",
+        "text": "Yeah, I learned some Japanese from my friend."
+      },
+      {
+        "role": "B",
+        "text": "That’s awesome!"
+      }
+    ]
+  },
+  {
+    "id": 36,
+    "en": "Are you kidding?",
+    "ja": "まじで？／冗談でしょ？",
+    "category": "リアクション・フィラー",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "We have no homework this weekend."
+      },
+      {
+        "role": "B",
+        "text": "Are you kidding?"
+      },
+      {
+        "role": "A",
+        "text": "No, I’m serious!"
+      },
+      {
+        "role": "B",
+        "text": "That’s great!"
+      }
+    ]
+  },
+  {
+    "id": 37,
+    "en": "No way!",
+    "ja": "まさか！",
+    "category": "リアクション・フィラー",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Guess what?（ねえ聞いて） I met a famous soccer player yesterday."
+      },
+      {
+        "role": "B",
+        "text": "No way!"
+      },
+      {
+        "role": "A",
+        "text": "Yeah! I even got his autograph."
+      },
+      {
+        "role": "B",
+        "text": "That’s amazing!"
+      }
+    ]
+  },
+  {
+    "id": 38,
+    "en": "Well…",
+    "ja": "えーっと",
+    "category": "リアクション・フィラー",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "What do you think of Australian food?"
+      },
+      {
+        "role": "B",
+        "text": "Well…"
+      },
+      {
+        "role": "A",
+        "text": "You don't like it?"
+      },
+      {
+        "role": "B",
+        "text": "I’m still getting used to it.（慣れてきているところかな。）"
+      }
+    ]
+  },
+  {
+    "id": 39,
+    "en": "You know…",
+    "ja": "ほらほら、あの…",
+    "category": "リアクション・フィラー",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "What’s that animal called?"
+      },
+      {
+        "role": "B",
+        "text": "You know… the animal with a big tail?"
+      },
+      {
+        "role": "A",
+        "text": "A kangaroo?"
+      },
+      {
+        "role": "B",
+        "text": "Yes! A kangaroo!"
+      }
+    ]
+  },
+  {
+    "id": 40,
+    "en": "I mean…",
+    "ja": "つまり、というか…",
+    "category": "リアクション・フィラー",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Do you like living in Australia?"
+      },
+      {
+        "role": "B",
+        "text": "Yes! I mean, I really like the beaches."
+      },
+      {
+        "role": "A",
+        "text": "Me too!"
+      },
+      {
+        "role": "B",
+        "text": "They’re beautiful."
+      }
+    ]
+  },
+  {
+    "id": 41,
+    "en": "like…",
+    "ja": "なんか…～みたいな",
+    "category": "リアクション・フィラー",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "How was your weekend?"
+      },
+      {
+        "role": "B",
+        "text": "It was, like, really fun."
+      },
+      {
+        "role": "A",
+        "text": "What did you do?"
+      },
+      {
+        "role": "B",
+        "text": "I went to the beach with my host family."
+      }
+    ]
+  },
+  {
+    "id": 42,
+    "en": "kind of / kinda",
+    "ja": "なんか…～みたいな",
+    "category": "リアクション・フィラー",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Are you tired?"
+      },
+      {
+        "role": "B",
+        "text": "Yeah, kind of."
+      },
+      {
+        "role": "A",
+        "text": "Do you want to take a break?"
+      },
+      {
+        "role": "B",
+        "text": "Yeah, that would be great."
+      }
+    ]
+  },
+  {
+    "id": 43,
+    "en": "What was that?",
+    "ja": "なんて言いましたか？",
+    "category": "聞き返す・断る・感謝する",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "We’re meeting at the library after school."
+      },
+      {
+        "role": "B",
+        "text": "What was that?"
+      },
+      {
+        "role": "A",
+        "text": "I said we’re meeting at the library."
+      },
+      {
+        "role": "B",
+        "text": "Oh, okay. Got it."
+      }
+    ]
+  },
+  {
+    "id": 44,
+    "en": "Sorry?",
+    "ja": "ごめん、なんて？",
+    "category": "聞き返す・断る・感謝する",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "The bus leaves at quarter past four."
+      },
+      {
+        "role": "B",
+        "text": "Sorry?"
+      },
+      {
+        "role": "A",
+        "text": "Quarter past four."
+      },
+      {
+        "role": "B",
+        "text": "Oh, four fifteen. Got it!"
+      }
+    ]
+  },
+  {
+    "id": 45,
+    "en": "I didn’t catch you.",
+    "ja": "ごめんなさい、聞き取れませんでした。",
+    "category": "聞き返す・断る・感謝する",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "You need to bring your sports shoes tomorrow."
+      },
+      {
+        "role": "B",
+        "text": "Sorry, I didn’t catch you."
+      },
+      {
+        "role": "A",
+        "text": "You need to bring your sports shoes."
+      },
+      {
+        "role": "B",
+        "text": "Oh, okay. Thanks!"
+      }
+    ]
+  },
+  {
+    "id": 46,
+    "en": "Could you say that again?",
+    "ja": "もう一度言ってくれますか？",
+    "category": "聞き返す・断る・感謝する",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Your host family will pick you up at six."
+      },
+      {
+        "role": "B",
+        "text": "Could you say that again?"
+      },
+      {
+        "role": "A",
+        "text": "They’ll pick you up at six."
+      },
+      {
+        "role": "B",
+        "text": "Okay, thank you."
+      }
+    ]
+  },
+  {
+    "id": 47,
+    "en": "What does that mean?",
+    "ja": "それどういう意味？",
+    "category": "聞き返す・断る・感謝する",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "We have a “sausage sizzle” at school today."
+      },
+      {
+        "role": "B",
+        "text": "What does that mean?"
+      },
+      {
+        "role": "A",
+        "text": "It’s like a school barbecue."
+      },
+      {
+        "role": "B",
+        "text": "Oh, sounds fun!"
+      }
+    ]
+  },
+  {
+    "id": 48,
+    "en": "I’m good. Thank you.",
+    "ja": "大丈夫です。ありがとうございます。",
+    "category": "聞き返す・断る・感謝する",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Would you like some more food?"
+      },
+      {
+        "role": "B",
+        "text": "I’m good. Thank you."
+      },
+      {
+        "role": "A",
+        "text": "Are you sure?"
+      },
+      {
+        "role": "B",
+        "text": "Yes, I’m full."
+      }
+    ]
+  },
+  {
+    "id": 49,
+    "en": "Thank you for everything.",
+    "ja": "お世話になりました。",
+    "category": "聞き返す・断る・感謝する",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "I really enjoyed staying with you."
+      },
+      {
+        "role": "B",
+        "text": "We enjoyed having you here."
+      },
+      {
+        "role": "A",
+        "text": "Thank you for everything."
+      },
+      {
+        "role": "B",
+        "text": "You’re very welcome!"
+      }
+    ]
+  },
+  {
+    "id": 50,
+    "en": "Thank you for waiting.",
+    "ja": "お待たせしました。",
+    "category": "聞き返す・断る・感謝する",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Sorry I’m late."
+      },
+      {
+        "role": "B",
+        "text": "That’s okay."
+      },
+      {
+        "role": "A",
+        "text": "Thank you for waiting."
+      },
+      {
+        "role": "B",
+        "text": "No problem!"
+      }
+    ]
+  },
+  {
+    "id": 51,
+    "en": "I really appreciate it.",
+    "ja": "本当に感謝します。",
+    "category": "聞き返す・断る・感謝する",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "I brought you an umbrella. It might rain today."
+      },
+      {
+        "role": "B",
+        "text": "Thank you! I really appreciate it."
+      },
+      {
+        "role": "A",
+        "text": "No problem."
+      },
+      {
+        "role": "B",
+        "text": "That’s really nice of you."
+      }
+    ]
+  },
+  {
+    "id": 52,
+    "en": "That’s very kind of you.",
+    "ja": "ご親切にありがとう。",
+    "category": "聞き返す・断る・感謝する",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "I can carry your bag for you."
+      },
+      {
+        "role": "B",
+        "text": "That’s very kind of you."
+      },
+      {
+        "role": "A",
+        "text": "No problem!"
+      },
+      {
+        "role": "B",
+        "text": "Thank you so much."
+      }
+    ]
+  },
+  {
+    "id": 53,
+    "en": "I can’t thank you enough.",
+    "ja": "感謝してもしきれない。",
+    "category": "聞き返す・断る・感謝する",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Thank you for helping me find my phone."
+      },
+      {
+        "role": "B",
+        "text": "No problem!"
+      },
+      {
+        "role": "A",
+        "text": "I can’t thank you enough."
+      },
+      {
+        "role": "B",
+        "text": "Don’t worry about it!"
+      }
+    ]
+  },
+  {
+    "id": 54,
+    "en": "Can I get a latte?",
+    "ja": "カフェラテをください。",
+    "category": "カフェ",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "What can I get you?"
+      },
+      {
+        "role": "B",
+        "text": "Can I get a latte?"
+      },
+      {
+        "role": "A",
+        "text": "Sure. What size?"
+      },
+      {
+        "role": "B",
+        "text": "Medium, please."
+      }
+    ]
+  },
+  {
+    "id": 55,
+    "en": "Let’s dig in.",
+    "ja": "いただきます。",
+    "category": "カフェ",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Everything looks delicious!"
+      },
+      {
+        "role": "B",
+        "text": "Yeah, it does!"
+      },
+      {
+        "role": "A",
+        "text": "Let’s dig in."
+      },
+      {
+        "role": "B",
+        "text": "Good idea!"
+      }
+    ]
+  },
+  {
+    "id": 56,
+    "en": "How big is the medium?",
+    "ja": "ミディアムはどのくらいの大きさですか？",
+    "category": "カフェ",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "What size would you like?"
+      },
+      {
+        "role": "B",
+        "text": "How big is the medium?"
+      },
+      {
+        "role": "A",
+        "text": "It’s about this big."
+      },
+      {
+        "role": "B",
+        "text": "Okay, I’ll have a medium."
+      }
+    ]
+  },
+  {
+    "id": 57,
+    "en": "Can I take away?",
+    "ja": "持ち帰りできますか？",
+    "category": "カフェ",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Are you having it here?"
+      },
+      {
+        "role": "B",
+        "text": "Can I take away?"
+      },
+      {
+        "role": "A",
+        "text": "Sure. No problem."
+      },
+      {
+        "role": "B",
+        "text": "Thanks!"
+      }
+    ]
+  },
+  {
+    "id": 58,
+    "en": "I’m having it here.",
+    "ja": "ここで食べます。",
+    "category": "カフェ",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Having here or take away?"
+      },
+      {
+        "role": "B",
+        "text": "I’m having it here."
+      },
+      {
+        "role": "A",
+        "text": "Okay. Please take a seat."
+      },
+      {
+        "role": "B",
+        "text": "Thank you."
+      }
+    ]
+  },
+  {
+    "id": 59,
+    "en": "Do you have a table for 5?",
+    "ja": "5人用の席はありますか？",
+    "category": "カフェ",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Excuse me. Do you have a table for five?"
+      },
+      {
+        "role": "B",
+        "text": "Yes, we do."
+      },
+      {
+        "role": "A",
+        "text": "Where can we sit?"
+      },
+      {
+        "role": "B",
+        "text": "Over there, please."
+      }
+    ]
+  },
+  {
+    "id": 60,
+    "en": "Is it okay if I sit here?",
+    "ja": "ここに座ってもいいですか？",
+    "category": "カフェ",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Excuse me. Is it okay if I sit here?"
+      },
+      {
+        "role": "B",
+        "text": "Sure, go ahead."
+      },
+      {
+        "role": "A",
+        "text": "Thanks!"
+      },
+      {
+        "role": "B",
+        "text": "No problem."
+      }
+    ]
+  },
+  {
+    "id": 61,
+    "en": "Having here, or take away?",
+    "ja": "店内か持ち帰りかどっち？",
+    "category": "カフェ",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Hi! What can I get you?"
+      },
+      {
+        "role": "B",
+        "text": "Can I get a chicken sandwich?"
+      },
+      {
+        "role": "A",
+        "text": "Having here, or take away?"
+      },
+      {
+        "role": "B",
+        "text": "Take away, please."
+      }
+    ]
+  },
+  {
+    "id": 62,
+    "en": "Can I have your name?",
+    "ja": "お名前は？",
+    "category": "カフェ",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Can I get a latte, please?"
+      },
+      {
+        "role": "B",
+        "text": "Sure. Can I have your name?"
+      },
+      {
+        "role": "A",
+        "text": "Shuya."
+      },
+      {
+        "role": "B",
+        "text": "Thanks, Shuya."
+      }
+    ]
+  },
+  {
+    "id": 63,
+    "en": "What can I get you?",
+    "ja": "なにが欲しいですか？",
+    "category": "カフェ",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "What can I get you?"
+      },
+      {
+        "role": "B",
+        "text": "Can I get a hot chocolate?"
+      },
+      {
+        "role": "A",
+        "text": "Sure. Anything else?"
+      },
+      {
+        "role": "B",
+        "text": "No, that’s all. Thanks."
+      }
+    ]
+  },
+  {
+    "id": 64,
+    "en": "May I take your order?",
+    "ja": "ご注文はお決まりですか？",
+    "category": "カフェ",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "May I take your order?"
+      },
+      {
+        "role": "B",
+        "text": "Yes, please."
+      },
+      {
+        "role": "A",
+        "text": "What would you like?"
+      },
+      {
+        "role": "B",
+        "text": "I’ll have the fish and chips."
+      }
+    ]
+  },
+  {
+    "id": 65,
+    "en": "What do you recommend?",
+    "ja": "何がおすすめですか？",
+    "category": "カフェ",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "What would you like?"
+      },
+      {
+        "role": "B",
+        "text": "What do you recommend?"
+      },
+      {
+        "role": "A",
+        "text": "The fish and chips are really popular."
+      },
+      {
+        "role": "B",
+        "text": "Okay, I’ll try that!"
+      }
+    ]
+  },
+  {
+    "id": 66,
+    "en": "Can I get the bill?",
+    "ja": "お会計お願いします。",
+    "category": "カフェ",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "How was everything?"
+      },
+      {
+        "role": "B",
+        "text": "It was great!"
+      },
+      {
+        "role": "A",
+        "text": "Can I get the bill, please?"
+      },
+      {
+        "role": "B",
+        "text": "Sure. I’ll bring it right over."
+      }
+    ]
+  },
+  {
+    "id": 67,
+    "en": "I’m checking in for my flight.",
+    "ja": "チェックインお願いします。",
+    "category": "空港・機内",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Good morning. How can I help you?"
+      },
+      {
+        "role": "B",
+        "text": "I’m checking in for my flight."
+      },
+      {
+        "role": "A",
+        "text": "May I see your passport, please?"
+      },
+      {
+        "role": "B",
+        "text": "Sure. Here you are."
+      }
+    ]
+  },
+  {
+    "id": 68,
+    "en": "Could I get an aisle (window) seat?",
+    "ja": "通路（窓）側にしてもらえますか？",
+    "category": "空港・機内",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Do you have a seat preference?"
+      },
+      {
+        "role": "B",
+        "text": "Could I get an aisle seat?"
+      },
+      {
+        "role": "A",
+        "text": "Sure. I have one available."
+      },
+      {
+        "role": "B",
+        "text": "Great. Thank you!"
+      }
+    ]
+  },
+  {
+    "id": 69,
+    "en": "We’d like to sit together.",
+    "ja": "席は隣同士でお願いします。",
+    "category": "空港・機内",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Do you have any seat preferences?"
+      },
+      {
+        "role": "B",
+        "text": "We’d like to sit together."
+      },
+      {
+        "role": "A",
+        "text": "No problem. I’ll check the seats."
+      },
+      {
+        "role": "B",
+        "text": "Thank you."
+      }
+    ]
+  },
+  {
+    "id": 70,
+    "en": "Could I borrow a pen?",
+    "ja": "ペンを貸していただけますか？",
+    "category": "空港・機内",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Please fill out this form."
+      },
+      {
+        "role": "B",
+        "text": "Sure. Could I borrow a pen?"
+      },
+      {
+        "role": "A",
+        "text": "Of course. Here you are."
+      },
+      {
+        "role": "B",
+        "text": "Thank you!"
+      }
+    ]
+  },
+  {
+    "id": 71,
+    "en": "Can I take a few things out?",
+    "ja": "いくつか物を取り出してもいいですか？",
+    "category": "空港・機内",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Is there anything you need from your bag?"
+      },
+      {
+        "role": "B",
+        "text": "Yes. Can I take a few things out?"
+      },
+      {
+        "role": "A",
+        "text": "Sure. Go ahead."
+      },
+      {
+        "role": "B",
+        "text": "Thank you."
+      }
+    ]
+  },
+  {
+    "id": 72,
+    "en": "This is carry-on luggage.",
+    "ja": "これは機内に持ち込む荷物です。",
+    "category": "空港・機内",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Do you have any bags to check in?"
+      },
+      {
+        "role": "B",
+        "text": "No, this is carry-on luggage."
+      },
+      {
+        "role": "A",
+        "text": "Okay. Please take it with you."
+      },
+      {
+        "role": "B",
+        "text": "All right."
+      }
+    ]
+  },
+  {
+    "id": 73,
+    "en": "Which gate do I go to?",
+    "ja": "何番ゲートに行けばいいですか？",
+    "category": "空港・機内",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Excuse me. Which gate do I go to?"
+      },
+      {
+        "role": "B",
+        "text": "You need to go to Gate 12."
+      },
+      {
+        "role": "A",
+        "text": "Gate 12?"
+      },
+      {
+        "role": "B",
+        "text": "Yes. It’s over there."
+      }
+    ]
+  },
+  {
+    "id": 74,
+    "en": "What time is boarding?",
+    "ja": "搭乗時間は何時ですか？",
+    "category": "空港・機内",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Excuse me. What time is boarding?"
+      },
+      {
+        "role": "B",
+        "text": "Boarding starts at 9:30."
+      },
+      {
+        "role": "A",
+        "text": "Okay. What time should I get there?"
+      },
+      {
+        "role": "B",
+        "text": "About 15 minutes early."
+      }
+    ]
+  },
+  {
+    "id": 75,
+    "en": "Is the flight on time?",
+    "ja": "フライトは時間通りですか？",
+    "category": "空港・機内",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Excuse me. Is the flight on time?"
+      },
+      {
+        "role": "B",
+        "text": "Yes, it is."
+      },
+      {
+        "role": "A",
+        "text": "Great. What time does boarding start?"
+      },
+      {
+        "role": "B",
+        "text": "At 9:30."
+      }
+    ]
+  },
+  {
+    "id": 76,
+    "en": "Do I need to take off my watch?",
+    "ja": "時計は外さないといけないですか？",
+    "category": "空港・機内",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Please put your things in the tray."
+      },
+      {
+        "role": "B",
+        "text": "Do I need to take off my watch?"
+      },
+      {
+        "role": "A",
+        "text": "Yes, please."
+      },
+      {
+        "role": "B",
+        "text": "Okay."
+      }
+    ]
+  },
+  {
+    "id": 77,
+    "en": "I forgot to throw away my water.",
+    "ja": "水を捨て忘れてました。",
+    "category": "空港・機内",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Do you have any liquids in your bag?"
+      },
+      {
+        "role": "B",
+        "text": "Oh, I forgot to throw away my water."
+      },
+      {
+        "role": "A",
+        "text": "You’ll need to throw it away."
+      },
+      {
+        "role": "B",
+        "text": "Okay. Sorry!"
+      }
+    ]
+  },
+  {
+    "id": 78,
+    "en": "Someone is sitting in my seat.",
+    "ja": "誰かが私の席に座っています。",
+    "category": "空港・機内",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Excuse me. I think that’s my seat."
+      },
+      {
+        "role": "B",
+        "text": "Oh, really?"
+      },
+      {
+        "role": "A",
+        "text": "Yes. Someone is sitting in my seat."
+      },
+      {
+        "role": "B",
+        "text": "Oh, I’m sorry. Let me check."
+      }
+    ]
+  },
+  {
+    "id": 79,
+    "en": "The overhead bin is full.",
+    "ja": "棚がいっぱいです。",
+    "category": "空港・機内",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Excuse me. The overhead bin is full."
+      },
+      {
+        "role": "B",
+        "text": "Let me help you."
+      },
+      {
+        "role": "A",
+        "text": "Where should I put my bag?"
+      },
+      {
+        "role": "B",
+        "text": "I’ll find some space for you."
+      }
+    ]
+  },
+  {
+    "id": 80,
+    "en": "Do you mind if I recline my seat?",
+    "ja": "席を倒してもいいですか？",
+    "category": "空港・機内",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Excuse me. Do you mind if I recline my seat?"
+      },
+      {
+        "role": "B",
+        "text": "No, not at all."
+      },
+      {
+        "role": "A",
+        "text": "Thank you."
+      },
+      {
+        "role": "B",
+        "text": "You’re welcome."
+      }
+    ]
+  },
+  {
+    "id": 81,
+    "en": "Could you put up your seat?",
+    "ja": "座席を戻してもらえませんか？",
+    "category": "空港・機内",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Excuse me. Could you put your seat up?"
+      },
+      {
+        "role": "B",
+        "text": "Oh, sure. Sorry about that."
+      },
+      {
+        "role": "A",
+        "text": "Thank you."
+      },
+      {
+        "role": "B",
+        "text": "No problem."
+      }
+    ]
+  },
+  {
+    "id": 82,
+    "en": "I’ll have the chicken.",
+    "ja": "チキンにします。",
+    "category": "空港・機内",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Would you like chicken or beef?"
+      },
+      {
+        "role": "B",
+        "text": "I’ll have the chicken."
+      },
+      {
+        "role": "A",
+        "text": "Okay. Here you are."
+      },
+      {
+        "role": "B",
+        "text": "Thank you."
+      }
+    ]
+  },
+  {
+    "id": 83,
+    "en": "Can I have my meal later?",
+    "ja": "あとでご飯をもらってもいいですか？",
+    "category": "空港・機内",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Would you like your meal now?"
+      },
+      {
+        "role": "B",
+        "text": "Can I have my meal later?"
+      },
+      {
+        "role": "A",
+        "text": "Sure. Just let us know."
+      },
+      {
+        "role": "B",
+        "text": "Thank you."
+      }
+    ]
+  },
+  {
+    "id": 84,
+    "en": "Could I get something to drink?",
+    "ja": "飲み物をいただけますか？",
+    "category": "空港・機内",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Would you like something to drink?"
+      },
+      {
+        "role": "B",
+        "text": "Could I get something to drink?"
+      },
+      {
+        "role": "A",
+        "text": "Sure. What would you like?"
+      },
+      {
+        "role": "B",
+        "text": "Orange juice, please."
+      }
+    ]
+  },
+  {
+    "id": 85,
+    "en": "Could I get green tea?",
+    "ja": "緑茶を頂いてもいいですか？",
+    "category": "空港・機内",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "What would you like to drink?"
+      },
+      {
+        "role": "B",
+        "text": "Could I get green tea?"
+      },
+      {
+        "role": "A",
+        "text": "Sure. Here you are."
+      },
+      {
+        "role": "B",
+        "text": "Thank you."
+      }
+    ]
+  },
+  {
+    "id": 86,
+    "en": "I’m still working on it.",
+    "ja": "まだ食べている途中です。",
+    "category": "空港・機内",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Can I take your tray?"
+      },
+      {
+        "role": "B",
+        "text": "Oh, I’m still working on it."
+      },
+      {
+        "role": "A",
+        "text": "No problem. Take your time."
+      },
+      {
+        "role": "B",
+        "text": "Thank you."
+      }
+    ]
+  },
+  {
+    "id": 87,
+    "en": "Could I get a blanket?",
+    "ja": "ブランケットを頂いてもいいですか？",
+    "category": "空港・機内",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Excuse me. Could I get a blanket?"
+      },
+      {
+        "role": "B",
+        "text": "Of course. Here you are."
+      },
+      {
+        "role": "A",
+        "text": "Thank you. It’s a little cold."
+      },
+      {
+        "role": "B",
+        "text": "No problem."
+      }
+    ]
+  },
+  {
+    "id": 88,
+    "en": "Could you take our picture?",
+    "ja": "写真を撮ってもらえますか？",
+    "category": "観光",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Excuse me. Could you take our picture?"
+      },
+      {
+        "role": "B",
+        "text": "Sure!"
+      },
+      {
+        "role": "A",
+        "text": "Thank you!"
+      },
+      {
+        "role": "B",
+        "text": "No problem."
+      }
+    ]
+  },
+  {
+    "id": 89,
+    "en": "Could you take it vertically (horizontally)?",
+    "ja": "縦（横）で撮ってもらえますか？",
+    "category": "観光",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Could you take our picture?"
+      },
+      {
+        "role": "B",
+        "text": "Sure. Is this okay?"
+      },
+      {
+        "role": "A",
+        "text": "Could you take it vertically, please?"
+      },
+      {
+        "role": "B",
+        "text": "Of course!"
+      }
+    ]
+  },
+  {
+    "id": 90,
+    "en": "Could you take it one more time?",
+    "ja": "もう一度撮ってもらっていいですか？",
+    "category": "観光",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "How does this look?"
+      },
+      {
+        "role": "B",
+        "text": "Could you take it one more time?"
+      },
+      {
+        "role": "A",
+        "text": "Sure. Smile!"
+      },
+      {
+        "role": "B",
+        "text": "Thanks!"
+      }
+    ]
+  },
+  {
+    "id": 91,
+    "en": "With the building, please.",
+    "ja": "あの建物を背景にお願いします。",
+    "category": "観光",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Where would you like to stand?"
+      },
+      {
+        "role": "B",
+        "text": "With the building, please."
+      },
+      {
+        "role": "A",
+        "text": "Like this?"
+      },
+      {
+        "role": "B",
+        "text": "Yes, perfect!"
+      }
+    ]
+  },
+  {
+    "id": 92,
+    "en": "Do you have a student discount?",
+    "ja": "学生割はありますか？",
+    "category": "観光",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "How much is the ticket?"
+      },
+      {
+        "role": "B",
+        "text": "It’s 20 dollars."
+      },
+      {
+        "role": "A",
+        "text": "Do you have a student discount?"
+      },
+      {
+        "role": "B",
+        "text": "Yes. It’s 15 dollars for students."
+      }
+    ]
+  },
+  {
+    "id": 93,
+    "en": "How much is the admission fee?",
+    "ja": "入場料はいくらですか？",
+    "category": "観光",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "How much is the admission fee?"
+      },
+      {
+        "role": "B",
+        "text": "It’s 25 dollars."
+      },
+      {
+        "role": "A",
+        "text": "Is there a student discount?"
+      },
+      {
+        "role": "B",
+        "text": "Yes, there is."
+      }
+    ]
+  },
+  {
+    "id": 94,
+    "en": "Could I get back in?",
+    "ja": "再入場はできます？",
+    "category": "観光",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Excuse me. Could I get back in?"
+      },
+      {
+        "role": "B",
+        "text": "Yes, you can."
+      },
+      {
+        "role": "A",
+        "text": "Do I need to show my ticket?"
+      },
+      {
+        "role": "B",
+        "text": "Yes, please keep your ticket."
+      }
+    ]
+  },
+  {
+    "id": 95,
+    "en": "Thank you for the tour.",
+    "ja": "案内ありがとうございました。",
+    "category": "観光",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "That was a great tour!"
+      },
+      {
+        "role": "B",
+        "text": "I’m glad you enjoyed it."
+      },
+      {
+        "role": "A",
+        "text": "Thank you for the tour."
+      },
+      {
+        "role": "B",
+        "text": "You’re very welcome!"
+      }
+    ]
+  },
+  {
+    "id": 96,
+    "en": "Can I try this on?",
+    "ja": "これ試着していいですか？",
+    "category": "観光",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Excuse me. Can I try this on?"
+      },
+      {
+        "role": "B",
+        "text": "Sure. The fitting rooms are over there."
+      },
+      {
+        "role": "A",
+        "text": "Thank you."
+      },
+      {
+        "role": "B",
+        "text": "You’re welcome."
+      }
+    ]
+  },
+  {
+    "id": 97,
+    "en": "Can I take a look at it?",
+    "ja": "見てみていいですか？",
+    "category": "観光",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Excuse me. Can I take a look at it?"
+      },
+      {
+        "role": "B",
+        "text": "Sure. Here you go."
+      },
+      {
+        "role": "A",
+        "text": "Thanks. How much is it?"
+      },
+      {
+        "role": "B",
+        "text": "It’s 30 dollars."
+      }
+    ]
+  },
+  {
+    "id": 98,
+    "en": "Do you have this in a bigger size?",
+    "ja": "これの大きいサイズはありますか？",
+    "category": "観光",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Excuse me. Do you have this in a bigger size?"
+      },
+      {
+        "role": "B",
+        "text": "Let me check."
+      },
+      {
+        "role": "A",
+        "text": "Thank you."
+      },
+      {
+        "role": "B",
+        "text": "Yes, we do."
+      }
+    ]
+  },
+  {
+    "id": 99,
+    "en": "Is this the only color available?",
+    "ja": "この色しかないですか？",
+    "category": "観光",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "I like this shirt."
+      },
+      {
+        "role": "B",
+        "text": "It’s a nice one."
+      },
+      {
+        "role": "A",
+        "text": "Is this the only color available?"
+      },
+      {
+        "role": "B",
+        "text": "No, we also have black and blue."
+      }
+    ]
+  },
+  {
+    "id": 100,
+    "en": "Let me think about it.",
+    "ja": "少し考えさせてください。",
+    "category": "観光",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Would you like to buy it?"
+      },
+      {
+        "role": "B",
+        "text": "Hmm… let me think about it."
+      },
+      {
+        "role": "A",
+        "text": "Sure. Take your time."
+      },
+      {
+        "role": "B",
+        "text": "Thank you."
+      }
+    ]
+  },
+  {
+    "id": 101,
+    "en": "We got lost.",
+    "ja": "迷子になりました。",
+    "category": "観光",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Excuse me. Can I help you?"
+      },
+      {
+        "role": "B",
+        "text": "Yes. We got lost."
+      },
+      {
+        "role": "A",
+        "text": "Where are you trying to go?"
+      },
+      {
+        "role": "B",
+        "text": "We’re looking for this station."
+      }
+    ]
+  },
+  {
+    "id": 102,
+    "en": "How do I get to the station?",
+    "ja": "駅まではどうやって行きますか？",
+    "category": "観光",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Excuse me. How do I get to the station?"
+      },
+      {
+        "role": "B",
+        "text": "Go straight and turn left."
+      },
+      {
+        "role": "A",
+        "text": "Is it far from here?"
+      },
+      {
+        "role": "B",
+        "text": "No, it’s about five minutes."
+      }
+    ]
+  },
+  {
+    "id": 103,
+    "en": "How far is it from here?",
+    "ja": "ここからどのくらいですか？",
+    "category": "観光",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "How far is the station from here?"
+      },
+      {
+        "role": "B",
+        "text": "It’s about ten minutes on foot."
+      },
+      {
+        "role": "A",
+        "text": "Oh, that’s not far."
+      },
+      {
+        "role": "B",
+        "text": "No, it’s pretty close."
+      }
+    ]
+  },
+  {
+    "id": 104,
+    "en": "I’m here on a school trip.",
+    "ja": "修学旅行で来ました。",
+    "category": "観光",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Where are you from?"
+      },
+      {
+        "role": "B",
+        "text": "I’m from Japan. I’m here on a school trip."
+      },
+      {
+        "role": "A",
+        "text": "Oh, nice! Which school?"
+      },
+      {
+        "role": "B",
+        "text": "We’re visiting from a high school in Okazaki."
+      }
+    ]
+  },
+  {
+    "id": 105,
+    "en": "I got a souvenir.",
+    "ja": "お土産を買った。",
+    "category": "観光",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "What did you buy?"
+      },
+      {
+        "role": "B",
+        "text": "I got a souvenir for my family."
+      },
+      {
+        "role": "A",
+        "text": "What did you get?"
+      },
+      {
+        "role": "B",
+        "text": "I got some Australian chocolate."
+      }
+    ]
+  },
+  {
+    "id": 106,
+    "en": "I’m homesick.",
+    "ja": "ホームシックだ。",
+    "category": "観光",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "How are you doing?"
+      },
+      {
+        "role": "B",
+        "text": "I’m a little homesick."
+      },
+      {
+        "role": "A",
+        "text": "I understand. Do you want to call your family?"
+      },
+      {
+        "role": "B",
+        "text": "Yeah, maybe I will."
+      }
+    ]
+  },
+  {
+    "id": 107,
+    "en": "Where are the washrooms?",
+    "ja": "トイレはどこですか？",
+    "category": "観光",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Excuse me. Where are the washrooms?"
+      },
+      {
+        "role": "B",
+        "text": "They’re over there, next to the café."
+      },
+      {
+        "role": "A",
+        "text": "Oh, I see. Thank you."
+      },
+      {
+        "role": "B",
+        "text": "You’re welcome."
+      }
+    ]
+  },
+  {
+    "id": 108,
+    "en": "Where can I exchange money?",
+    "ja": "どこで両替できますか？",
+    "category": "観光",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Excuse me. Where can I exchange money?"
+      },
+      {
+        "role": "B",
+        "text": "There’s a bank near the station."
+      },
+      {
+        "role": "A",
+        "text": "Is it far from here?"
+      },
+      {
+        "role": "B",
+        "text": "No, it’s about five minutes away."
+      }
+    ]
+  },
+  {
+    "id": 109,
+    "en": "Do you take cards?",
+    "ja": "カードは使えますか？",
+    "category": "観光",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "I’d like to buy this, please."
+      },
+      {
+        "role": "B",
+        "text": "Sure. That’ll be 25 dollars."
+      },
+      {
+        "role": "A",
+        "text": "Do you take cards?"
+      },
+      {
+        "role": "B",
+        "text": "Yes, we do."
+      }
+    ]
+  },
+  {
+    "id": 110,
+    "en": "Do you take cash?",
+    "ja": "現金は使えますか？",
+    "category": "観光",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Can I pay for this with cash?"
+      },
+      {
+        "role": "B",
+        "text": "Yes, we take cash."
+      },
+      {
+        "role": "A",
+        "text": "Great. Here you are."
+      },
+      {
+        "role": "B",
+        "text": "Thank you."
+      }
+    ]
+  },
+  {
+    "id": 111,
+    "en": "Are there any cafes around here?",
+    "ja": "この辺にカフェはありますか？",
+    "category": "観光",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Are there any cafes around here?"
+      },
+      {
+        "role": "B",
+        "text": "Yes, there’s one near the station."
+      },
+      {
+        "role": "A",
+        "text": "How long does it take to walk there?"
+      },
+      {
+        "role": "B",
+        "text": "About five minutes."
+      }
+    ]
+  },
+  {
+    "id": 112,
+    "en": "Straya",
+    "ja": "Australia",
+    "category": "オーストラリアスラング",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "How are you enjoying Australia?"
+      },
+      {
+        "role": "B",
+        "text": "I love it here!"
+      },
+      {
+        "role": "A",
+        "text": "Welcome to Straya!"
+      },
+      {
+        "role": "B",
+        "text": "Thanks! I’m having a great time."
+      }
+    ]
+  },
+  {
+    "id": 113,
+    "en": "G’day!",
+    "ja": "Hello!",
+    "category": "オーストラリアスラング",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "G’day! How are you going?"
+      },
+      {
+        "role": "B",
+        "text": "Good, thanks!"
+      },
+      {
+        "role": "A",
+        "text": "Are you enjoying your trip?"
+      },
+      {
+        "role": "B",
+        "text": "Yeah, it’s awesome!"
+      }
+    ]
+  },
+  {
+    "id": 114,
+    "en": "Mate",
+    "ja": "あなた、きみ、相棒",
+    "category": "オーストラリアスラング",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Thanks for helping me, mate."
+      },
+      {
+        "role": "B",
+        "text": "No worries!"
+      },
+      {
+        "role": "A",
+        "text": "You’re a great mate."
+      },
+      {
+        "role": "B",
+        "text": "Cheers!"
+      }
+    ]
+  },
+  {
+    "id": 115,
+    "en": "Cheers.",
+    "ja": "ありがと。",
+    "category": "オーストラリアスラング",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Here’s your coffee."
+      },
+      {
+        "role": "B",
+        "text": "Cheers."
+      },
+      {
+        "role": "A",
+        "text": "No worries."
+      },
+      {
+        "role": "B",
+        "text": "Thanks!"
+      }
+    ]
+  },
+  {
+    "id": 116,
+    "en": "Ta.",
+    "ja": "ありがと。",
+    "category": "オーストラリアスラング",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Here’s your change."
+      },
+      {
+        "role": "B",
+        "text": "Ta!"
+      },
+      {
+        "role": "A",
+        "text": "No worries."
+      },
+      {
+        "role": "B",
+        "text": "Have a good day!"
+      }
+    ]
+  },
+  {
+    "id": 117,
+    "en": "Good on ya.",
+    "ja": "よくできたね。",
+    "category": "オーストラリアスラング",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "I finally finished my presentation!"
+      },
+      {
+        "role": "B",
+        "text": "Good on ya!"
+      },
+      {
+        "role": "A",
+        "text": "Thanks! I was really nervous."
+      },
+      {
+        "role": "B",
+        "text": "You did a great job."
+      }
+    ]
+  },
+  {
+    "id": 118,
+    "en": "No worries.",
+    "ja": "心配ないよ。",
+    "category": "オーストラリアスラング",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Sorry I’m late."
+      },
+      {
+        "role": "B",
+        "text": "No worries."
+      },
+      {
+        "role": "A",
+        "text": "The bus was really slow."
+      },
+      {
+        "role": "B",
+        "text": "That happens!"
+      }
+    ]
+  },
+  {
+    "id": 119,
+    "en": "Bloody oath.",
+    "ja": "全く賛成です。",
+    "category": "オーストラリアスラング",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "This beach is amazing!"
+      },
+      {
+        "role": "B",
+        "text": "Bloody oath!"
+      },
+      {
+        "role": "A",
+        "text": "I could stay here all day."
+      },
+      {
+        "role": "B",
+        "text": "Same here!"
+      }
+    ]
+  },
+  {
+    "id": 120,
+    "en": "What are you after?",
+    "ja": "なにが欲しい？",
+    "category": "オーストラリアスラング",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "What are you after?"
+      },
+      {
+        "role": "B",
+        "text": "I’m looking for some chocolate."
+      },
+      {
+        "role": "A",
+        "text": "This one is really popular."
+      },
+      {
+        "role": "B",
+        "text": "I’ll try that one."
+      }
+    ]
+  },
+  {
+    "id": 121,
+    "en": "How are you going?",
+    "ja": "調子どう？",
+    "category": "オーストラリアスラング",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "G’day! How are you going?"
+      },
+      {
+        "role": "B",
+        "text": "I’m good, thanks. How about you?"
+      },
+      {
+        "role": "A",
+        "text": "Pretty good!"
+      },
+      {
+        "role": "B",
+        "text": "Good to hear!"
+      }
+    ]
+  },
+  {
+    "id": 122,
+    "en": "Brekkie",
+    "ja": "朝食",
+    "category": "オーストラリアスラング",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "What are we having for brekkie?"
+      },
+      {
+        "role": "B",
+        "text": "We’re having toast and eggs."
+      },
+      {
+        "role": "A",
+        "text": "Sounds good!"
+      },
+      {
+        "role": "B",
+        "text": "Come and eat!"
+      }
+    ]
+  },
+  {
+    "id": 123,
+    "en": "Chips",
+    "ja": "ポテトフライ",
+    "category": "オーストラリアスラング",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "What would you like with your burger?"
+      },
+      {
+        "role": "B",
+        "text": "Can I get chips, please?"
+      },
+      {
+        "role": "A",
+        "text": "Sure. Anything else?"
+      },
+      {
+        "role": "B",
+        "text": "No, that’s all."
+      }
+    ]
+  },
+  {
+    "id": 124,
+    "en": "Mozzie",
+    "ja": "蚊",
+    "category": "オーストラリアスラング",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Ouch! Something bit me."
+      },
+      {
+        "role": "B",
+        "text": "It might be a mozzie."
+      },
+      {
+        "role": "A",
+        "text": "A mozzie?"
+      },
+      {
+        "role": "B",
+        "text": "Yeah, there are lots of them here."
+      }
+    ]
+  },
+  {
+    "id": 125,
+    "en": "Roo",
+    "ja": "カンガルー",
+    "category": "オーストラリアスラング",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Did you see that animal?"
+      },
+      {
+        "role": "B",
+        "text": "Yeah! Was that a roo?"
+      },
+      {
+        "role": "A",
+        "text": "Yep! It was a kangaroo."
+      },
+      {
+        "role": "B",
+        "text": "Awesome!"
+      }
+    ]
+  },
+  {
+    "id": 126,
+    "en": "Choccy Biccy",
+    "ja": "チョコレートビスケット",
+    "category": "オーストラリアスラング",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Do you want a snack?"
+      },
+      {
+        "role": "B",
+        "text": "Sure. What do you have?"
+      },
+      {
+        "role": "A",
+        "text": "I’ve got a choccy biccy."
+      },
+      {
+        "role": "B",
+        "text": "Sounds good!"
+      }
+    ]
+  },
+  {
+    "id": 127,
+    "en": "Maccas",
+    "ja": "マクドナルド",
+    "category": "オーストラリアスラング",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "What do you want for dinner?"
+      },
+      {
+        "role": "B",
+        "text": "How about Maccas?"
+      },
+      {
+        "role": "A",
+        "text": "Sounds good!"
+      },
+      {
+        "role": "B",
+        "text": "Let’s go!"
+      }
+    ]
+  },
+  {
+    "id": 128,
+    "en": "Heaps",
+    "ja": "たくさんの",
+    "category": "オーストラリアスラング",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Did you have fun at the beach?"
+      },
+      {
+        "role": "B",
+        "text": "Yeah! We took heaps of pictures."
+      },
+      {
+        "role": "A",
+        "text": "Really? Can I see them?"
+      },
+      {
+        "role": "B",
+        "text": "Sure!"
+      }
+    ]
+  },
+  {
+    "id": 129,
+    "en": "Dunny",
+    "ja": "トイレ",
+    "category": "オーストラリアスラング",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Excuse me. Where’s the dunny?"
+      },
+      {
+        "role": "B",
+        "text": "It’s down the hall."
+      },
+      {
+        "role": "A",
+        "text": "Thanks, mate."
+      },
+      {
+        "role": "B",
+        "text": "No worries!"
+      }
+    ]
+  }
+];

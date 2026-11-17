@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 400" fill="none">
+<defs><linearGradient id="land" x1="150" y1="80" x2="360" y2="285" gradientUnits="userSpaceOnUse"><stop stop-color="#efb881"/><stop offset="1" stop-color="#d27954"/></linearGradient><linearGradient id="sea" x1="100" y1="0" x2="500" y2="400" gradientUnits="userSpaceOnUse"><stop stop-color="#256575"/><stop offset="1" stop-color="#0b3341"/></linearGradient><pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse"><path d="M48 0H0v48" stroke="#b3d9ce" stroke-opacity=".08"/></pattern></defs>
+<path fill="url(#sea)" d="M0 0h560v400H0z"/><path fill="url(#grid)" d="M0 0h560v400H0z"/>
+<circle cx="447" cy="91" r="53" fill="#eecb88"/><circle cx="447" cy="91" r="65" stroke="#eecb88" stroke-opacity=".25"/>
+<path d="m117 142 22-10 18-30 28-10 16-31 16 1 6 29 28-6 15 8 15-30 15-8 12 5 7 34 15 16 12 22 22 10 20 41-3 21-21 42-17 16-18 3-21 19-32-13-23-31-29-7-21 2-26 19-32-3-27-16-5-21 6-24-9-22 6-14Z" fill="url(#land)"/>
+<path d="m301 292 16 2 11 16-5 16-12 5-12-17Z" fill="#d78b60"/>
+<path d="M197 154c-2 30 21 59 65 67s58 16 78 27" stroke="#f6dab0" stroke-opacity=".7" stroke-width="1.5" stroke-dasharray="4 6"/>
+<circle cx="337" cy="248" r="5" fill="#fcf8e8"/><circle cx="337" cy="248" r="12" stroke="#fcf8e8" stroke-opacity=".4"/>
+<path d="m347 245 39-35h52" stroke="#e6cda7" stroke-width="1"/>
+<text x="390" y="201" fill="#f6eedc" font-family="sans-serif" font-size="10" letter-spacing="2">SYDNEY</text>
+<text x="190" y="184" fill="#713f2a" font-family="sans-serif" font-size="15" font-weight="bold" letter-spacing="3" transform="rotate(-7 190 184)">AUSTRALIA</text>
+<g stroke="#86bdb9" stroke-opacity=".32"><path d="M13 300q53-17 105 0t105 0 105 0 105 0 105 0"/><path d="M4 318q53-17 105 0t105 0 105 0 105 0 105 0"/><path d="M12 337q53-17 105 0t105 0 105 0 105 0 105 0"/><path d="M5 356q53-17 105 0t105 0 105 0 105 0 105 0"/></g>
+<path d="M341 339h172v9H341z" fill="#113a44"/>
+<path d="M351 336q-17-41 23-67 20 26 19 67" fill="#f6e6c5"/>
+<path d="M386 336q1-54 44-85 20 38 11 85" fill="#fff5dc"/>
+<path d="M430 336q9-41 42-57 17 29 11 57" fill="#eddbb7"/>
+<path d="M477 336q5-24 29-35 10 19 4 35" fill="#fff5dc"/>
+<path d="M350 336h164" stroke="#b4b29b" stroke-width="2"/>
+<g transform="translate(72 61) rotate(-17)"><path d="m0 10 38 9 13 18 7 1-4-21 21-12c5-3 7-9 2-10l-7 2-22 12-17-13-6 2 11 16-28-3Z" fill="#f9f1dd"/></g>
+<path d="M22 87q14 50 87 51" stroke="#f4e6ca" stroke-opacity=".5" stroke-dasharray="3 6"/>
+<g transform="translate(470 30)" stroke="#d2dfcc" stroke-width="1"><path d="M0-11v22m-11-11h22m-19-8 16 16m-16 0 16-16"/><circle r="15" stroke-opacity=".4"/></g>
+<text x="26" y="382" fill="#8eb5b6" font-family="sans-serif" font-size="8" letter-spacing="3">ONE PHRASE. A WHOLE NEW WORLD.</text>
+</svg>

@@ -1,0 +1,19 @@
+# ローカルの開発・ホスティング設定
+.openai/
+.env
+.env.*
+!.env.example
+node_modules/
+.DS_Store
+Thumbs.db
+__pycache__/
+*.log
+*.zip
+*.tar.gz
+# 学習記録・録音をリポジトリに含めない
+aussie-progress-*.json
+aussie-learning-progress.json
+*.webm
+*.wav
+*.mp3
+*.m4a

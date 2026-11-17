@@ -1,0 +1,10 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import {fileURLToPath} from 'node:url';
+const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
+const text=fs.readFileSync(path.join(root,'phrases.json'),'utf8');
+const data=JSON.parse(text);
+if(data.length!==129 || new Set(data.map(p=>p.id)).size!==129) throw Error('129件の一意な教材IDが必要です');
+for(const p of data) if(!p.en||!p.ja||!p.category||!Array.isArray(p.dialogue)) throw Error('教材の必須項目がありません');
+fs.writeFileSync(path.join(root,'phrases.js'),'// 自動生成: scripts/build-data.mjs（編集は phrases.json へ）\nwindow.PHRASES = '+JSON.stringify(data,null,2)+';\n');
+console.log('129フレーズの配信用データを生成しました');
