@@ -41,11 +41,11 @@ function boot({stored=null,storageFails=false,media=false,sr=false,hash='',getMe
  const saved=()=>JSON.parse(storage.get('aussie-english-v1')||'{}');
  return {ctx,elements,events,click,advanceFeedback,finishPartner,change,input,saved,spoken,tracks,recorders,recognizers,revokes,urls,timeouts,flush,html:()=>elements.get('app').innerHTML};
 }
-test('129教材と会話は原教材と完全一致。配信JSもJSONと一致',()=>{
- assert.equal(data.length,129);assert.equal(new Set(data.map(p=>p.id)).size,129);
- assert.deepEqual(data,JSON.parse(read('original/phrases.json')));
+test('原教材129件を保持し、追加40件を含む169件のJSONと配信JSが一致',()=>{
+ assert.equal(data.length,169);assert.equal(new Set(data.map(p=>p.id)).size,169);
+ assert.deepEqual(data.slice(0,129),JSON.parse(read('original/phrases.json')));
  const ctx={window:{}};vm.runInNewContext(read('phrases.js'),ctx);assert.equal(JSON.stringify(ctx.window.PHRASES),JSON.stringify(data));
- assert.equal(new Set(data.map(p=>p.category)).size,7);
+ assert.equal(new Set(data.map(p=>p.category)).size,12);
 });
 test('単語照合は語順・繰り返し・追加・欠落を識別、アポストロフィを正規化',()=>{
  const {ctx}=boot(),C=ctx.AussieCore;
@@ -97,8 +97,8 @@ test('教材ロールプレイはA/B両役で一度のスタートから最後�
   assert.match(b.html(),/Good on ya!/);assert.equal(b.elements.get('result-label').textContent,'Good on ya!');assert.equal(b.saved().attempts[1],1);
  }
 });
-test('4場面の分岐は全ノード到達可能、全選択先が存在、終了に到達',()=>{
- const {ctx}=boot();assert.equal(ctx.BRANCHES.length,4);
+test('9場面の分岐は全ノード到達可能、全選択先が存在、終了に到達',()=>{
+ const {ctx}=boot();assert.equal(ctx.BRANCHES.length,9);
  for(const b of ctx.BRANCHES){const visited=new Set(),walk=id=>{if(visited.has(id))return;visited.add(id);const node=b.nodes[id];assert.ok(node);for(const o of node.options){assert.ok(b.nodes[o.next]);walk(o.next);}};walk(b.start);assert.equal(visited.size,Object.keys(b.nodes).length);assert.ok([...visited].some(id=>b.nodes[id].options.length===0));}
 });
 test('分岐練習も一度のスタートで自動進行し、会話完了は重複カウントしない',()=>{
@@ -125,7 +125,7 @@ test('バックアップ復元は確認後に置換し、不正・巨大ファ�
 });
 
 
-test('全129会話は空でなく、選択可能なA/B役がある',()=>{
+test('全169会話は空でなく、選択可能なA/B役がある',()=>{
  for(const p of data){assert.ok(p.dialogue.length>=2);assert.ok(p.dialogue.some(d=>d.role==='A'));assert.ok(p.dialogue.some(d=>d.role==='B'));for(const d of p.dialogue)assert.ok(typeof d.text==='string'&&d.text.length>0);}
 });
 
@@ -192,9 +192,9 @@ test('発話終了イベントでstopし、遅い確定結果を自動判定',()
  const b=boot({sr:true});b.click('tab',{value:'speak'});b.click('situation-select',{value:'すべて'});b.click('recognize');const r=b.recognizers[0];const interim=[{transcript:'How is it'}];interim.isFinal=false;r.onresult({results:[interim]});assert.equal(b.elements.get('speech-transcript').textContent,'How is it');r.onspeechend();assert.equal(r.stopped,true);assert.notEqual(r.aborted,true);r.deliver({results:[[{transcript:'How is it going'}]]});assert.equal(b.elements.get('result-feedback').hidden,false);assert.equal(b.elements.get('result-symbol').textContent,'○');
 });
 
-test('フレーズは最初に7シチュエーションを表示し、選択後だけフレーズを表示',()=>{
+test('フレーズは最初に12シチュエーションを表示し、選択後だけフレーズを表示',()=>{
  const b=boot();b.click('tab',{value:'learn'});assert.match(b.html(),/どこで話す/);assert.match(b.html(),/situation-grid/);assert.doesNotMatch(b.html(),/No. 001|learn-content/);
- b.click('situation-select',{value:'カフェ'});assert.match(b.html(),/No. 054/);assert.match(b.html(),/13 フレーズ/);assert.doesNotMatch(b.html(),/situation-grid/);
+ b.click('situation-select',{value:'カフェ'});assert.match(b.html(),/No. 054/);assert.match(b.html(),/16 フレーズ/);assert.doesNotMatch(b.html(),/situation-grid/);
  b.click('situations-back');assert.match(b.html(),/situation-grid/);
 });
 test('音声一致は○、不一致は×。ボタンなしで表示が消え、正解は次へ進む',()=>{
@@ -219,14 +219,14 @@ test('全4学習モードは最初にシチュエーションを選び、選び�
  }
 });
 test('発音練習の前後移動と正解後の自動移動は選択シーンの範囲で循環',()=>{
- const b=boot({sr:true});b.click('tab',{value:'speak'});b.click('situation-select',{value:'カフェ'});assert.match(b.html(),/Can I get a latte/);assert.match(b.html(),/1 \/ 13/);
- b.click('prev');assert.match(b.html(),/Can I get the bill/);assert.match(b.html(),/13 \/ 13/);b.click('recognize');b.recognizers[0].deliver({results:[[{transcript:'Can I get the bill'}]]});b.advanceFeedback();assert.match(b.html(),/Can I get a latte/);assert.match(b.html(),/1 \/ 13/);
+ const b=boot({sr:true});b.click('tab',{value:'speak'});b.click('situation-select',{value:'カフェ'});assert.match(b.html(),/Can I get a latte/);assert.match(b.html(),/1 \/ 16/);
+ b.click('prev');assert.match(b.html(),/I’m allergic to nuts/);assert.match(b.html(),/16 \/ 16/);b.click('recognize');b.recognizers[0].deliver({results:[[{transcript:data.filter(p=>p.category==='カフェ').at(-1).en}]]});b.advanceFeedback();assert.match(b.html(),/Can I get a latte/);assert.match(b.html(),/1 \/ 16/);
 });
 test('暗記の誤答優先・次問・出題方向変更も選択シーン外を出題しない',()=>{
  const b=boot({stored:{done:{},star:{1:true},quiz:{'1:en':{total:5,correct:0,misses:5,lastWrong:true},'55:en':{total:1,correct:0,misses:1,lastWrong:true}}}});
  b.click('tab',{value:'quiz'});b.click('situation-select',{value:'カフェ'});assert.match(b.html(),/No. 55/);
- for(let i=0;i<20;i++){const id=Number(b.html().match(/No\. (\d+)/)[1]);assert.ok(id>=54&&id<=66);b.click('quiz-reveal');b.click('quiz-correct');b.click('quiz-next');}
- b.click('quiz-ja');const id=Number(b.html().match(/No\. (\d+)/)[1]);assert.ok(id>=54&&id<=66);
+ for(let i=0;i<20;i++){const id=Number(b.html().match(/No\. (\d+)/)[1]);assert.ok(data.filter(p=>p.category==='カフェ').some(p=>p.id===id));b.click('quiz-reveal');b.click('quiz-correct');b.click('quiz-next');}
+ b.click('quiz-ja');const id=Number(b.html().match(/No\. (\d+)/)[1]);assert.ok(data.filter(p=>p.category==='カフェ').some(p=>p.id===id));
 });
 test('会話は選んだ場面の教材を表示し、Extra Practiceも対応する場面だけ表示',()=>{
  const b=boot();b.click('tab',{value:'role'});b.click('situation-select',{value:'カフェ'});assert.match(b.html(),/data-phrase-id="54"/);assert.doesNotMatch(b.html(),/id="role-id"|id="role-category"/);
@@ -234,7 +234,7 @@ test('会話は選んだ場面の教材を表示し、Extra Practiceも対応す
  b.click('situations-back');b.click('situation-select',{value:'空港・機内'});b.click('role-branch');assert.match(b.html(),/空港でチェックイン/);assert.doesNotMatch(b.html(),/カフェで注文/);
  b.click('situations-back');b.click('situation-select',{value:'リアクション・フィラー'});assert.doesNotMatch(b.html(),/data-action="role-branch"/);assert.match(b.html(),/data-phrase-id="22"/);
 });
-test('7シチュエーションは発音・暗記・会話のどのモードでも対象教材に一致',()=>{
+test('12シチュエーションは発音・暗記・会話のどのモードでも対象教材に一致',()=>{
  const b=boot();for(const value of ['speak','quiz','role'])for(const cat of [...new Set(data.map(p=>p.category))]){
   b.click('tab',{value});b.click('situations-back');b.click('situation-select',{value:cat});const first=data.find(p=>p.category===cat);assert.match(b.html(),new RegExp(cat));
   if(value==='quiz')assert.ok(b.html().includes(`No. ${first.id}`));
@@ -242,7 +242,7 @@ test('7シチュエーションは発音・暗記・会話のどのモードで�
  }
 });
 test('シチュエーションを変更した後に古い自動遷移が混ざらない',()=>{
- const b=boot({sr:true});b.click('tab',{value:'speak'});b.click('situation-select',{value:'カフェ'});b.click('recognize');b.recognizers[0].deliver({results:[[{transcript:'Can I get a latte'}]]});const old=[...b.timeouts.values()].find(t=>t.ms===1100);b.click('situations-back');b.click('situation-select',{value:'空港・機内'});old.fn();assert.match(b.html(),/I’m checking in for my flight/);assert.match(b.html(),/1 \/ 21/);
+ const b=boot({sr:true});b.click('tab',{value:'speak'});b.click('situation-select',{value:'カフェ'});b.click('recognize');b.recognizers[0].deliver({results:[[{transcript:'Can I get a latte'}]]});const old=[...b.timeouts.values()].find(t=>t.ms===1100);b.click('situations-back');b.click('situation-select',{value:'空港・機内'});old.fn();assert.match(b.html(),/I’m checking in for my flight/);assert.match(b.html(),/1 \/ 22/);
 });
 test('会話開始後は各ターンの入力・再生ボタンなしで進み、一時停止だけ表示',()=>{
  const b=boot({sr:true});b.click('tab',{value:'role'});b.click('situation-select',{value:'すべて'});assert.match(b.html(),/data-action="conversation-start"/);b.click('conversation-start');assert.match(b.html(),/data-action="conversation-pause"/);assert.doesNotMatch(b.html(),/role-next|role-recognize|role-line-audio|id="recognize-start"/);assert.equal(b.recognizers.length,0);b.finishPartner();assert.equal(b.recognizers.length,1);
@@ -280,4 +280,27 @@ test('場面・会話の選択欄を削除し、役割選択とスタートは�
 });
 test('追加会話タブのラベルをExtra Practiceに変更',()=>{
  const b=boot();b.click('tab',{value:'role'});b.click('situation-select',{value:'カフェ'});assert.match(b.html(),/data-action="role-branch"[^>]*>Extra Practice<\/button>/);assert.doesNotMatch(b.html(),/>追加の分岐会話</);
+});
+test('新教材40件を予定の配分で追加し、ID・英文は重複しない',()=>{
+ const added=data.slice(129);assert.equal(added.length,40);assert.deepEqual(added.map(p=>p.id),Array.from({length:40},(_,i)=>130+i));assert.equal(new Set(data.map(p=>p.en.toLowerCase())).size,169);
+ for(const [cat,count] of [['ホームステイ',8],['学校・授業での交流',6],['科学研修・施設見学',6],['バス・電車での移動',6],['体調・困ったとき',6]])assert.equal(added.filter(p=>p.category===cat).length,count);
+ assert.equal(added.filter(p=>data.slice(0,129).some(old=>old.category===p.category)).length,8);
+});
+test('追加全40件に日本語・対象フレーズを含むA/B会話があり、音声照合できる',()=>{
+ const {ctx}=boot();for(const p of data.slice(129)){assert.equal(p.source,'研修向け追加教材');assert.ok(p.ja.length>0);assert.equal(p.dialogue.length,4);assert.deepEqual(p.dialogue.map(d=>d.role),['A','B','A','B']);assert.ok(p.dialogue.some(d=>d.text.includes(p.en)));assert.equal(ctx.AussieCore.spokenCheck(p.en,p.en).score,100);}
+});
+test('件数表示を169に更新し、全12場面が4モードで選択できる',()=>{
+ const b=boot();assert.match(b.html(),/169 PHRASES/);assert.match(b.elements.get('nav').innerHTML,/>169<\/span>/);assert.match(b.html(),/\/ 169/);
+ for(const mode of ['learn','speak','quiz','role']){b.click('tab',{value:mode});b.click('situations-back');for(const cat of [...new Set(data.map(p=>p.category))])assert.ok(b.html().includes(`data-value="${cat}"`),cat);}
+});
+test('新規5場面のExtra Practiceは自動会話を最後まで完走できる',()=>{
+ const mapping={'ホームステイ':'homestay','学校・授業での交流':'school-exchange','科学研修・施設見学':'science-tour','バス・電車での移動':'public-transport','体調・困ったとき':'ask-for-help'};
+ for(const [cat,id] of Object.entries(mapping)){
+  const b=boot({sr:true});b.click('tab',{value:'role'});b.click('situation-select',{value:cat});b.click('role-branch');const scenario=b.ctx.BRANCHES.find(s=>s.id===id);let node=scenario.nodes[scenario.start];b.click('conversation-start');
+  for(let i=0;i<10;i++){b.finishPartner();if(!node.options.length)break;const option=node.options[0];b.recognizers.at(-1).deliver({results:[[{transcript:option.en}]]});b.advanceFeedback();node=scenario.nodes[option.next];}
+  assert.match(b.html(),/Good on ya!/);assert.equal(Object.values(b.saved().days)[0],1);
+ }
+});
+test('既存129件の学習記録を保持したまま新教材を未学習で追加',()=>{
+ const done=Object.fromEntries(data.slice(0,129).map(p=>[p.id,true]));const b=boot({stored:{done,star:{54:true},attempts:{54:8}}});assert.match(b.html(),/<strong>129<small> \/ 169/);b.click('tab',{value:'learn'});b.click('situation-select',{value:'ホームステイ'});assert.match(b.html(),/No. 130/);assert.match(b.html(),/>覚えた！<\/button>/);b.click('done');assert.equal(b.saved().done[54],true);assert.equal(b.saved().attempts[54],8);assert.equal(b.saved().done[130],true);
 });

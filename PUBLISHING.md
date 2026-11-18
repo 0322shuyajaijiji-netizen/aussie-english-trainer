@@ -6,7 +6,7 @@ https://0322shuyajaijiji-netizen.github.io/aussie-english-trainer/
 
 ## 現在の状態
 
-- 最新版のアプリ、129フレーズ、全会話例、追加分岐、テスト、教材変更履歴を収録。
+- 最新版のアプリ、169フレーズ（元教材129件＋追加40件）、全会話例、追加分岐、テスト、教材変更履歴を収録。
 - HTML / CSS / JavaScriptのみ。APIキー・ビルド・サーバー・DB・有料サービスは不要。
 - GitHub Pagesで使える相対パスと `.nojekyll` を配置済み。
 - 独自の公開ワークフローはありません。GitHub Pagesの設定で `main` / `/(root)` を配信しているため、`main` の更新でサイトも更新されます。

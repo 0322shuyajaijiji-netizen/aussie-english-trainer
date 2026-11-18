@@ -27,3 +27,251 @@ window.BRANCHES = [
  cafe:{partner:'Yes! There’s one just across the road.',options:[{en:'Thank you for your help.',ja:'感謝する。',next:'end'}]},
  end:{partner:'No worries. Have a good one!',options:[]}}}
 ];
+
+// 2026-11-18 研修向けの追加分岐。原教材とは別の固定シナリオです。
+window.BRANCHES.push(...[
+  {
+    "id": "homestay",
+    "title": "ホームステイで夕食のお手伝い",
+    "icon": "⌂",
+    "intro": "手伝いや家族への連絡をお願いしよう。",
+    "start": "welcome",
+    "nodes": {
+      "welcome": {
+        "partner": "We’re making dinner now. Is everything okay?",
+        "options": [
+          {
+            "en": "Is there anything I can help with?",
+            "ja": "手伝いを申し出る。",
+            "next": "help"
+          },
+          {
+            "en": "Would it be okay if I called my family?",
+            "ja": "家族への電話をお願いする。",
+            "next": "call"
+          }
+        ]
+      },
+      "help": {
+        "partner": "Thanks! Could you set the table? The plates are in that cupboard.",
+        "options": [
+          {
+            "en": "Sure. Thank you for showing me.",
+            "ja": "手伝いを引き受ける。",
+            "next": "end"
+          }
+        ]
+      },
+      "call": {
+        "partner": "Of course. You can use the quiet room. Dinner is in half an hour.",
+        "options": [
+          {
+            "en": "Thank you. I won’t be long.",
+            "ja": "お礼を伝える。",
+            "next": "end"
+          }
+        ]
+      },
+      "end": {
+        "partner": "No worries. We’re happy to have you here!",
+        "options": []
+      }
+    }
+  },
+  {
+    "id": "school-exchange",
+    "title": "学校でグループ活動に参加",
+    "icon": "✎",
+    "intro": "仲間に入り、一緒に活動しよう。",
+    "start": "group",
+    "nodes": {
+      "group": {
+        "partner": "We’re getting ready for a group activity.",
+        "options": [
+          {
+            "en": "Could I join your group?",
+            "ja": "グループに入れてもらう。",
+            "next": "join"
+          },
+          {
+            "en": "Can we work on this together?",
+            "ja": "一緒に取り組もうと伝える。",
+            "next": "together"
+          }
+        ]
+      },
+      "join": {
+        "partner": "Of course. Come and sit with us. What subjects do you enjoy?",
+        "options": [
+          {
+            "en": "I like science. What subjects do you enjoy?",
+            "ja": "好きな教科を伝え、相手にも聞く。",
+            "next": "end"
+          }
+        ]
+      },
+      "together": {
+        "partner": "Definitely. Let’s compare our ideas.",
+        "options": [
+          {
+            "en": "Sounds good. Let’s start with the first question.",
+            "ja": "最初の問題から取り組む。",
+            "next": "end"
+          }
+        ]
+      },
+      "end": {
+        "partner": "Great. I’m looking forward to working with you!",
+        "options": []
+      }
+    }
+  },
+  {
+    "id": "science-tour",
+    "title": "科学施設で研究者に質問",
+    "icon": "✦",
+    "intro": "仕組みや用途を質問しよう。",
+    "start": "model",
+    "nodes": {
+      "model": {
+        "partner": "This model shows one of our research projects. Do you have any questions?",
+        "options": [
+          {
+            "en": "Could you explain how this works?",
+            "ja": "仕組みを聞く。",
+            "next": "works"
+          },
+          {
+            "en": "What is this used for?",
+            "ja": "用途を聞く。",
+            "next": "used"
+          }
+        ]
+      },
+      "works": {
+        "partner": "It changes sunlight into electricity. We’re testing how much energy it produces.",
+        "options": [
+          {
+            "en": "May I take notes during the presentation?",
+            "ja": "メモを取る許可をもらう。",
+            "next": "end"
+          }
+        ]
+      },
+      "used": {
+        "partner": "It helps us compare the energy produced by different solar panels.",
+        "options": [
+          {
+            "en": "May I take notes during the presentation?",
+            "ja": "メモを取る許可をもらう。",
+            "next": "end"
+          }
+        ]
+      },
+      "end": {
+        "partner": "Of course. Please write down any questions you’d like to ask later.",
+        "options": []
+      }
+    }
+  },
+  {
+    "id": "public-transport",
+    "title": "バスの行き先と支払いを確認",
+    "icon": "↗",
+    "intro": "乗る前に行き先や支払いを確認しよう。",
+    "start": "bus",
+    "nodes": {
+      "bus": {
+        "partner": "Hello. Where would you like to go?",
+        "options": [
+          {
+            "en": "Does this bus go to the city centre?",
+            "ja": "行き先を確認する。",
+            "next": "city"
+          },
+          {
+            "en": "How do I pay the fare?",
+            "ja": "支払方法を聞く。",
+            "next": "fare"
+          }
+        ]
+      },
+      "city": {
+        "partner": "Yes. It stops near the museum in the city centre.",
+        "options": [
+          {
+            "en": "Which stop should I get off at?",
+            "ja": "降りる停留所を聞く。",
+            "next": "stop"
+          }
+        ]
+      },
+      "fare": {
+        "partner": "You can use a travel card on this service.",
+        "options": [
+          {
+            "en": "Do I need to tap off?",
+            "ja": "降りるときの操作を確認する。",
+            "next": "tap"
+          }
+        ]
+      },
+      "stop": {
+        "partner": "Get off at Museum Road. Please check the stop display as we travel.",
+        "options": []
+      },
+      "tap": {
+        "partner": "On this service, yes. Use the same card when you get off.",
+        "options": []
+      }
+    }
+  },
+  {
+    "id": "ask-for-help",
+    "title": "困ったときに先生へ連絡",
+    "icon": "＋",
+    "intro": "困っていることを伝え、大人に助けを求めよう。",
+    "start": "help",
+    "nodes": {
+      "help": {
+        "partner": "Hello. Are you okay?",
+        "options": [
+          {
+            "en": "I’m not feeling well.",
+            "ja": "体調を伝える。",
+            "next": "unwell"
+          },
+          {
+            "en": "I’ve lost my group.",
+            "ja": "はぐれたことを伝える。",
+            "next": "lost"
+          }
+        ]
+      },
+      "unwell": {
+        "partner": "Let’s find somewhere to sit and let your teacher know.",
+        "options": [
+          {
+            "en": "Could you help me contact my teacher?",
+            "ja": "先生への連絡をお願いする。",
+            "next": "end"
+          }
+        ]
+      },
+      "lost": {
+        "partner": "Let’s go to the information desk and contact your teacher.",
+        "options": [
+          {
+            "en": "Could you help me contact my teacher?",
+            "ja": "先生への連絡をお願いする。",
+            "next": "end"
+          }
+        ]
+      },
+      "end": {
+        "partner": "Of course. We’ll use the contact details on your school card.",
+        "options": []
+      }
+    }
+  }
+]);

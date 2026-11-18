@@ -3094,5 +3094,1005 @@
         "text": "No worries!"
       }
     ]
+  },
+  {
+    "id": 130,
+    "en": "What time should I be home?",
+    "ja": "何時までに帰ればいいですか？",
+    "category": "ホームステイ",
+    "source": "研修向け追加教材",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Are you going out with your classmates?"
+      },
+      {
+        "role": "B",
+        "text": "Yes. What time should I be home?"
+      },
+      {
+        "role": "A",
+        "text": "Please be home by six for dinner."
+      },
+      {
+        "role": "B",
+        "text": "Sure. I’ll be back by six."
+      }
+    ]
+  },
+  {
+    "id": 131,
+    "en": "Is there anything I can help with?",
+    "ja": "何かお手伝いできることはありますか？",
+    "category": "ホームステイ",
+    "source": "研修向け追加教材",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "We’re making dinner now."
+      },
+      {
+        "role": "B",
+        "text": "Is there anything I can help with?"
+      },
+      {
+        "role": "A",
+        "text": "Could you set the table?"
+      },
+      {
+        "role": "B",
+        "text": "Sure. Where are the plates?"
+      }
+    ]
+  },
+  {
+    "id": 132,
+    "en": "Could you show me how to use the shower?",
+    "ja": "シャワーの使い方を教えていただけますか？",
+    "category": "ホームステイ",
+    "source": "研修向け追加教材",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "The bathroom is just down the hall."
+      },
+      {
+        "role": "B",
+        "text": "Could you show me how to use the shower?"
+      },
+      {
+        "role": "A",
+        "text": "Of course. I’ll show you the controls."
+      },
+      {
+        "role": "B",
+        "text": "Thank you. That really helps."
+      }
+    ]
+  },
+  {
+    "id": 133,
+    "en": "Where should I put my dirty clothes?",
+    "ja": "洗濯物はどこに置けばいいですか？",
+    "category": "ホームステイ",
+    "source": "研修向け追加教材",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "We usually do the washing on Saturdays."
+      },
+      {
+        "role": "B",
+        "text": "Where should I put my dirty clothes?"
+      },
+      {
+        "role": "A",
+        "text": "In the basket next to the washing machine."
+      },
+      {
+        "role": "B",
+        "text": "Okay. Thank you for showing me."
+      }
+    ]
+  },
+  {
+    "id": 134,
+    "en": "What time do we usually have breakfast?",
+    "ja": "普段、朝食は何時に食べますか？",
+    "category": "ホームステイ",
+    "source": "研修向け追加教材",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Your school bus leaves at eight."
+      },
+      {
+        "role": "B",
+        "text": "What time do we usually have breakfast?"
+      },
+      {
+        "role": "A",
+        "text": "At seven, so you’ll have plenty of time."
+      },
+      {
+        "role": "B",
+        "text": "Great. I’ll be ready by seven."
+      }
+    ]
+  },
+  {
+    "id": 135,
+    "en": "May I use the Wi-Fi?",
+    "ja": "Wi-Fiを使ってもいいですか？",
+    "category": "ホームステイ",
+    "source": "研修向け追加教材",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Make yourself at home."
+      },
+      {
+        "role": "B",
+        "text": "Thank you. May I use the Wi-Fi?"
+      },
+      {
+        "role": "A",
+        "text": "Of course. The password is on this card."
+      },
+      {
+        "role": "B",
+        "text": "Thanks. I’ll message my family."
+      }
+    ]
+  },
+  {
+    "id": 136,
+    "en": "Would it be okay if I called my family?",
+    "ja": "家族に電話してもいいですか？",
+    "category": "ホームステイ",
+    "source": "研修向け追加教材",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "We’ll have dinner in half an hour."
+      },
+      {
+        "role": "B",
+        "text": "Would it be okay if I called my family?"
+      },
+      {
+        "role": "A",
+        "text": "Of course. You can use this quiet room."
+      },
+      {
+        "role": "B",
+        "text": "Thank you. I won’t be long."
+      }
+    ]
+  },
+  {
+    "id": 137,
+    "en": "Thank you for having me.",
+    "ja": "泊めていただいてありがとうございます。",
+    "category": "ホームステイ",
+    "source": "研修向け追加教材",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "We’ve really enjoyed having you stay."
+      },
+      {
+        "role": "B",
+        "text": "Thank you for having me."
+      },
+      {
+        "role": "A",
+        "text": "You’re always welcome here."
+      },
+      {
+        "role": "B",
+        "text": "I hope we can keep in touch."
+      }
+    ]
+  },
+  {
+    "id": 138,
+    "en": "Could I join your group?",
+    "ja": "あなたたちのグループに入ってもいいですか？",
+    "category": "学校・授業での交流",
+    "source": "研修向け追加教材",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "We’re getting into groups for the activity."
+      },
+      {
+        "role": "B",
+        "text": "Could I join your group?"
+      },
+      {
+        "role": "A",
+        "text": "Of course. Come and sit with us."
+      },
+      {
+        "role": "B",
+        "text": "Thanks. What are we working on?"
+      }
+    ]
+  },
+  {
+    "id": 139,
+    "en": "What subjects do you enjoy?",
+    "ja": "どの教科が好きですか？",
+    "category": "学校・授業での交流",
+    "source": "研修向け追加教材",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "We have a science lesson after lunch."
+      },
+      {
+        "role": "B",
+        "text": "What subjects do you enjoy?"
+      },
+      {
+        "role": "A",
+        "text": "I really like science and art."
+      },
+      {
+        "role": "B",
+        "text": "I like science too. What do you like about it?"
+      }
+    ]
+  },
+  {
+    "id": 140,
+    "en": "Which classroom should I go to?",
+    "ja": "どの教室に行けばいいですか？",
+    "category": "学校・授業での交流",
+    "source": "研修向け追加教材",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Your next lesson is maths."
+      },
+      {
+        "role": "B",
+        "text": "Which classroom should I go to?"
+      },
+      {
+        "role": "A",
+        "text": "Room twelve. I’m going there too."
+      },
+      {
+        "role": "B",
+        "text": "Great. Could I walk with you?"
+      }
+    ]
+  },
+  {
+    "id": 141,
+    "en": "Could you show me around the school?",
+    "ja": "学校を案内してもらえますか？",
+    "category": "学校・授業での交流",
+    "source": "研修向け追加教材",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Welcome! Is this your first day here?"
+      },
+      {
+        "role": "B",
+        "text": "Yes. Could you show me around the school?"
+      },
+      {
+        "role": "A",
+        "text": "Sure. Let’s start with the library."
+      },
+      {
+        "role": "B",
+        "text": "Thanks. I’d love to see it."
+      }
+    ]
+  },
+  {
+    "id": 142,
+    "en": "Can we work on this together?",
+    "ja": "これを一緒に取り組んでもいいですか？",
+    "category": "学校・授業での交流",
+    "source": "研修向け追加教材",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "We need to solve these problems."
+      },
+      {
+        "role": "B",
+        "text": "Can we work on this together?"
+      },
+      {
+        "role": "A",
+        "text": "Definitely. Shall we start with the first one?"
+      },
+      {
+        "role": "B",
+        "text": "Yes. Let’s compare our ideas."
+      }
+    ]
+  },
+  {
+    "id": 143,
+    "en": "How do you usually get to school?",
+    "ja": "普段、どうやって学校に通っていますか？",
+    "category": "学校・授業での交流",
+    "source": "研修向け追加教材",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "I live about fifteen minutes from here."
+      },
+      {
+        "role": "B",
+        "text": "How do you usually get to school?"
+      },
+      {
+        "role": "A",
+        "text": "I usually ride my bike. How about you?"
+      },
+      {
+        "role": "B",
+        "text": "I usually take the train in Japan."
+      }
+    ]
+  },
+  {
+    "id": 144,
+    "en": "Could you explain how this works?",
+    "ja": "これがどのように動くのか説明していただけますか？",
+    "category": "科学研修・施設見学",
+    "source": "研修向け追加教材",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "This model shows how a solar panel works."
+      },
+      {
+        "role": "B",
+        "text": "Could you explain how this works?"
+      },
+      {
+        "role": "A",
+        "text": "It changes sunlight into electricity."
+      },
+      {
+        "role": "B",
+        "text": "I see. Thank you for explaining."
+      }
+    ]
+  },
+  {
+    "id": 145,
+    "en": "What surprised you most?",
+    "ja": "何が一番意外でしたか？",
+    "category": "科学研修・施設見学",
+    "source": "研修向け追加教材",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "That was an interesting demonstration."
+      },
+      {
+        "role": "B",
+        "text": "What surprised you most?"
+      },
+      {
+        "role": "A",
+        "text": "How much energy the device could save."
+      },
+      {
+        "role": "B",
+        "text": "Me too. I’d like to learn more about it."
+      }
+    ]
+  },
+  {
+    "id": 146,
+    "en": "What is this used for?",
+    "ja": "これは何に使うものですか？",
+    "category": "科学研修・施設見学",
+    "source": "研修向け追加教材",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "You can see several instruments on this bench."
+      },
+      {
+        "role": "B",
+        "text": "What is this used for?"
+      },
+      {
+        "role": "A",
+        "text": "It’s used to measure temperature."
+      },
+      {
+        "role": "B",
+        "text": "I see. We use something similar at school."
+      }
+    ]
+  },
+  {
+    "id": 147,
+    "en": "What should we be careful about during the experiment?",
+    "ja": "実験中、どのようなことに気をつければいいですか？",
+    "category": "科学研修・施設見学",
+    "source": "研修向け追加教材",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "We’ll explain the activity before you begin."
+      },
+      {
+        "role": "B",
+        "text": "What should we be careful about during the experiment?"
+      },
+      {
+        "role": "A",
+        "text": "Please follow the instructor’s directions and wear your safety glasses."
+      },
+      {
+        "role": "B",
+        "text": "Understood. I’ll listen carefully."
+      }
+    ]
+  },
+  {
+    "id": 148,
+    "en": "May I take notes during the presentation?",
+    "ja": "発表中にメモを取ってもいいですか？",
+    "category": "科学研修・施設見学",
+    "source": "研修向け追加教材",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Our researcher will give a short presentation."
+      },
+      {
+        "role": "B",
+        "text": "May I take notes during the presentation?"
+      },
+      {
+        "role": "A",
+        "text": "Of course. There will also be time for questions."
+      },
+      {
+        "role": "B",
+        "text": "Thank you. I’ll write down my questions."
+      }
+    ]
+  },
+  {
+    "id": 149,
+    "en": "What would happen if we changed the temperature?",
+    "ja": "温度を変えたらどうなりますか？",
+    "category": "科学研修・施設見学",
+    "source": "研修向け追加教材",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "These results were collected at room temperature."
+      },
+      {
+        "role": "B",
+        "text": "What would happen if we changed the temperature?"
+      },
+      {
+        "role": "A",
+        "text": "That’s a good question. We would need to compare the results."
+      },
+      {
+        "role": "B",
+        "text": "I’d be interested to see the difference."
+      }
+    ]
+  },
+  {
+    "id": 150,
+    "en": "Does this bus go to the city centre?",
+    "ja": "このバスは街の中心部へ行きますか？",
+    "category": "バス・電車での移動",
+    "source": "研修向け追加教材",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Hello. Where would you like to go?"
+      },
+      {
+        "role": "B",
+        "text": "Does this bus go to the city centre?"
+      },
+      {
+        "role": "A",
+        "text": "Yes. It stops near the main square."
+      },
+      {
+        "role": "B",
+        "text": "Great. Thank you for your help."
+      }
+    ]
+  },
+  {
+    "id": 151,
+    "en": "Which stop should I get off at?",
+    "ja": "どの停留所で降りればいいですか？",
+    "category": "バス・電車での移動",
+    "source": "研修向け追加教材",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "The museum is a short walk from the bus stop."
+      },
+      {
+        "role": "B",
+        "text": "Which stop should I get off at?"
+      },
+      {
+        "role": "A",
+        "text": "Get off at the next stop."
+      },
+      {
+        "role": "B",
+        "text": "Thanks. I’ll get ready."
+      }
+    ]
+  },
+  {
+    "id": 152,
+    "en": "Which platform does the train leave from?",
+    "ja": "その電車は何番ホームから出ますか？",
+    "category": "バス・電車での移動",
+    "source": "研修向け追加教材",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "The next train to the city leaves in ten minutes."
+      },
+      {
+        "role": "B",
+        "text": "Which platform does the train leave from?"
+      },
+      {
+        "role": "A",
+        "text": "Platform three. Please check the departure board too."
+      },
+      {
+        "role": "B",
+        "text": "Thank you. I’ll check it."
+      }
+    ]
+  },
+  {
+    "id": 153,
+    "en": "How do I pay the fare?",
+    "ja": "運賃はどうやって払えばいいですか？",
+    "category": "バス・電車での移動",
+    "source": "研修向け追加教材",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Is this your first time using this service?"
+      },
+      {
+        "role": "B",
+        "text": "Yes. How do I pay the fare?"
+      },
+      {
+        "role": "A",
+        "text": "You can use a travel card on this service."
+      },
+      {
+        "role": "B",
+        "text": "Thank you. Where can I get one?"
+      }
+    ]
+  },
+  {
+    "id": 154,
+    "en": "Do I need to tap off?",
+    "ja": "降りるときもカードをタッチする必要がありますか？",
+    "category": "バス・電車での移動",
+    "source": "研修向け追加教材",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Remember to keep your travel card handy."
+      },
+      {
+        "role": "B",
+        "text": "Do I need to tap off?"
+      },
+      {
+        "role": "A",
+        "text": "On this service, yes. Use the same card you tapped on with."
+      },
+      {
+        "role": "B",
+        "text": "Okay. Thanks for letting me know."
+      }
+    ]
+  },
+  {
+    "id": 155,
+    "en": "Where can I top up my travel card?",
+    "ja": "交通カードはどこでチャージできますか？",
+    "category": "バス・電車での移動",
+    "source": "研修向け追加教材",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Your card balance is getting low."
+      },
+      {
+        "role": "B",
+        "text": "Where can I top up my travel card?"
+      },
+      {
+        "role": "A",
+        "text": "You can use the machine near the entrance."
+      },
+      {
+        "role": "B",
+        "text": "Thanks. I’ll ask if I need help."
+      }
+    ]
+  },
+  {
+    "id": 156,
+    "en": "I’m not feeling well.",
+    "ja": "体調がよくありません。",
+    "category": "体調・困ったとき",
+    "source": "研修向け追加教材",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Are you okay? You look a bit tired."
+      },
+      {
+        "role": "B",
+        "text": "I’m not feeling well."
+      },
+      {
+        "role": "A",
+        "text": "Let’s tell your teacher and find somewhere to sit."
+      },
+      {
+        "role": "B",
+        "text": "Thank you. Could you come with me?"
+      }
+    ]
+  },
+  {
+    "id": 157,
+    "en": "Could you help me contact my teacher?",
+    "ja": "先生に連絡するのを手伝っていただけますか？",
+    "category": "体調・困ったとき",
+    "source": "研修向け追加教材",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Hello. Do you need some help?"
+      },
+      {
+        "role": "B",
+        "text": "Could you help me contact my teacher?"
+      },
+      {
+        "role": "A",
+        "text": "Of course. Do you have their contact details?"
+      },
+      {
+        "role": "B",
+        "text": "Yes. They’re written on this card."
+      }
+    ]
+  },
+  {
+    "id": 158,
+    "en": "I’ve lost my group.",
+    "ja": "グループとはぐれてしまいました。",
+    "category": "体調・困ったとき",
+    "source": "研修向け追加教材",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Hello. Are you looking for someone?"
+      },
+      {
+        "role": "B",
+        "text": "I’ve lost my group."
+      },
+      {
+        "role": "A",
+        "text": "Let’s go to the information desk and contact your teacher."
+      },
+      {
+        "role": "B",
+        "text": "Thank you. I have my teacher’s contact details."
+      }
+    ]
+  },
+  {
+    "id": 159,
+    "en": "Could I see the school nurse?",
+    "ja": "学校の保健の先生に会えますか？",
+    "category": "体調・困ったとき",
+    "source": "研修向け追加教材",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "You don’t seem to be feeling well."
+      },
+      {
+        "role": "B",
+        "text": "Could I see the school nurse?"
+      },
+      {
+        "role": "A",
+        "text": "Of course. I’ll let your teacher know and take you there."
+      },
+      {
+        "role": "B",
+        "text": "Thank you for helping me."
+      }
+    ]
+  },
+  {
+    "id": 160,
+    "en": "My phone has run out of battery.",
+    "ja": "携帯電話の充電が切れてしまいました。",
+    "category": "体調・困ったとき",
+    "source": "研修向け追加教材",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Have you let your teacher know where you are?"
+      },
+      {
+        "role": "B",
+        "text": "My phone has run out of battery."
+      },
+      {
+        "role": "A",
+        "text": "You can use the office phone to contact them."
+      },
+      {
+        "role": "B",
+        "text": "Thank you. I have the number here."
+      }
+    ]
+  },
+  {
+    "id": 161,
+    "en": "I can’t find my wallet.",
+    "ja": "財布が見つかりません。",
+    "category": "体調・困ったとき",
+    "source": "研修向け追加教材",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Is everything all right?"
+      },
+      {
+        "role": "B",
+        "text": "I can’t find my wallet."
+      },
+      {
+        "role": "A",
+        "text": "Let’s tell your teacher and ask at lost property."
+      },
+      {
+        "role": "B",
+        "text": "Thank you. I last had it at the café."
+      }
+    ]
+  },
+  {
+    "id": 162,
+    "en": "Could you speak a little more slowly, please?",
+    "ja": "もう少しゆっくり話していただけますか？",
+    "category": "聞き返す・断る・感謝する",
+    "source": "研修向け追加教材",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "The meeting point is just past the library."
+      },
+      {
+        "role": "B",
+        "text": "Could you speak a little more slowly, please?"
+      },
+      {
+        "role": "A",
+        "text": "Of course. Meet us outside the library."
+      },
+      {
+        "role": "B",
+        "text": "Thank you. I understand now."
+      }
+    ]
+  },
+  {
+    "id": 163,
+    "en": "Could I have some tap water, please?",
+    "ja": "水道水をいただけますか？",
+    "category": "カフェ",
+    "source": "研修向け追加教材",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Would you like anything else?"
+      },
+      {
+        "role": "B",
+        "text": "Could I have some tap water, please?"
+      },
+      {
+        "role": "A",
+        "text": "Of course. I’ll bring you a glass."
+      },
+      {
+        "role": "B",
+        "text": "Thank you very much."
+      }
+    ]
+  },
+  {
+    "id": 164,
+    "en": "Could we pay separately?",
+    "ja": "別々に支払えますか？",
+    "category": "カフェ",
+    "source": "研修向け追加教材",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Are you ready for the bill?"
+      },
+      {
+        "role": "B",
+        "text": "Yes. Could we pay separately?"
+      },
+      {
+        "role": "A",
+        "text": "Certainly. What did you each have?"
+      },
+      {
+        "role": "B",
+        "text": "I had the sandwich and a latte."
+      }
+    ]
+  },
+  {
+    "id": 165,
+    "en": "I’m allergic to nuts. Does this contain any nuts?",
+    "ja": "ナッツのアレルギーがあります。これにナッツは入っていますか？",
+    "category": "カフェ",
+    "source": "研修向け追加教材",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Would you like to try this cake?"
+      },
+      {
+        "role": "B",
+        "text": "I’m allergic to nuts. Does this contain any nuts?"
+      },
+      {
+        "role": "A",
+        "text": "I’ll check the ingredients and ask the kitchen about cross-contact."
+      },
+      {
+        "role": "B",
+        "text": "Thank you. I’ll wait until you’ve checked."
+      }
+    ]
+  },
+  {
+    "id": 166,
+    "en": "My suitcase hasn’t arrived.",
+    "ja": "スーツケースが出てきません。",
+    "category": "空港・機内",
+    "source": "研修向け追加教材",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Hello. How can I help you?"
+      },
+      {
+        "role": "B",
+        "text": "My suitcase hasn’t arrived."
+      },
+      {
+        "role": "A",
+        "text": "Could I see your baggage receipt, please?"
+      },
+      {
+        "role": "B",
+        "text": "Yes. Here it is. I’m travelling with my school group."
+      }
+    ]
+  },
+  {
+    "id": 167,
+    "en": "Could I have a receipt, please?",
+    "ja": "レシートをいただけますか？",
+    "category": "観光",
+    "source": "研修向け追加教材",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Your payment has gone through."
+      },
+      {
+        "role": "B",
+        "text": "Could I have a receipt, please?"
+      },
+      {
+        "role": "A",
+        "text": "Of course. Here you are."
+      },
+      {
+        "role": "B",
+        "text": "Thank you. Have a good day."
+      }
+    ]
+  },
+  {
+    "id": 168,
+    "en": "Would you like to have lunch together?",
+    "ja": "一緒にお昼を食べませんか？",
+    "category": "あいさつ",
+    "source": "研修向け追加教材",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "It’s nearly lunchtime."
+      },
+      {
+        "role": "B",
+        "text": "Would you like to have lunch together?"
+      },
+      {
+        "role": "A",
+        "text": "I’d love to. Shall we sit outside?"
+      },
+      {
+        "role": "B",
+        "text": "Sounds good. Let’s go."
+      }
+    ]
+  },
+  {
+    "id": 169,
+    "en": "Could you write that down, please?",
+    "ja": "それを書いていただけますか？",
+    "category": "聞き返す・断る・感謝する",
+    "source": "研修向け追加教材",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "The address is a little difficult to remember."
+      },
+      {
+        "role": "B",
+        "text": "Could you write that down, please?"
+      },
+      {
+        "role": "A",
+        "text": "Of course. I’ll write it on this paper."
+      },
+      {
+        "role": "B",
+        "text": "Thank you. That’s very helpful."
+      }
+    ]
   }
 ]
