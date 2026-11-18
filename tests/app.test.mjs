@@ -254,3 +254,20 @@ test('会話の認識サービス拒否はその場で止まり、再開可能',
 test('会話中に場面へ戻ると、遅れて届く音声完了でもマイクを開かない',()=>{
  const b=boot({sr:true});b.click('tab',{value:'role'});b.click('situation-select',{value:'カフェ'});b.click('conversation-start');const old=b.spoken.at(-1).onend;b.click('situations-back');old();assert.equal(b.recognizers.length,0);assert.match(b.html(),/situation-grid/);
 });
+test('教材・分岐のスタートと一時停止を会話文より上に一つだけ配置',()=>{
+ const b=boot({sr:true});b.click('tab',{value:'role'});b.click('situation-select',{value:'カフェ'});
+ for(const mode of ['role-textbook','role-branch']){b.click(mode);assert.ok(b.html().indexOf('data-action="conversation-start"')<b.html().indexOf('class="dialogue'));assert.equal((b.html().match(/data-action="conversation-start"/g)||[]).length,1);b.click('conversation-start');assert.ok(b.html().indexOf('data-action="conversation-pause"')<b.html().indexOf('class="dialogue'));b.click('conversation-pause');}
+});
+function completeTextbook(b,p,role='A'){
+ b.change('my-role',role);b.click('conversation-start');for(const d of p.dialogue){if(d.role===role){b.recognizers.at(-1).deliver({results:[[{transcript:d.text}]]});b.advanceFeedback();}else b.finishPartner();}
+}
+test('完了時にもう一度と次へを並べ、次へで同じ場面の次教材を準備',()=>{
+ const b=boot({sr:true});b.click('tab',{value:'role'});b.click('situation-select',{value:'カフェ'});b.click('conversation-next');assert.match(b.html(),/<option value="54" selected>/);completeTextbook(b,data.find(p=>p.id===54));assert.match(b.html(),/conversation-finish-actions/);assert.match(b.html(),/data-action="conversation-restart"/);assert.match(b.html(),/data-action="conversation-next"/);
+ const count=b.recognizers.length;b.click('conversation-next');assert.match(b.html(),/<option value="55" selected>/);assert.match(b.html(),/あなたは A 役/);assert.match(b.html(),/data-action="conversation-start"/);assert.equal(b.recognizers.length,count);assert.doesNotMatch(b.html(),/conversation-complete/);
+});
+test('場面の最後の教材で次へを押すと同じ場面の先頭へ戻る',()=>{
+ const b=boot({sr:true});b.click('tab',{value:'role'});b.click('situation-select',{value:'カフェ'});b.change('role-id','66');completeTextbook(b,data.find(p=>p.id===66));b.click('conversation-next');assert.match(b.html(),/<option value="54" selected>/);assert.match(b.html(),/カフェ/);
+});
+test('追加分岐の完了後の次へも選んだ場面の次の教材フレーズへ進む',()=>{
+ const b=boot({sr:true});b.click('tab',{value:'role'});b.click('situation-select',{value:'カフェ'});b.click('role-branch');b.click('conversation-start');b.finishPartner();b.recognizers.at(-1).deliver({results:[[{transcript:'Can I get a latte'}]]});b.advanceFeedback();b.finishPartner();b.recognizers.at(-1).deliver({results:[[{transcript:'I’m having it here.'}]]});b.advanceFeedback();b.finishPartner();b.click('conversation-next');assert.match(b.html(),/id="role-id"/);assert.match(b.html(),/<option value="55" selected>/);assert.match(b.html(),/data-action="conversation-start"/);
+});
