@@ -67,10 +67,10 @@ test('検索・カテゴリー・苦手絞り込み・英日非表示は一覧�
  b.click('clear-filter');b.change('category','カフェ');assert.match(b.html(),/No. 054/);b.click('star');b.change('only-star','',true);assert.match(b.html(),/1 フレーズ/);
  b.click('toggle-en');assert.doesNotMatch(b.html(),/Can I get a latte/);b.click('toggle-ja');assert.doesNotMatch(b.html(),/ラテを/);
 });
-test('双方向の暗記・二重回答防止・誤答優先復習・正答率・学習回数',()=>{
+test('日本語から英語の暗記・二重回答防止・誤答優先復習・正答率・学習回数',()=>{
  const b=boot();b.click('tab',{value:'quiz'});b.click('situation-select',{value:'すべて'});b.click('quiz-reveal');b.click('quiz-wrong');b.click('quiz-wrong');let s=b.saved();assert.equal(s.quiz['1:en'].total,1);assert.equal(s.star[1],true);
  b.click('quiz-next');assert.match(b.html(),/No. 2/);b.click('quiz-reveal');b.click('quiz-correct');b.click('quiz-next');assert.match(b.html(),/前回の復習/);
- b.click('quiz-ja');assert.match(b.html(),/意味を日本語で話そう/);b.click('quiz-reveal');b.click('quiz-correct');s=b.saved();assert.equal(s.quiz['1:ja'].correct,1);assert.equal(s.sessions,1);
+ b.click('quiz-reveal');b.click('quiz-correct');s=b.saved();assert.equal(s.quiz['1:en'].correct,1);assert.equal(s.sessions,1);
  b.click('tab',{value:'progress'});assert.match(b.html(),/2 \/ 3 問正解/);assert.match(b.html(),/>67<small>/);assert.match(b.html(),/>3<small> 回/);
 });
 test('localStorage拒否でも全学習画面が動作する',()=>{
@@ -145,10 +145,8 @@ test('認識が違う場合は即誤答にせず再挑戦・自己確認、×を
  assert.notEqual(b.elements.get('result-symbol').textContent,'○');assert.equal(b.saved().quiz?.['1:en'],undefined);assert.match(b.html(),/もう一度話す/);
  b.click('quiz-wrong');assert.equal(b.saved().quiz['1:en'].misses,1);assert.equal(b.saved().star[1],true);
 });
-test('日本語の意味はja-JPで認識、一致時のGOOD、言い換えは自己確認',()=>{
- const b=boot({sr:true});b.click('tab',{value:'quiz'});b.click('situation-select',{value:'すべて'});b.click('quiz-ja');b.click('quiz-recognize');assert.equal(b.recognizers[0].lang,'ja-JP');
- b.recognizers[0].deliver({results:[[{transcript:'調子はどう'}]]});assert.equal(b.saved().quiz['1:ja'].correct,1);assert.equal(b.elements.get('result-feedback').hidden,false);assert.equal(b.elements.get('result-symbol').textContent,'○');
- b.advanceFeedback();b.click('quiz-next');b.click('quiz-recognize');b.recognizers[1].deliver({results:[[{transcript:'元気です。あなたは'}]]});assert.match(b.html(),/自分でも確認/);assert.equal(b.saved().quiz['2:ja'],undefined);
+test('暗記チェックは日本語を見て英語で回答する形式だけで、旧操作では切り替わらない',()=>{
+ const b=boot({sr:true});b.click('tab',{value:'quiz'});b.click('situation-select',{value:'すべて'});assert.doesNotMatch(b.html(),/quiz-ja|quiz-en|英語 → 意味|意味を日本語/);assert.match(b.html(),/調子はどう/);b.click('quiz-ja');b.click('quiz-recognize');assert.equal(b.recognizers[0].lang,'en-AU');b.recognizers[0].deliver({results:[[{transcript:'How is it going'}]]});assert.equal(b.saved().quiz['1:en'].correct,1);assert.equal(b.saved().quiz['1:ja'],undefined);
 });
 test('音声非対応時は自己確認を記録し、○による音声一致とは区別',()=>{
  const b=boot();b.click('tab',{value:'quiz'});b.click('situation-select',{value:'すべて'});assert.match(b.html(),/認識に非対応/);b.click('quiz-reveal');b.click('quiz-correct');assert.equal(b.saved().quiz['1:en'].correct,1);assert.notEqual(b.elements.get('result-symbol').textContent,'○');
@@ -158,8 +156,8 @@ test('全文表示ロールプレイは開始前から両役の全セリフが�
  b.click('role-line-audio',{index:'2'});assert.equal(b.spoken.at(-1).text,data[0].dialogue[2].text);
  b.click('conversation-start');b.finishPartner();assert.match(b.html(),/completed-turn/);assert.match(b.html(),/あなたの番/);
 });
-test('クイズの方向変更・次問・画面移動で古い認識結果を破棄',()=>{
- const b=boot({sr:true});b.click('tab',{value:'quiz'});b.click('situation-select',{value:'すべて'});b.click('quiz-recognize');const old=b.recognizers[0].onresult;b.click('quiz-ja');old({results:[[{transcript:'How is it going?'}]]});assert.equal(b.saved().quiz?.['1:en'],undefined);assert.match(b.html(),/意味を日本語/);
+test('クイズの場面変更・次問・画面移動で古い認識結果を破棄',()=>{
+ const b=boot({sr:true});b.click('tab',{value:'quiz'});b.click('situation-select',{value:'すべて'});b.click('quiz-recognize');const old=b.recognizers[0].onresult;b.click('situations-back');b.click('situation-select',{value:'カフェ'});old({results:[[{transcript:'How is it going?'}]]});assert.equal(b.saved().quiz?.['1:en'],undefined);assert.match(b.html(),/No. 54/);
 });
 test('短縮形・スラッシュ・括弧の正当な選択表現で一致、語順や異なる単語は区別',()=>{
  const {ctx}=boot(),C=ctx.AussieCore;
@@ -222,11 +220,11 @@ test('発音練習の前後移動と正解後の自動移動は選択シーン�
  const b=boot({sr:true});b.click('tab',{value:'speak'});b.click('situation-select',{value:'カフェ'});assert.match(b.html(),/Can I get a latte/);assert.match(b.html(),/1 \/ 16/);
  b.click('prev');assert.match(b.html(),/I’m allergic to nuts/);assert.match(b.html(),/16 \/ 16/);b.click('recognize');b.recognizers[0].deliver({results:[[{transcript:data.filter(p=>p.category==='カフェ').at(-1).en}]]});b.advanceFeedback();assert.match(b.html(),/Can I get a latte/);assert.match(b.html(),/1 \/ 16/);
 });
-test('暗記の誤答優先・次問・出題方向変更も選択シーン外を出題しない',()=>{
+test('暗記の誤答優先・次問も選択シーン外を出題しない',()=>{
  const b=boot({stored:{done:{},star:{1:true},quiz:{'1:en':{total:5,correct:0,misses:5,lastWrong:true},'55:en':{total:1,correct:0,misses:1,lastWrong:true}}}});
  b.click('tab',{value:'quiz'});b.click('situation-select',{value:'カフェ'});assert.match(b.html(),/No. 55/);
  for(let i=0;i<20;i++){const id=Number(b.html().match(/No\. (\d+)/)[1]);assert.ok(data.filter(p=>p.category==='カフェ').some(p=>p.id===id));b.click('quiz-reveal');b.click('quiz-correct');b.click('quiz-next');}
- b.click('quiz-ja');const id=Number(b.html().match(/No\. (\d+)/)[1]);assert.ok(data.filter(p=>p.category==='カフェ').some(p=>p.id===id));
+ const id=Number(b.html().match(/No\. (\d+)/)[1]);assert.ok(data.filter(p=>p.category==='カフェ').some(p=>p.id===id));
 });
 test('会話は選んだ場面の教材を表示し、Extra Practiceも対応する場面だけ表示',()=>{
  const b=boot();b.click('tab',{value:'role'});b.click('situation-select',{value:'カフェ'});assert.match(b.html(),/data-phrase-id="54"/);assert.doesNotMatch(b.html(),/id="role-id"|id="role-category"/);
