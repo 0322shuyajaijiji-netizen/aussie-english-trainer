@@ -67,7 +67,7 @@ test('検索・カテゴリー・苦手絞り込み・英日非表示は一覧�
  b.click('toggle-en');assert.doesNotMatch(b.html(),/Can I get a latte/);b.click('toggle-ja');assert.doesNotMatch(b.html(),/ラテを/);
 });
 test('双方向の暗記・二重回答防止・誤答優先復習・正答率・学習回数',()=>{
- const b=boot();b.click('tab',{value:'quiz'});b.click('quiz-reveal');b.click('quiz-wrong');b.click('quiz-wrong');let s=b.saved();assert.equal(s.quiz['1:en'].total,1);assert.equal(s.star[1],true);
+ const b=boot();b.click('tab',{value:'quiz'});b.click('situation-select',{value:'すべて'});b.click('quiz-reveal');b.click('quiz-wrong');b.click('quiz-wrong');let s=b.saved();assert.equal(s.quiz['1:en'].total,1);assert.equal(s.star[1],true);
  b.click('quiz-next');assert.match(b.html(),/No. 2/);b.click('quiz-reveal');b.click('quiz-correct');b.click('quiz-next');assert.match(b.html(),/前回の復習/);
  b.click('quiz-ja');assert.match(b.html(),/意味を日本語で話そう/);b.click('quiz-reveal');b.click('quiz-correct');s=b.saved();assert.equal(s.quiz['1:ja'].correct,1);assert.equal(s.sessions,1);
  b.click('tab',{value:'progress'});assert.match(b.html(),/2 \/ 3 問正解/);assert.match(b.html(),/>67<small>/);assert.match(b.html(),/>3<small> 回/);
@@ -76,7 +76,7 @@ test('localStorage拒否でも全学習画面が動作する',()=>{
  const b=boot({storageFails:true});for(const value of ['home','learn','speak','quiz','role','progress']){b.click('tab',{value});assert.ok(b.html().length>500);}b.click('tab',{value:'learn'});b.click('situation-select',{value:'すべて'});assert.doesNotThrow(()=>b.click('done'));assert.match(b.html(),/保存できません/);
 });
 test('音声はen-AU優先、無ければ他の英語。非対応でも照合可能',()=>{
- const b=boot();b.click('tab',{value:'speak'});b.click('speak-phrase');assert.equal(b.spoken.at(-1).voice.lang,'en-AU');
+ const b=boot();b.click('tab',{value:'speak'});b.click('situation-select',{value:'すべて'});b.click('speak-phrase');assert.equal(b.spoken.at(-1).voice.lang,'en-AU');
  b.ctx.speechSynthesis.getVoices=()=>[{name:'fallback',lang:'en-GB'}];b.click('speak-phrase');assert.equal(b.spoken.at(-1).voice.lang,'en-GB');
  b.elements.get('speech-input').value="How's it going?";b.click('compare');assert.match(b.elements.get('status').innerHTML,/100%/);assert.match(b.elements.get('status').innerHTML,/発音の点数ではありません/);
 });
@@ -85,22 +85,22 @@ test('音声はen-AU優先、無ければ他の英語。非対応でも照合可
 
 
 test('音声認識の成功・ネットワーク失敗・遷移後の遅延コールバック',()=>{
- const b=boot({sr:true});b.click('tab',{value:'speak'});b.click('recognize');const r=b.recognizers[0],result=r.onresult;r.deliver({results:[[{transcript:"How's it going?"}]]});assert.match(b.elements.get('status').innerHTML,/100%/);
+ const b=boot({sr:true});b.click('tab',{value:'speak'});b.click('situation-select',{value:'すべて'});b.click('recognize');const r=b.recognizers[0],result=r.onresult;r.deliver({results:[[{transcript:"How's it going?"}]]});assert.match(b.elements.get('status').innerHTML,/100%/);
  b.click('recognize');b.recognizers[1].onerror({error:'network'});assert.match(b.elements.get('speech-state').textContent,/接続できません/);
  b.click('recognize');const late=b.recognizers[2].onresult;b.click('tab',{value:'home'});assert.doesNotThrow(()=>late({results:[[{transcript:'late'}]]}));assert.match(b.html(),/Australia/);
 });
 test('教材ロールプレイはA/B両役で完了できる',()=>{
- const b=boot();b.click('tab',{value:'role'});b.change('my-role','A');for(let i=0;i<data[0].dialogue.length;i++)b.click('role-next');assert.match(b.html(),/会話完了/);assert.equal(b.saved().attempts[1],1);
+ const b=boot();b.click('tab',{value:'role'});b.click('situation-select',{value:'すべて'});b.change('my-role','A');for(let i=0;i<data[0].dialogue.length;i++)b.click('role-next');assert.match(b.html(),/会話完了/);assert.equal(b.saved().attempts[1],1);
 });
 test('4場面の分岐は全ノード到達可能、全選択先が存在、終了に到達',()=>{
  const {ctx}=boot();assert.equal(ctx.BRANCHES.length,4);
  for(const b of ctx.BRANCHES){const visited=new Set(),walk=id=>{if(visited.has(id))return;visited.add(id);const node=b.nodes[id];assert.ok(node);for(const o of node.options){assert.ok(b.nodes[o.next]);walk(o.next);}};walk(b.start);assert.equal(visited.size,Object.keys(b.nodes).length);assert.ok([...visited].some(id=>b.nodes[id].options.length===0));}
 });
 test('分岐練習の会話完了は重複カウントしない',()=>{
- const b=boot();b.click('tab',{value:'role'});b.click('role-branch');b.click('branch-hear');b.click('branch-choice',{index:'0'});b.click('branch-hear');b.click('branch-choice',{index:'0'});b.click('branch-hear');b.click('branch-hear');assert.match(b.html(),/会話完了/);assert.equal(Object.values(b.saved().days)[0],1);
+ const b=boot();b.click('tab',{value:'role'});b.click('situation-select',{value:'すべて'});b.click('role-branch');b.click('branch-hear');b.click('branch-choice',{index:'0'});b.click('branch-hear');b.click('branch-choice',{index:'0'});b.click('branch-hear');b.click('branch-hear');assert.match(b.html(),/会話完了/);assert.equal(Object.values(b.saved().days)[0],1);
 });
 test('解答・検索・会話・バックアップ由来の文字列はHTMLエスケープ',()=>{
- const b=boot({sr:true});b.click('tab',{value:'quiz'});b.click('quiz-recognize');b.recognizers[0].deliver({results:[[{transcript:'<img src=x onerror=alert(1)>'}]]});assert.doesNotMatch(b.html(),/<img src=x/);assert.match(b.html(),/&lt;img/);
+ const b=boot({sr:true});b.click('tab',{value:'quiz'});b.click('situation-select',{value:'すべて'});b.click('quiz-recognize');b.recognizers[0].deliver({results:[[{transcript:'<img src=x onerror=alert(1)>'}]]});assert.doesNotMatch(b.html(),/<img src=x/);assert.match(b.html(),/&lt;img/);
 });
 test('静的参照は全て相対パス・存在し、外部APIや有料依存がない',()=>{
  const html=read('index.html');for(const m of html.matchAll(/(?:src|href)="([^"#]+)"/g))assert.ok(fs.existsSync(path.join(root,m[1])),m[1]);
@@ -125,35 +125,35 @@ test('全129会話は空でなく、選択可能なA/B役がある',()=>{
 
 test('両学習画面からゆっくり聞くを削除、クイズに入力欄がない',()=>{
  const b=boot();for(const value of ['learn','speak']){b.click('tab',{value});assert.doesNotMatch(b.html(),/ゆっくり聞く|speak-slow/);}
- b.click('tab',{value:'quiz'});assert.doesNotMatch(b.html(),/<textarea|quiz-input/);assert.match(b.html(),/話して答える/);
+ b.click('tab',{value:'quiz'});b.click('situation-select',{value:'すべて'});assert.doesNotMatch(b.html(),/<textarea|quiz-input/);assert.match(b.html(),/話して答える/);
 });
 test('英語の音声回答が一致すると○表示、正解を一度だけ記録',()=>{
- const b=boot({sr:true});b.click('tab',{value:'quiz'});b.click('quiz-recognize');const r=b.recognizers[0];assert.equal(r.lang,'en-AU');
+ const b=boot({sr:true});b.click('tab',{value:'quiz'});b.click('situation-select',{value:'すべて'});b.click('quiz-recognize');const r=b.recognizers[0];assert.equal(r.lang,'en-AU');
  const callback=r.onresult;callback({results:[[{transcript:'How is it going?'}]]});r.onend?.();
  assert.equal(b.saved().quiz['1:en'].correct,1);assert.equal(b.elements.get('result-feedback').hidden,false);assert.equal(b.elements.get('result-symbol').textContent,'○');assert.match(b.elements.get('result-label').textContent,/一致/);
  callback({results:[[{transcript:'How is it going?'}]]});b.click('quiz-correct');assert.equal(b.saved().quiz['1:en'].total,1);
  b.advanceFeedback();assert.equal(b.elements.get('result-feedback').hidden,true);
 });
 test('認識が違う場合は即誤答にせず再挑戦・自己確認、×を表示',()=>{
- const b=boot({sr:true});b.click('tab',{value:'quiz'});b.click('quiz-recognize');b.recognizers[0].deliver({results:[[{transcript:'Sorry'}]]});
+ const b=boot({sr:true});b.click('tab',{value:'quiz'});b.click('situation-select',{value:'すべて'});b.click('quiz-recognize');b.recognizers[0].deliver({results:[[{transcript:'Sorry'}]]});
  assert.notEqual(b.elements.get('result-symbol').textContent,'○');assert.equal(b.saved().quiz?.['1:en'],undefined);assert.match(b.html(),/もう一度話す/);
  b.click('quiz-wrong');assert.equal(b.saved().quiz['1:en'].misses,1);assert.equal(b.saved().star[1],true);
 });
 test('日本語の意味はja-JPで認識、一致時のGOOD、言い換えは自己確認',()=>{
- const b=boot({sr:true});b.click('tab',{value:'quiz'});b.click('quiz-ja');b.click('quiz-recognize');assert.equal(b.recognizers[0].lang,'ja-JP');
+ const b=boot({sr:true});b.click('tab',{value:'quiz'});b.click('situation-select',{value:'すべて'});b.click('quiz-ja');b.click('quiz-recognize');assert.equal(b.recognizers[0].lang,'ja-JP');
  b.recognizers[0].deliver({results:[[{transcript:'調子はどう'}]]});assert.equal(b.saved().quiz['1:ja'].correct,1);assert.equal(b.elements.get('result-feedback').hidden,false);assert.equal(b.elements.get('result-symbol').textContent,'○');
  b.advanceFeedback();b.click('quiz-next');b.click('quiz-recognize');b.recognizers[1].deliver({results:[[{transcript:'元気です。あなたは'}]]});assert.match(b.html(),/自分でも確認/);assert.equal(b.saved().quiz['2:ja'],undefined);
 });
 test('音声非対応時は自己確認を記録し、○による音声一致とは区別',()=>{
- const b=boot();b.click('tab',{value:'quiz'});assert.match(b.html(),/認識に非対応/);b.click('quiz-reveal');b.click('quiz-correct');assert.equal(b.saved().quiz['1:en'].correct,1);assert.notEqual(b.elements.get('result-symbol').textContent,'○');
+ const b=boot();b.click('tab',{value:'quiz'});b.click('situation-select',{value:'すべて'});assert.match(b.html(),/認識に非対応/);b.click('quiz-reveal');b.click('quiz-correct');assert.equal(b.saved().quiz['1:en'].correct,1);assert.notEqual(b.elements.get('result-symbol').textContent,'○');
 });
 test('全文表示ロールプレイは開始前から両役の全セリフが見える',()=>{
- const b=boot();b.click('tab',{value:'role'});for(const d of data[0].dialogue)assert.ok(b.html().includes(d.text.replaceAll('’','’')),d.text);assert.match(b.html(),/aria-current="step"/);assert.match(b.html(),/会話の全文/);assert.doesNotMatch(b.html(),/セリフのヒント/);
+ const b=boot();b.click('tab',{value:'role'});b.click('situation-select',{value:'すべて'});for(const d of data[0].dialogue)assert.ok(b.html().includes(d.text.replaceAll('’','’')),d.text);assert.match(b.html(),/aria-current="step"/);assert.match(b.html(),/会話の全文/);assert.doesNotMatch(b.html(),/セリフのヒント/);
  b.click('role-line-audio',{index:'2'});assert.equal(b.spoken.at(-1).text,data[0].dialogue[2].text);
  b.click('role-next');assert.match(b.html(),/completed-turn/);assert.match(b.html(),/あなたの番/);
 });
 test('クイズの方向変更・次問・画面移動で古い認識結果を破棄',()=>{
- const b=boot({sr:true});b.click('tab',{value:'quiz'});b.click('quiz-recognize');const old=b.recognizers[0].onresult;b.click('quiz-ja');old({results:[[{transcript:'How is it going?'}]]});assert.equal(b.saved().quiz?.['1:en'],undefined);assert.match(b.html(),/意味を日本語/);
+ const b=boot({sr:true});b.click('tab',{value:'quiz'});b.click('situation-select',{value:'すべて'});b.click('quiz-recognize');const old=b.recognizers[0].onresult;b.click('quiz-ja');old({results:[[{transcript:'How is it going?'}]]});assert.equal(b.saved().quiz?.['1:en'],undefined);assert.match(b.html(),/意味を日本語/);
 });
 test('短縮形・スラッシュ・括弧の正当な選択表現で一致、語順や異なる単語は区別',()=>{
  const {ctx}=boot(),C=ctx.AussieCore;
@@ -171,18 +171,18 @@ test('学習メニューは一箇所、ホームに重複した遷移ボタン�
  assert.doesNotMatch(read('app.js')+read('speech.js'),/MediaRecorder|getUserMedia|recordingUrl/);
 });
 test('発音練習で全体が一致したときGOOD、欠落があれば表示しない',()=>{
- const b=boot({sr:true});b.click('tab',{value:'speak'});b.click('recognize');b.recognizers[0].deliver({results:[[{transcript:'How is it going'}]]});assert.equal(b.elements.get('result-feedback').hidden,false);assert.equal(b.elements.get('result-symbol').textContent,'○');
+ const b=boot({sr:true});b.click('tab',{value:'speak'});b.click('situation-select',{value:'すべて'});b.click('recognize');b.recognizers[0].deliver({results:[[{transcript:'How is it going'}]]});assert.equal(b.elements.get('result-feedback').hidden,false);assert.equal(b.elements.get('result-symbol').textContent,'○');
  b.advanceFeedback();b.click('recognize');b.recognizers[1].deliver({results:[[{transcript:'How is going'}]]});assert.equal(b.elements.get('result-symbol').textContent,'×');
 });
 test('教材会話は一致なら○と次の番、不一致なら同じ番で再挑戦',()=>{
- const b=boot({sr:true});b.click('tab',{value:'role'});b.change('my-role','A');b.click('role-recognize');b.recognizers[0].deliver({results:[[{transcript:'Sorry'}]]});assert.notEqual(b.elements.get('result-symbol').textContent,'○');assert.match(b.html(),/1 \/ 4/);
+ const b=boot({sr:true});b.click('tab',{value:'role'});b.click('situation-select',{value:'すべて'});b.change('my-role','A');b.click('role-recognize');b.recognizers[0].deliver({results:[[{transcript:'Sorry'}]]});assert.notEqual(b.elements.get('result-symbol').textContent,'○');assert.match(b.html(),/1 \/ 4/);
  b.click('role-recognize');b.recognizers[1].deliver({results:[[{transcript:data[0].dialogue[0].text}]]});assert.equal(b.elements.get('result-feedback').hidden,false);assert.equal(b.elements.get('result-symbol').textContent,'○');b.advanceFeedback();assert.match(b.html(),/2 \/ 4/);
 });
 test('分岐会話も声で返答し、一致すると○と次の分岐へ進む',()=>{
- const b=boot({sr:true});b.click('tab',{value:'role'});b.click('role-branch');b.click('branch-hear');b.click('branch-recognize');b.recognizers[0].deliver({results:[[{transcript:'Can I get a latte'}]]});assert.equal(b.elements.get('result-feedback').hidden,false);assert.equal(b.elements.get('result-symbol').textContent,'○');b.advanceFeedback();assert.match(b.html(),/Having here, or take away/);
+ const b=boot({sr:true});b.click('tab',{value:'role'});b.click('situation-select',{value:'すべて'});b.click('role-branch');b.click('branch-hear');b.click('branch-recognize');b.recognizers[0].deliver({results:[[{transcript:'Can I get a latte'}]]});assert.equal(b.elements.get('result-feedback').hidden,false);assert.equal(b.elements.get('result-symbol').textContent,'○');b.advanceFeedback();assert.match(b.html(),/Having here, or take away/);
 });
 test('発話終了イベントでstopし、遅い確定結果を自動判定',()=>{
- const b=boot({sr:true});b.click('tab',{value:'speak'});b.click('recognize');const r=b.recognizers[0];const interim=[{transcript:'How is it'}];interim.isFinal=false;r.onresult({results:[interim]});assert.equal(b.elements.get('speech-transcript').textContent,'How is it');r.onspeechend();assert.equal(r.stopped,true);assert.notEqual(r.aborted,true);r.deliver({results:[[{transcript:'How is it going'}]]});assert.equal(b.elements.get('result-feedback').hidden,false);assert.equal(b.elements.get('result-symbol').textContent,'○');
+ const b=boot({sr:true});b.click('tab',{value:'speak'});b.click('situation-select',{value:'すべて'});b.click('recognize');const r=b.recognizers[0];const interim=[{transcript:'How is it'}];interim.isFinal=false;r.onresult({results:[interim]});assert.equal(b.elements.get('speech-transcript').textContent,'How is it');r.onspeechend();assert.equal(r.stopped,true);assert.notEqual(r.aborted,true);r.deliver({results:[[{transcript:'How is it going'}]]});assert.equal(b.elements.get('result-feedback').hidden,false);assert.equal(b.elements.get('result-symbol').textContent,'○');
 });
 
 test('フレーズは最初に7シチュエーションを表示し、選択後だけフレーズを表示',()=>{
@@ -191,16 +191,50 @@ test('フレーズは最初に7シチュエーションを表示し、選択後�
  b.click('situations-back');assert.match(b.html(),/situation-grid/);
 });
 test('音声一致は○、不一致は×。ボタンなしで表示が消え、正解は次へ進む',()=>{
- const b=boot({sr:true});b.click('tab',{value:'speak'});b.click('recognize');b.recognizers[0].deliver({results:[[{transcript:'How is it going'}]]});assert.equal(b.elements.get('result-symbol').textContent,'○');assert.doesNotMatch(read('index.html'),/<dialog|good-close|つづける/);b.advanceFeedback();assert.equal(b.elements.get('result-feedback').hidden,true);assert.match(b.html(),/Good, yourself/);
+ const b=boot({sr:true});b.click('tab',{value:'speak'});b.click('situation-select',{value:'すべて'});b.click('recognize');b.recognizers[0].deliver({results:[[{transcript:'How is it going'}]]});assert.equal(b.elements.get('result-symbol').textContent,'○');assert.doesNotMatch(read('index.html'),/<dialog|good-close|つづける/);b.advanceFeedback();assert.equal(b.elements.get('result-feedback').hidden,true);assert.match(b.html(),/Good, yourself/);
  b.click('recognize');b.recognizers[1].deliver({results:[[{transcript:'Sorry'}]]});assert.equal(b.elements.get('result-symbol').textContent,'×');b.advanceFeedback();assert.match(b.html(),/Good, yourself/);
 });
 test('正解表示中に別の画面へ移動しても古い自動遷移を実行しない',()=>{
- const b=boot({sr:true});b.click('tab',{value:'quiz'});b.click('quiz-recognize');b.recognizers[0].deliver({results:[[{transcript:'How is it going'}]]});const timer=[...b.timeouts.values()].find(t=>t.ms===1100);b.click('tab',{value:'home'});timer.fn();assert.match(b.html(),/Australia/);assert.equal(b.elements.get('result-feedback').hidden,true);
+ const b=boot({sr:true});b.click('tab',{value:'quiz'});b.click('situation-select',{value:'すべて'});b.click('quiz-recognize');b.recognizers[0].deliver({results:[[{transcript:'How is it going'}]]});const timer=[...b.timeouts.values()].find(t=>t.ms===1100);b.click('tab',{value:'home'});timer.fn();assert.match(b.html(),/Australia/);assert.equal(b.elements.get('result-feedback').hidden,true);
 });
 test('音声入力画面に手動終了ボタンを出さない',()=>{
  const b=boot({sr:true});for(const value of ['speak','quiz','role']){b.click('tab',{value});assert.doesNotMatch(b.html(),/recognize-stop|recognition-stop|話し終わった/);}
 });
 test('暗記は正解後自動で次問へ、会話の手動スキップと自動遷移は二重実行しない',()=>{
- const q=boot({sr:true});q.click('tab',{value:'quiz'});q.click('quiz-recognize');q.recognizers[0].deliver({results:[[{transcript:'How is it going'}]]});q.advanceFeedback();assert.match(q.html(),/No. 2/);
- const b=boot({sr:true});b.click('tab',{value:'role'});b.change('my-role','A');b.click('role-recognize');b.recognizers[0].deliver({results:[[{transcript:data[0].dialogue[0].text}]]});const old=[...b.timeouts.values()].find(t=>t.ms===1100);b.click('role-next');old.fn();assert.match(b.html(),/2 \/ 4/);
+ const q=boot({sr:true});q.click('tab',{value:'quiz'});q.click('situation-select',{value:'すべて'});q.click('quiz-recognize');q.recognizers[0].deliver({results:[[{transcript:'How is it going'}]]});q.advanceFeedback();assert.match(q.html(),/No. 2/);
+ const b=boot({sr:true});b.click('tab',{value:'role'});b.click('situation-select',{value:'すべて'});b.change('my-role','A');b.click('role-recognize');b.recognizers[0].deliver({results:[[{transcript:data[0].dialogue[0].text}]]});const old=[...b.timeouts.values()].find(t=>t.ms===1100);b.click('role-next');old.fn();assert.match(b.html(),/2 \/ 4/);
+});
+test('全4学習モードは最初にシチュエーションを選び、選び直せる',()=>{
+ const b=boot();for(const value of ['learn','speak','quiz','role']){
+  b.click('tab',{value});assert.match(b.html(),/situation-grid/);assert.doesNotMatch(b.html(),/id="recognize-start"|id="role-id"|id="quiz-input"/);
+  b.click('situation-select',{value:'カフェ'});assert.doesNotMatch(b.html(),/situation-grid/);assert.match(b.html(),/カフェ/);
+  b.click('situations-back');assert.match(b.html(),/situation-grid/);
+ }
+});
+test('発音練習の前後移動と正解後の自動移動は選択シーンの範囲で循環',()=>{
+ const b=boot({sr:true});b.click('tab',{value:'speak'});b.click('situation-select',{value:'カフェ'});assert.match(b.html(),/Can I get a latte/);assert.match(b.html(),/1 \/ 13/);
+ b.click('prev');assert.match(b.html(),/Can I get the bill/);assert.match(b.html(),/13 \/ 13/);b.click('recognize');b.recognizers[0].deliver({results:[[{transcript:'Can I get the bill'}]]});b.advanceFeedback();assert.match(b.html(),/Can I get a latte/);assert.match(b.html(),/1 \/ 13/);
+});
+test('暗記の誤答優先・次問・出題方向変更も選択シーン外を出題しない',()=>{
+ const b=boot({stored:{done:{},star:{1:true},quiz:{'1:en':{total:5,correct:0,misses:5,lastWrong:true},'55:en':{total:1,correct:0,misses:1,lastWrong:true}}}});
+ b.click('tab',{value:'quiz'});b.click('situation-select',{value:'カフェ'});assert.match(b.html(),/No. 55/);
+ for(let i=0;i<20;i++){const id=Number(b.html().match(/No\. (\d+)/)[1]);assert.ok(id>=54&&id<=66);b.click('quiz-reveal');b.click('quiz-correct');b.click('quiz-next');}
+ b.click('quiz-ja');const id=Number(b.html().match(/No\. (\d+)/)[1]);assert.ok(id>=54&&id<=66);
+});
+test('教材会話の候補と追加分岐を選択シーンに限定',()=>{
+ const b=boot();b.click('tab',{value:'role'});b.click('situation-select',{value:'カフェ'});
+ const select=b.html().match(/<select id="role-id">([\s\S]*?)<\/select>/)[1];const ids=[...select.matchAll(/value="(\d+)"/g)].map(x=>Number(x[1]));assert.equal(ids.length,13);assert.ok(ids.every(id=>id>=54&&id<=66));
+ b.click('role-branch');assert.match(b.html(),/value="cafe"/);assert.doesNotMatch(b.html(),/value="airport"|value="school"|value="daily"/);
+ b.click('situations-back');b.click('situation-select',{value:'空港・機内'});b.click('role-branch');assert.match(b.html(),/value="airport"/);assert.doesNotMatch(b.html(),/value="cafe"/);
+ b.click('situations-back');b.click('situation-select',{value:'リアクション・フィラー'});assert.doesNotMatch(b.html(),/data-action="role-branch"/);assert.match(b.html(),/id="role-id"/);
+});
+test('7シチュエーションは発音・暗記・会話のどのモードでも対象教材に一致',()=>{
+ const b=boot();for(const value of ['speak','quiz','role'])for(const cat of [...new Set(data.map(p=>p.category))]){
+  b.click('tab',{value});b.click('situations-back');b.click('situation-select',{value:cat});const first=data.find(p=>p.category===cat);assert.match(b.html(),new RegExp(cat));
+  if(value==='quiz')assert.ok(b.html().includes(`No. ${first.id}`));
+  if(value==='role')assert.ok(b.html().includes(`<option value="${first.id}" selected>`));
+ }
+});
+test('シチュエーションを変更した後に古い自動遷移が混ざらない',()=>{
+ const b=boot({sr:true});b.click('tab',{value:'speak'});b.click('situation-select',{value:'カフェ'});b.click('recognize');b.recognizers[0].deliver({results:[[{transcript:'Can I get a latte'}]]});const old=[...b.timeouts.values()].find(t=>t.ms===1100);b.click('situations-back');b.click('situation-select',{value:'空港・機内'});old.fn();assert.match(b.html(),/I’m checking in for my flight/);assert.match(b.html(),/1 \/ 21/);
 });
