@@ -6,7 +6,7 @@ import {fileURLToPath} from 'node:url';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const read=f=>fs.readFileSync(path.join(root,f),'utf8');
 const html=read('index.html');
-const runtime=['index.html','styles.css','app.js','core.js','speech.js','feedback.js','scenarios.js','phrases.js','phrases.json','assets/mark.svg','assets/australia.svg','.nojekyll'];
+const runtime=['index.html','styles.css','app.js','core.js','speech.js','feedback.js','conversation.js','scenarios.js','phrases.js','phrases.json','assets/mark.svg','assets/australia.svg','.nojekyll'];
 for(const f of runtime)assert.ok(fs.existsSync(path.join(root,f)),`必要なファイルがありません: ${f}`);
 // /repository-name/ の下でのGitHub Pages配信を前提に参照を検査。
 for(const match of html.matchAll(/(?:src|href)="([^"#]+)"/g)){
@@ -20,7 +20,7 @@ assert.equal(data.length,129);assert.equal(new Set(data.map(x=>x.id)).size,129);
 assert.deepEqual(data,JSON.parse(read('original/phrases.json')));
 const context={window:{}};vm.runInNewContext(read('phrases.js'),context);
 assert.equal(JSON.stringify(data),JSON.stringify(context.window.PHRASES),'教材JSONと生成JSが不一致');
-for(const f of ['index.html','styles.css','app.js','core.js','speech.js','feedback.js','scenarios.js']){
+for(const f of ['index.html','styles.css','app.js','core.js','speech.js','feedback.js','conversation.js','scenarios.js']){
  const text=read(f).replace(/xmlns="[^"]*"/g,'');
  assert.doesNotMatch(text,/fetch\s*\(|XMLHttpRequest|https?:\/\//i,`外部サービス依存: ${f}`);
  assert.doesNotMatch(text,/gh[pousr]_[A-Za-z0-9]{20,}|sk-[A-Za-z0-9]{20,}|BEGIN (?:RSA |OPENSSH )?PRIVATE KEY/,`秘密情報らしき内容: ${f}`);

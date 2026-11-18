@@ -2,9 +2,9 @@
 (function(root){
 'use strict';
 function create({onState=()=>{}}={}){
- let active=null, sequence=0, preferredEnglish='en-AU';
+ let active=null, sequence=0, preferredEnglish='en-AU',errorHandler=null;
  const supported=()=>!!(root.SpeechRecognition||root.webkitSpeechRecognition)&&root.isSecureContext!==false;
- function emit(phase,message,text=''){onState({phase,message,text});}
+ function emit(phase,message,text=''){onState({phase,message,text});if(phase==='complete')errorHandler=null;if(phase==='error'){const callback=errorHandler;errorHandler=null;callback?.(message);}}
  function clear(s){for(const timer of s.timers)root.clearTimeout(timer);s.timers=[];}
  function timer(s,fn,ms){const id=root.setTimeout(()=>{if(active===s)fn();},ms);s.timers.push(id);return id;}
  function detach(s){s.r.onstart=s.r.onresult=s.r.onerror=s.r.onend=s.r.onspeechend=null;}
@@ -29,7 +29,7 @@ function create({onState=()=>{}}={}){
   else emit('error','声を認識できませんでした。マイクを押し直して、表示が「話してください」になってから話そう。');
  }
  function cancel(){
-  const s=active;if(!s)return;
+  const s=active;errorHandler=null;if(!s)return;
   release(s);try{s.r.abort();}catch{}emit('idle','マイクを押してスタート');
  }
  function stop(){
@@ -39,8 +39,9 @@ function create({onState=()=>{}}={}){
   try{s.r.stop();}catch{finish(s);return;}
   timer(s,()=>finish(s),1800);
  }
- function start({lang='en-AU',expected='',onResult=()=>{}}={}){
+ function start({lang='en-AU',expected='',onResult=()=>{},onError=()=>{}}={}){
   if(active)return false;
+  errorHandler=onError;
   if(!supported()){emit('error',root.isSecureContext===false?'HTTPSで開いてください。':'このブラウザは音声認識に非対応です。Chrome・Edge・Safariで直接開いてください。');return false;}
   const SR=root.SpeechRecognition||root.webkitSpeechRecognition;
   let r;try{r=new SR();}catch{emit('error','音声入力を準備できません。ブラウザを開き直してください。');return false;}

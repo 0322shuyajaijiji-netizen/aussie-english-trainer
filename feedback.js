@@ -8,24 +8,30 @@ function create({show=()=>{},hide=()=>{}}={}){
    context??=new AC();if(context.state==='suspended')context.resume()?.catch(()=>{});
   }catch{}
  }
- function sound(correct){
+ function melody(notes,{type='sine',spacing=.13,duration=.2}={}){
   if(!context||context.state==='suspended'||context.state==='closed')return;
   try{const now=context.currentTime;
-   (correct?[660,880]:[200,150]).forEach((hz,i)=>{
-    const oscillator=context.createOscillator(),gain=context.createGain();
-    oscillator.type=correct?'sine':'triangle';oscillator.frequency.setValueAtTime(hz,now+i*.13);
-    gain.gain.setValueAtTime(0,now+i*.13);gain.gain.linearRampToValueAtTime(.1,now+i*.13+.015);gain.gain.exponentialRampToValueAtTime(.001,now+i*.13+.18);
-    oscillator.connect(gain);gain.connect(context.destination);oscillator.start(now+i*.13);oscillator.stop(now+i*.13+.2);
+   notes.forEach((hz,i)=>{
+    const oscillator=context.createOscillator(),gain=context.createGain(),time=now+i*spacing;
+    oscillator.type=type;oscillator.frequency.setValueAtTime(hz,time);
+    gain.gain.setValueAtTime(0,time);gain.gain.linearRampToValueAtTime(.1,time+.015);gain.gain.exponentialRampToValueAtTime(.001,time+duration-.02);
+    oscillator.connect(gain);gain.connect(context.destination);oscillator.start(time);oscillator.stop(time+duration);
     oscillator.onended=()=>{oscillator.disconnect();gain.disconnect();};
    });
   }catch{}
  }
+ function sound(correct){melody(correct?[660,880]:[200,150],{type:correct?'sine':'triangle'});}
  function cancel(){generation++;root.clearTimeout(timeout);timeout=null;hide();}
  function present(correct,onDone){
   cancel();const id=generation;show({correct,symbol:correct?'○':'×',label:correct?'一致！':'もう一度'});sound(correct);
   timeout=root.setTimeout(()=>{if(id!==generation)return;timeout=null;hide();if(onDone)onDone();},1100);
  }
- return {prime,present,cancel};
+ function celebrate(){
+  cancel();const id=generation;show({correct:true,symbol:'✦',label:'Good on ya!',kind:'complete'});
+  melody([523.25,659.25,783.99,1046.5,783.99,1046.5,1318.51],{spacing:.13,duration:.33});
+  timeout=root.setTimeout(()=>{if(id!==generation)return;timeout=null;hide();},2800);
+ }
+ return {prime,present,cancel,celebrate};
 }
 root.AussieFeedback={create};
 })(typeof window==='undefined'?globalThis:window);

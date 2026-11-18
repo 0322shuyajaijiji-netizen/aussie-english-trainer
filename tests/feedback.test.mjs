@@ -30,3 +30,9 @@ test('音声出力非対応でも○×と自動消去は動作する',()=>{
 test('ユーザー操作での準備前には効果音を再生しない',()=>{
  const b=setup();b.feedback.present(true);assert.equal(b.notes.length,0);b.feedback.prime();b.feedback.present(true);assert.equal(b.notes.length,2);
 });
+test('会話完了はGood on ya!と通常の正解音と異なる上昇ファンファーレ',()=>{
+ const b=setup();b.feedback.prime();b.feedback.celebrate();assert.equal(b.events.at(-1).label,'Good on ya!');assert.equal(b.events.at(-1).kind,'complete');assert.equal(b.notes.length,7);assert.ok(b.notes.at(-1)>b.notes[0]);assert.equal([...b.timers.values()][0].ms,2800);
+});
+test('会話完了の達成音が使えなくても文字は自動表示・消去',()=>{
+ const b=setup({audio:false});b.feedback.celebrate();assert.equal(b.events.at(-1).label,'Good on ya!');[...b.timers.values()][0].fn();assert.equal(b.events.at(-1),'hide');
+});

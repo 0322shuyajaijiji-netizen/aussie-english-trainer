@@ -68,3 +68,6 @@ test('発話終了を自動検出してstopし、確定結果まで待つ',()=>{
 test('speechendがない実装でも途中結果の更新後の無音待ちで自動停止',()=>{
  const b=setup();b.start();const r=b.recognizers[0];r.onresult({results:[b.result('How is it going',false)]});[...b.timers.values()].find(t=>t.ms===2000).fn();assert.equal(r.stopped,true);r.onend();assert.deepEqual(b.outputs,['How is it going']);
 });
+test('自動会話で音声認識が失敗したとき、停止用のonErrorを一度だけ呼ぶ',()=>{
+ const b=setup();let count=0;b.start({onError:()=>count++});const r=b.recognizers[0],late=r.onerror;r.onerror({error:'not-allowed'});late({error:'network'});assert.equal(count,1);
+});

@@ -13,14 +13,68 @@ let quizDir='en', quizId=null, quizRevealed=false, quizGraded=false, quizText=''
 let roleMode='textbook', roleCategory='すべて', roleId=1, myRole='B', roleTurn=0, roleLog=[], roleStarted=false, roleCounted=false;
 let branchId='cafe', branchNode='order', branchLog=[], branchHeard=false, branchCounted=false;
 let speechPhase='idle';
+let conversationState={phase:'idle',running:false,message:''},conversationLast=null;
 const speech=window.AussieSpeech.create({onState:updateSpeechState});
 let activityStarted=false, toastTimer;
 const GOOD_THRESHOLD=100;
 function icon(name){const paths={home:'M3 10 12 3l9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1Z',learn:'M4 4h6a3 3 0 0 1 3 3v14a4 4 0 0 0-4-2H3V4Zm9 3a3 3 0 0 1 3-3h5v15h-5a4 4 0 0 0-3 2',speak:'M9 5a3 3 0 0 1 6 0v7a3 3 0 0 1-6 0Zm-4 6v1a7 7 0 0 0 14 0v-1M12 19v3m-4 0h8',quiz:'m6 12 4 4 8-9M21 12a9 9 0 1 1-9-9',role:'M21 11a8 8 0 0 1-8 8H7l-5 3 1-6a8 8 0 1 1 18-5ZM7 10h10m-10 4h6',progress:'M4 21V11m8 10V3m8 18V7',play:'m9 5 11 7-11 7Z',arrow:'M4 12h16m-6-6 6 6-6 6',star:'m12 3 3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1Z'};return `<svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${paths[name]||paths.arrow}"/></svg>`;}
 const feedback=window.AussieFeedback.create({
- show:({correct,symbol,label})=>{const box=$('result-feedback');if(!box)return;box.hidden=false;box.setAttribute('data-correct',String(correct));$('result-symbol').textContent=symbol;$('result-label').textContent=label;},
+ show:({correct,symbol,label,kind='result'})=>{const box=$('result-feedback');if(!box)return;box.hidden=false;box.setAttribute('data-correct',String(correct));box.setAttribute('data-kind',kind);$('result-symbol').textContent=symbol;$('result-label').textContent=label;},
  hide:()=>{if($('result-feedback'))$('result-feedback').hidden=true;}
 });
+const conversation=window.AussieConversation.create({
+ getTurn:conversationTurn,
+ play:(text,done,fail)=>speak(text,.9,done,fail),
+ listen:(expected,onResult,onError)=>speech.start({lang:'en-AU',expected,onResult,onError}),
+ judge:(turn,text)=>{
+  let expected=turn.expected,choice;
+  if(roleMode==='branch'){
+   const candidates=branch().nodes[branchNode].options.map((o,index)=>({index,expected:o.en,score:C.spokenCheck(o.en,text,'en').score})).sort((a,b)=>b.score-a.score);
+   expected=candidates[0].expected;choice=candidates[0].index;
+  }
+  const correct=C.spokenCheck(expected,text,'en').score>=GOOD_THRESHOLD;
+  conversationLast={expected,text};return {correct,choice};
+ },
+ feedback:(correct,done)=>feedback.present(correct,done),
+ advance:advanceConversation,
+ complete:()=>{
+  if(roleMode==='textbook'&&!roleCounted){roleCounted=true;activity(roleId);}
+  if(roleMode==='branch'&&!branchCounted){branchCounted=true;activity();}
+  render();feedback.celebrate();
+ },
+ onState:state=>{conversationState=state;if(tab==='role'&&stages.role!=='situations')render();},
+ halt:()=>{feedback.cancel();speech.cancel();window.speechSynthesis?.cancel();}
+});
+function conversationTurn(){
+ if(roleMode==='textbook'){
+  const d=rolePhrase().dialogue[roleTurn];if(!d)return null;
+  return d.role===myRole?{kind:'user',expected:d.text}:{kind:'partner',text:d.text};
+ }
+ const node=branch().nodes[branchNode];
+ if(!branchHeard)return {kind:'partner',text:node.partner};
+ if(!node.options.length)return null;
+ return {kind:'user',expected:node.options.map(o=>o.en).join(' / ')};
+}
+function advanceConversation(turn,result){
+ conversationLast=null;
+ if(roleMode==='textbook'){
+  const d=rolePhrase().dialogue[roleTurn];if(!d)return;
+  roleLog.push({role:d.role,text:result?.text||d.text});roleTurn++;
+ }else if(turn.kind==='partner'){branchHeard=true;}
+ else{
+  const node=branch().nodes[branchNode],option=node.options[result.choice];
+  branchLog.push({text:node.partner,mine:false},{text:result.text,mine:true});branchNode=option.next;branchHeard=false;
+ }
+}
+function conversationControls(){
+ const s=conversationState;
+ if(s.phase==='complete')return `<div class="conversation-complete"><span aria-hidden="true">✦</span><h2>Good on ya!</h2><p>会話クリア！</p>${button('conversation-restart','もう一度','primary')}</div>`;
+ return `<div class="role-controls auto-conversation"><p class="conversation-phase" data-phase="${esc(s.phase)}" role="status">${esc(s.message||'スタートで、会話が自動で進みます。')}</p><div class="actions">${s.running?button('conversation-pause','Ⅱ 一時停止'):button('conversation-start',icon('play')+(s.phase==='paused'?' 再開':' スタート'),'primary',speech.supported()?'':'disabled')}</div><p id="speech-state" class="speech-state" role="status"></p><p id="speech-transcript" class="speech-transcript" aria-live="polite"></p>${!speech.supported()?'<p class="tip">音声認識対応のChrome・Edge・Safariで開いてください。</p>':''}</div>`;
+}
+function startConversation(){
+ feedback.prime();conversation.start();
+}
+
 function showResult(correct,onDone){feedback.present(correct,onDone);}
 
 const navItems=[['home','⌂','ホーム'],['learn','▤','フレーズ'],['speak','♬','発音練習'],['quiz','✓','暗記チェック'],['role','☏','会話練習'],['progress','▥','学習記録']];
@@ -62,7 +116,7 @@ function phraseItem(p){return `<button type="button" class="list-item ${p.id===s
 function move(n){cleanupMedia();const list=tab==='learn'?filtered():tab==='speak'?scenePool(speakCategory):DATA;if(!list.length)return;selected=list[(list.findIndex(p=>p.id===selected)+n+list.length)%list.length].id;render();}
 function toggleDone(){const p=current();state.done[p.id]=!state.done[p.id];if(state.done[p.id]){activity(p.id);toast('いい調子！ 学習済みにしました。');}else save();render();}
 function toggleStar(){state.star[selected]=!state.star[selected];save();render();}
-function speak(text,rate=.9){if(!window.speechSynthesis||!window.SpeechSynthesisUtterance){toast('このブラウザではお手本音声を再生できません。英文を読んで練習してください。');return;}stopRecognition();speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang='en-AU';u.rate=rate;const voices=speechSynthesis.getVoices(),voice=voices.find(v=>v.lang.toLowerCase().replace('_','-')==='en-au')||voices.find(v=>/^en[-_]/i.test(v.lang));if(voice)u.voice=voice;u.onerror=e=>{if(!['canceled','interrupted'].includes(e.error))toast('音声を再生できませんでした。端末の音声設定を確認してください。');};speechSynthesis.speak(u);}
+function speak(text,rate=.9,onEnd=null,onError=null){if(!window.speechSynthesis||!window.SpeechSynthesisUtterance){const message='このブラウザではお手本音声を再生できません。';toast(message);onError?.(message);return false;}stopRecognition();speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang='en-AU';u.rate=rate;const voices=speechSynthesis.getVoices(),voice=voices.find(v=>v.lang.toLowerCase().replace('_','-')==='en-au')||voices.find(v=>/^en[-_]/i.test(v.lang));if(voice)u.voice=voice;u.onend=()=>onEnd?.();u.onerror=e=>{if(!['canceled','interrupted'].includes(e.error)){const message='音声を再生できませんでした。端末の音声設定を確認してください。';toast(message);onError?.(message);}};speechSynthesis.speak(u);return true;}
 function updateVoiceInfo(){if(!$('voice-info'))return;const vs=window.speechSynthesis?.getVoices()||[],v=vs.find(v=>/^en[-_]au$/i.test(v.lang))||vs.find(v=>/^en[-_]/i.test(v.lang));$('voice-info').textContent=v?`お手本：${v.name} (${v.lang})${/^en[-_]au$/i.test(v.lang)?'':' · オーストラリア英語がないため代替の英語音声'}`:'お手本：端末の利用可能な英語音声を使用します。音声がない場合はOSに英語音声を追加してください。';}
 function speakView(){if(stages.speak==='situations')return situationView();const p=current(),pool=scenePool(speakCategory);return pageHead('02 / SPEAK','発音練習','')+situationBack()+`<section class="panel phrase-card"><div class="row spread"><span class="tag">${esc(p.category)} · ${pool.findIndex(x=>x.id===p.id)+1} / ${pool.length}</span><div class="row">${button('prev','←','icon','aria-label="前のフレーズ"')}${button('next','→','icon','aria-label="次のフレーズ"')}</div></div><p class="phrase" lang="en">${esc(p.en)}</p><p class="translation">${esc(p.ja)}</p><div class="actions">${button('speak-phrase',icon('play')+' お手本')}</div><div class="practice-input">${speechControls('recognize')}</div><div id="status" class="status" role="status"></div><details><summary>手入力で確認</summary><label class="field">英文<textarea id="speech-input" lang="en" placeholder="英文を入力" maxlength="3000"></textarea></label><div class="actions">${button('compare','照合する')}</div></details>${voiceHelp()}</section>`;}
 function diffHtml(text,actual){const result=C.spokenCheck(text,actual,'en');const chips=(items,kind)=>items.map(w=>`<span class="word ${w.match?'match':kind}" aria-label="${w.match?'一致':'相違'}: ${esc(w.text)}">${w.match?'✓':'△'} ${esc(w.text)}</span>`).join(' ');return `<div class="row spread"><strong>単語一致度</strong><span class="score">${result.score}%</span></div><p class="small muted">発音の点数ではありません。</p><div class="small muted">お手本</div><div lang="en">${chips(result.expected,'miss')}</div><div class="small muted" style="margin-top:12px">認識・入力結果</div><div lang="en">${chips(result.actual,'extra')||'—'}</div><details><summary>色・照合について</summary><p class="legend">短縮形と選択表現を正規化して表示。<br>✓ 一致 ／ △ オレンジ：欠落 ／ △ 赤：異なる単語<br>語順も比較します。言い換えや認識ミスで低くなる場合があります。</p></details>`;}
@@ -91,19 +145,18 @@ function checkQuizSpeech(text){
  if(result.score>=GOOD_THRESHOLD){gradeQuiz(true,'speech');}else{render();showResult(false);}
 }
 function gradeQuiz(correct,source='self'){if(quizGraded||!quizRevealed)return;const key=`${quizId}:${quizDir}`,q=state.quiz[key]||{total:0,correct:0,misses:0};q.total++;q.correct+=correct?1:0;q.misses+=correct?0:1;q.lastWrong=!correct;q.last=new Date().toISOString();state.quiz[key]=q;if(!correct)state.star[quizId]=true;activity(quizId);quizGraded=true;quizFeedback=correct?(source==='speech'?'認識結果が一致。クリア！':'自己確認でクリア！'):'復習リストに追加しました。';render();if(correct&&source==='speech')showResult(true,()=>{const old=quizId;newQuiz(old);render();});}
-function resetRole(){roleTurn=0;roleLog=[];roleStarted=false;roleCounted=false;}
+function resetRole(){conversationState={phase:'idle',running:false,message:''};conversationLast=null;roleTurn=0;roleLog=[];roleStarted=false;roleCounted=false;}
 function rolePhrase(){return DATA.find(p=>p.id===roleId)||DATA[0];}
 function roleView(){if(stages.role==='situations')return situationView();return pageHead('04 / CONVERSATION','会話練習','')+situationBack()+`<div class="tab-switch">${button('role-textbook','教材の会話',roleMode==='textbook'?'primary':'','aria-pressed="'+(roleMode==='textbook')+'"')}${availableBranches().length?button('role-branch','追加の分岐会話',roleMode==='branch'?'primary':'','aria-pressed="'+(roleMode==='branch')+'"'):''}</div>${roleMode==='textbook'?textbookView():branchView()}<p class="tip">教材・選択式シナリオで練習</p>`;}
-function textbookView(){const p=rolePhrase(),list=DATA.filter(p=>roleCategory==='すべて'||p.category===roleCategory),roles=[...new Set(p.dialogue.map(d=>d.role))],next=p.dialogue[roleTurn];return `<section class="panel"><div class="toolbar role-toolbar"><label class="field">場面<select id="role-category">${options(categories(),roleCategory)}</select></label><label class="field">会話<select id="role-id">${list.map(x=>`<option value="${x.id}" ${x.id===roleId?'selected':''}>${x.id}. ${esc(x.en)}</option>`).join('')}</select></label><label class="field">あなたの役<select id="my-role">${options(roles,myRole)}</select></label></div><div class="row spread"><span class="tag">あなたは ${esc(myRole)} 役</span>${button('role-reset','↻ 最初から')}</div><div class="dialogue full-script" aria-label="会話の全文">${p.dialogue.map((d,i)=>`<div class="bubble ${d.role===myRole?'mine':'partner'} ${i===roleTurn?'current-turn':''} ${i<roleTurn?'completed-turn':''}" ${i===roleTurn?'aria-current="step"':''}><span class="role">${d.role===myRole?'YOU':'PARTNER'} · ${esc(d.role)} ${i<roleTurn?'✓':''}${i===roleTurn?' · 今ここ':''}</span>${button('role-line-audio',icon('play'),'icon',`data-index="${i}" aria-label="${esc(d.role)}のセリフを聞く"`)}<span lang="en">${esc(d.text)}</span>${roleLog[i]?.text&&roleLog[i].text!==d.text?`<small class="recognized-line">認識：${esc(roleLog[i].text)}</small>`:''}</div>`).join('')}</div>${next?`<div class="role-controls"><div class="row spread"><strong>${next.role===myRole?'あなたの番':'相手の番'}</strong><span class="small muted">${roleTurn+1} / ${p.dialogue.length}</span></div><div class="actions">${next.role===myRole?speechControls('role-recognize')+button('role-next','確認せず次へ','secondary'):button('role-next',icon('play')+' 相手のセリフ','primary')}</div></div>`:`<div class="status">✦ 会話完了！ Good on ya!</div>`}<div id="status" class="status" role="status"></div></section><p class="voice-disclosure">音声認識はブラウザ提供元へ送信される場合があります。</p>`;}
-function roleAdvance(text){feedback.cancel();const p=rolePhrase(),d=p.dialogue[roleTurn];if(!d)return;if(d.role!==myRole)speak(d.text);roleLog.push({role:d.role,text:text||d.text});roleTurn++;if(roleTurn===p.dialogue.length&&!roleCounted){roleCounted=true;activity(p.id);}render();}
+function textbookView(){const p=rolePhrase(),list=DATA.filter(p=>roleCategory==='すべて'||p.category===roleCategory),roles=[...new Set(p.dialogue.map(d=>d.role))],next=p.dialogue[roleTurn];return `<section class="panel"><div class="toolbar role-toolbar"><label class="field">場面<select id="role-category" ${conversationState.running?'disabled':''}>${options(categories(),roleCategory)}</select></label><label class="field">会話<select id="role-id" ${conversationState.running?'disabled':''}>${list.map(x=>`<option value="${x.id}" ${x.id===roleId?'selected':''}>${x.id}. ${esc(x.en)}</option>`).join('')}</select></label><label class="field">あなたの役<select id="my-role" ${conversationState.running?'disabled':''}>${options(roles,myRole)}</select></label></div><div class="row spread"><span class="tag">あなたは ${esc(myRole)} 役 · ${Math.min(roleTurn+1,p.dialogue.length)} / ${p.dialogue.length}</span>${button('role-reset','↻ 最初から')}</div><div class="dialogue full-script" aria-label="会話の全文">${p.dialogue.map((d,i)=>`<div class="bubble ${d.role===myRole?'mine':'partner'} ${i===roleTurn?'current-turn':''} ${i<roleTurn?'completed-turn':''}" ${i===roleTurn?'aria-current="step"':''}><span class="role">${d.role===myRole?'YOU':'PARTNER'} · ${esc(d.role)} ${i<roleTurn?'✓':''}${i===roleTurn?' · 今ここ':''}</span>${conversationState.running?'':button('role-line-audio',icon('play'),'icon',`data-index="${i}" aria-label="${esc(d.role)}のセリフを聞く"`)}<span lang="en">${esc(d.text)}</span>${roleLog[i]?.text&&roleLog[i].text!==d.text?`<small class="recognized-line">認識：${esc(roleLog[i].text)}</small>`:''}</div>`).join('')}</div>${conversationControls()}<div id="status" class="status" role="status">${conversationLast?diffHtml(conversationLast.expected,conversationLast.text):''}</div></section><p class="voice-disclosure">音声認識はブラウザ提供元へ送信される場合があります。</p>`;}
+
 function branch(){return window.BRANCHES.find(b=>b.id===branchId);}
-function resetBranch(){cleanupMedia();branchNode=branch().start;branchLog=[];branchHeard=false;branchCounted=false;}
-function branchView(){const b=branch(),node=b.nodes[branchNode];return `<section class="panel"><label class="field">場面を選ぶ<select id="branch-id">${availableBranches().map(b=>`<option value="${b.id}" ${b.id===branchId?'selected':''}>${b.icon} ${esc(b.title)}</option>`).join('')}</select></label><div class="row spread"><span class="tag">分岐シナリオ</span>${button('branch-reset','最初から')}</div><div class="dialogue">${branchLog.map(l=>`<div class="bubble ${l.mine?'mine':'partner'}"><span class="role">${l.mine?'あなた':'相手'}</span><span lang="en">${esc(l.text)}</span></div>`).join('')}<div class="bubble partner"><span class="role">相手</span><span lang="en">${esc(node.partner)}</span></div></div><div class="actions">${button('branch-hear','♬ 相手のセリフを聞く','primary')}</div>${node.options.length?`<h3 style="margin-top:25px">返答を声で伝えよう</h3>${branchHeard?speechControls('branch-recognize'):''}${node.options.map((o,i)=>button('branch-choice',`<span lang="en">${esc(o.en)}</span><small>${esc(o.ja)}</small>`,'branch-option',`data-index="${i}" ${branchHeard?'':'disabled'}`)).join('')}${branchHeard?'':'<p class="tip">まず「相手のセリフ」を押そう。</p>'}`:`<div class="status">✦ 会話完了！ ${branchCounted?'Good on ya!':'最後のセリフを聞こう。'}</div>`}<div id="status" class="status" role="status"></div>${voiceHelp()}</section>`;}
-function branchAdvance(index){feedback.cancel();const node=branch().nodes[branchNode],o=node.options[index];if(!o)return;stopRecognition();branchLog.push({text:node.partner,mine:false},{text:o.en,mine:true});branchNode=o.next;branchHeard=false;render();}
+function resetBranch(){cleanupMedia();conversationState={phase:'idle',running:false,message:''};conversationLast=null;branchNode=branch().start;branchLog=[];branchHeard=false;branchCounted=false;}
+function branchView(){const b=branch(),node=b.nodes[branchNode];return `<section class="panel"><label class="field">場面を選ぶ<select id="branch-id" ${conversationState.running?'disabled':''}>${availableBranches().map(b=>`<option value="${b.id}" ${b.id===branchId?'selected':''}>${b.icon} ${esc(b.title)}</option>`).join('')}</select></label><div class="row spread"><span class="tag">分岐シナリオ</span>${button('branch-reset','最初から')}</div><div class="dialogue">${branchLog.map(l=>`<div class="bubble ${l.mine?'mine':'partner'}"><span class="role">${l.mine?'あなた':'相手'}</span><span lang="en">${esc(l.text)}</span></div>`).join('')}<div class="bubble partner"><span class="role">相手</span><span lang="en">${esc(node.partner)}</span></div></div>${node.options.length?`<h3 style="margin-top:25px">返答を選んで話そう</h3><div class="branch-responses">${node.options.map(o=>`<div class="branch-response"><span lang="en">${esc(o.en)}</span><small>${esc(o.ja)}</small></div>`).join('')}</div>`:''}${conversationControls()}<div id="status" class="status" role="status">${conversationLast?diffHtml(conversationLast.expected,conversationLast.text):''}</div>${voiceHelp()}</section>`;}
 
 function progressView(){const s=stats(),starred=DATA.filter(p=>state.star[p.id]);return pageHead('YOUR JOURNEY','学習記録','昨日の自分より、ひとこと先へ。')+statsHtml()+`<section class="panel"><h2>学びの足あと</h2><p class="small muted">${state.sessions} 回の学習セッション · ${Object.keys(state.days).filter(k=>state.days[k]>0).length} 日学習 · 暗記チェック ${s.correct} / ${s.total} 問正解</p><details><summary>記録の見方</summary><p class="small muted">学習回数は学習操作の合計。正答率は音声照合と自己確認の結果で、発音の点数ではありません。</p></details><div class="badge-row">${achievements(s)}</div><h3 style="margin-top:26px">カテゴリー別の進み具合</h3><div class="category-grid">${categories().slice(1).map(c=>{const list=DATA.filter(p=>p.category===c),n=list.filter(p=>state.done[p.id]).length;return `<div class="category"><div class="row"><span>${esc(c)}</span><span class="muted">${n} / ${list.length}</span></div><div class="progress-bar"><span style="width:${n/list.length*100}%"></span></div></div>`;}).join('')}</div></section><section class="panel"><div class="row spread"><h2>苦手フレーズ</h2><span class="pill">${s.star} 件</span></div><p class="small muted">★で登録・解除</p>${starred.length?`<div class="list">${starred.map(p=>phraseItem(p)).join('')}</div><div class="actions">${button('review-star','苦手だけ学習する →','primary')}</div>`:'<p class="empty">苦手フレーズはありません。</p>'}</section><section class="panel"><h2>記録のバックアップ</h2><p class="small muted">記録はこのブラウザに保存。JSONで別の端末へ移せます。</p><div class="actions">${button('export','JSONで保存')}${button('import','バックアップを復元')}<input class="visually-hidden" id="import-file" type="file" accept=".json,application/json" aria-label="学習記録JSONファイル"></div><p class="tip">復元すると現在の記録を置き換えます。</p><details><summary>音声機能・プライバシーについて</summary><p class="small muted">お手本音声はOS・ブラウザの音声合成を利用します。en-AUを優先し、利用できない場合は別の英語音声へ切り替えます。音声認識はブラウザの対応・権限・ネットワークに依存し、サービス提供元への送信が行われる場合があります。録音・保存機能はありません。音声認識に非対応の環境では、解答の自己確認や手入力で学習できます。</p></details></section>`;}
 function stopRecognition(){speech.cancel();}
-function cleanupMedia(){feedback.cancel();speech.cancel();window.speechSynthesis?.cancel();}
+function cleanupMedia(){conversation.cancel();conversationState={phase:'idle',running:false,message:''};conversationLast=null;}
 function exportState(){const url=URL.createObjectURL(new Blob([JSON.stringify({app:'aussie-english-trainer',...state},null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download=`aussie-progress-${today()}.json`;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);toast('学習記録のバックアップを保存しました。');}
 async function importState(file){if(!file)return;try{if(file.size>2*1024*1024)throw Error('ファイルが大きすぎます（上限2MB）');const raw=JSON.parse(await file.text());if(!raw||typeof raw.done!=='object'||typeof raw.star!=='object'||!raw.done||!raw.star||Array.isArray(raw.done)||Array.isArray(raw.star))throw Error('Aussie English Trainerのバックアップを選んでください');const next=C.cleanState(raw,DATA);if(!confirm('現在の学習記録をバックアップの内容で置き換えます。復元しますか？'))return;state=next;activityStarted=false;quizId=null;save();render();toast('学習記録を復元しました。');}catch(e){toast('復元できませんでした：'+e.message);}}
 document.addEventListener('click',event=>{const el=event.target.closest('[data-action]');if(!el||el.disabled)return;const a=el.dataset.action;
@@ -137,21 +190,11 @@ document.addEventListener('click',event=>{const el=event.target.closest('[data-a
  case 'role-textbook':cleanupMedia();roleMode='textbook';resetRole();render();break;
  case 'role-branch':{const choices=availableBranches();if(!choices.length)break;cleanupMedia();if(!choices.some(b=>b.id===branchId))branchId=choices[0].id;roleMode='branch';resetBranch();render();break;}
  case 'role-reset':cleanupMedia();resetRole();render();break;
- case 'role-next':stopRecognition();roleAdvance();break;
  case 'role-line-audio':speak(rolePhrase().dialogue[Number(el.dataset.index)]?.text||'');break;
- case 'role-recognize':{const p=rolePhrase(),turn=roleTurn,expected=p.dialogue[turn]?.text;if(!expected)break;recognize(text=>{if(roleId!==p.id||roleTurn!==turn)return;const success=C.spokenCheck(expected,text,'en').score>=GOOD_THRESHOLD;if($('status'))$('status').innerHTML=diffHtml(expected,text);showResult(success,success?()=>roleAdvance(text):null);} ,'en-AU',expected);break;}
+ case 'conversation-start':startConversation();break;
+ case 'conversation-pause':conversation.pause();break;
+ case 'conversation-restart':cleanupMedia();if(roleMode==='textbook')resetRole();else resetBranch();startConversation();break;
  case 'branch-reset':resetBranch();render();break;
- case 'branch-hear':{const node=branch().nodes[branchNode];speak(node.partner);branchHeard=true;if(!node.options.length&&!branchCounted){branchCounted=true;activity();}render();break;}
- case 'branch-choice':{if(!branchHeard)return;branchAdvance(Number(el.dataset.index));break;}
- case 'branch-recognize':{
-  if(!branchHeard)break;
-  const b=branch(),nodeId=branchNode,node=b.nodes[nodeId];
-  recognize(text=>{
-   if(branchId!==b.id||branchNode!==nodeId)return;
-   const matches=node.options.map((o,index)=>({index,score:C.spokenCheck(o.en,text,'en').score})).sort((a,b)=>b.score-a.score);
-   const correct=matches[0]?.score>=GOOD_THRESHOLD;if($('status'))$('status').innerHTML=diffHtml(node.options[matches[0]?.index||0].en,text);showResult(correct,correct?()=>branchAdvance(matches[0].index):null);
-  },'en-AU',node.options.map(o=>o.en).join(' / '));break;
- }
  case 'review-star':go('learn');onlyStar=true;search='';category='すべて';stages.learn='phrases';render();break;
  case 'export':exportState();break;case 'import':$('import-file').click();break;
  }
@@ -167,7 +210,7 @@ document.addEventListener('change',event=>{const v=event.target.value;switch(eve
  case 'import-file':importState(event.target.files[0]);break;
 }});
 window.addEventListener('pagehide',cleanupMedia);
-document.addEventListener('visibilitychange',()=>{if(document.hidden)cleanupMedia();});
+document.addEventListener('visibilitychange',()=>{if(document.hidden){if(conversation.isRunning())conversation.pause('画面を離れたため一時停止しました。再開で続けられます。');else cleanupMedia();}});
 window.addEventListener('hashchange',()=>go(location.hash.slice(1)));
 if(window.speechSynthesis)window.speechSynthesis.addEventListener('voiceschanged',updateVoiceInfo);
 if(DATA.length===129) {const requested=location.hash.slice(1);if(navItems.some(x=>x[0]===requested))tab=requested;render();}else $('app').innerHTML='<div class="notice" role="alert">教材を読み込めません。index.htmlとphrases.jsなどのファイルを同じフォルダに配置してください。</div>';
