@@ -228,18 +228,17 @@ test('暗記の誤答優先・次問・出題方向変更も選択シーン外�
  for(let i=0;i<20;i++){const id=Number(b.html().match(/No\. (\d+)/)[1]);assert.ok(id>=54&&id<=66);b.click('quiz-reveal');b.click('quiz-correct');b.click('quiz-next');}
  b.click('quiz-ja');const id=Number(b.html().match(/No\. (\d+)/)[1]);assert.ok(id>=54&&id<=66);
 });
-test('教材会話の候補と追加分岐を選択シーンに限定',()=>{
- const b=boot();b.click('tab',{value:'role'});b.click('situation-select',{value:'カフェ'});
- const select=b.html().match(/<select id="role-id"[^>]*>([\s\S]*?)<\/select>/)[1];const ids=[...select.matchAll(/value="(\d+)"/g)].map(x=>Number(x[1]));assert.equal(ids.length,13);assert.ok(ids.every(id=>id>=54&&id<=66));
- b.click('role-branch');assert.match(b.html(),/value="cafe"/);assert.doesNotMatch(b.html(),/value="airport"|value="school"|value="daily"/);
- b.click('situations-back');b.click('situation-select',{value:'空港・機内'});b.click('role-branch');assert.match(b.html(),/value="airport"/);assert.doesNotMatch(b.html(),/value="cafe"/);
- b.click('situations-back');b.click('situation-select',{value:'リアクション・フィラー'});assert.doesNotMatch(b.html(),/data-action="role-branch"/);assert.match(b.html(),/id="role-id"/);
+test('会話は選んだ場面の教材を表示し、Extra Practiceも対応する場面だけ表示',()=>{
+ const b=boot();b.click('tab',{value:'role'});b.click('situation-select',{value:'カフェ'});assert.match(b.html(),/data-phrase-id="54"/);assert.doesNotMatch(b.html(),/id="role-id"|id="role-category"/);
+ b.click('role-branch');assert.match(b.html(),/カフェで注文/);assert.doesNotMatch(b.html(),/空港でチェックイン|id="branch-id"/);
+ b.click('situations-back');b.click('situation-select',{value:'空港・機内'});b.click('role-branch');assert.match(b.html(),/空港でチェックイン/);assert.doesNotMatch(b.html(),/カフェで注文/);
+ b.click('situations-back');b.click('situation-select',{value:'リアクション・フィラー'});assert.doesNotMatch(b.html(),/data-action="role-branch"/);assert.match(b.html(),/data-phrase-id="22"/);
 });
 test('7シチュエーションは発音・暗記・会話のどのモードでも対象教材に一致',()=>{
  const b=boot();for(const value of ['speak','quiz','role'])for(const cat of [...new Set(data.map(p=>p.category))]){
   b.click('tab',{value});b.click('situations-back');b.click('situation-select',{value:cat});const first=data.find(p=>p.category===cat);assert.match(b.html(),new RegExp(cat));
   if(value==='quiz')assert.ok(b.html().includes(`No. ${first.id}`));
-  if(value==='role')assert.ok(b.html().includes(`<option value="${first.id}" selected>`));
+  if(value==='role')assert.ok(b.html().includes(`data-phrase-id="${first.id}"`));
  }
 });
 test('シチュエーションを変更した後に古い自動遷移が混ざらない',()=>{
@@ -262,12 +261,23 @@ function completeTextbook(b,p,role='A'){
  b.change('my-role',role);b.click('conversation-start');for(const d of p.dialogue){if(d.role===role){b.recognizers.at(-1).deliver({results:[[{transcript:d.text}]]});b.advanceFeedback();}else b.finishPartner();}
 }
 test('完了時にもう一度と次へを並べ、次へで同じ場面の次教材を準備',()=>{
- const b=boot({sr:true});b.click('tab',{value:'role'});b.click('situation-select',{value:'カフェ'});b.click('conversation-next');assert.match(b.html(),/<option value="54" selected>/);completeTextbook(b,data.find(p=>p.id===54));assert.match(b.html(),/conversation-finish-actions/);assert.match(b.html(),/data-action="conversation-restart"/);assert.match(b.html(),/data-action="conversation-next"/);
- const count=b.recognizers.length;b.click('conversation-next');assert.match(b.html(),/<option value="55" selected>/);assert.match(b.html(),/あなたは A 役/);assert.match(b.html(),/data-action="conversation-start"/);assert.equal(b.recognizers.length,count);assert.doesNotMatch(b.html(),/conversation-complete/);
+ const b=boot({sr:true});b.click('tab',{value:'role'});b.click('situation-select',{value:'カフェ'});b.click('conversation-next');assert.match(b.html(),/data-phrase-id="54"/);completeTextbook(b,data.find(p=>p.id===54));assert.match(b.html(),/conversation-finish-actions/);assert.match(b.html(),/data-action="conversation-restart"/);assert.match(b.html(),/data-action="conversation-next"/);
+ const count=b.recognizers.length;b.click('conversation-next');assert.match(b.html(),/data-phrase-id="55"/);assert.match(b.html(),/<option value="A" selected>/);assert.match(b.html(),/data-action="conversation-start"/);assert.equal(b.recognizers.length,count);assert.doesNotMatch(b.html(),/conversation-complete/);
 });
 test('場面の最後の教材で次へを押すと同じ場面の先頭へ戻る',()=>{
- const b=boot({sr:true});b.click('tab',{value:'role'});b.click('situation-select',{value:'カフェ'});b.change('role-id','66');completeTextbook(b,data.find(p=>p.id===66));b.click('conversation-next');assert.match(b.html(),/<option value="54" selected>/);assert.match(b.html(),/カフェ/);
+ const b=boot({sr:true});b.click('tab',{value:'role'});b.click('situation-select',{value:'カフェ'});for(const p of data.filter(p=>p.category==='カフェ')){completeTextbook(b,p);b.click('conversation-next');}assert.match(b.html(),/data-phrase-id="54"/);assert.match(b.html(),/カフェ/);
 });
 test('追加分岐の完了後の次へも選んだ場面の次の教材フレーズへ進む',()=>{
- const b=boot({sr:true});b.click('tab',{value:'role'});b.click('situation-select',{value:'カフェ'});b.click('role-branch');b.click('conversation-start');b.finishPartner();b.recognizers.at(-1).deliver({results:[[{transcript:'Can I get a latte'}]]});b.advanceFeedback();b.finishPartner();b.recognizers.at(-1).deliver({results:[[{transcript:'I’m having it here.'}]]});b.advanceFeedback();b.finishPartner();b.click('conversation-next');assert.match(b.html(),/id="role-id"/);assert.match(b.html(),/<option value="55" selected>/);assert.match(b.html(),/data-action="conversation-start"/);
+ const b=boot({sr:true});b.click('tab',{value:'role'});b.click('situation-select',{value:'カフェ'});b.click('role-branch');b.click('conversation-start');b.finishPartner();b.recognizers.at(-1).deliver({results:[[{transcript:'Can I get a latte'}]]});b.advanceFeedback();b.finishPartner();b.recognizers.at(-1).deliver({results:[[{transcript:'I’m having it here.'}]]});b.advanceFeedback();b.finishPartner();b.click('conversation-next');assert.match(b.html(),/data-phrase-id=/);assert.match(b.html(),/data-phrase-id="55"/);assert.match(b.html(),/data-action="conversation-start"/);
+});
+
+test('会話の先頭に対象フレーズと日本語訳を表示し、その下に全文を配置',()=>{
+ const b=boot();b.click('tab',{value:'role'});b.click('situation-select',{value:'カフェ'});assert.match(b.html(),/<h2 class="practice-target" lang="en">Can I get a latte\?<\/h2>/);assert.match(b.html(),/カフェラテをください/);assert.ok(b.html().indexOf('practice-target')<b.html().indexOf('class="dialogue full-script"'));
+ for(const line of data.find(p=>p.id===54).dialogue)assert.ok(b.html().includes(line.text));
+});
+test('場面・会話の選択欄を削除し、役割選択とスタートは残す',()=>{
+ const b=boot();b.click('tab',{value:'role'});b.click('situation-select',{value:'カフェ'});assert.doesNotMatch(b.html(),/id="role-category"|id="role-id"/);assert.match(b.html(),/id="my-role"/);assert.match(b.html(),/data-action="conversation-start"/);b.click('role-branch');assert.doesNotMatch(b.html(),/id="branch-id"/);
+});
+test('追加会話タブのラベルをExtra Practiceに変更',()=>{
+ const b=boot();b.click('tab',{value:'role'});b.click('situation-select',{value:'カフェ'});assert.match(b.html(),/data-action="role-branch"[^>]*>Extra Practice<\/button>/);assert.doesNotMatch(b.html(),/>追加の分岐会話</);
 });
