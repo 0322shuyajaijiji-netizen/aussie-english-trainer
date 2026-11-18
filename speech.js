@@ -44,7 +44,7 @@ function create({onState=()=>{}}={}){
   if(!supported()){emit('error',root.isSecureContext===false?'HTTPSで開いてください。':'このブラウザは音声認識に非対応です。Chrome・Edge・Safariで直接開いてください。');return false;}
   const SR=root.SpeechRecognition||root.webkitSpeechRecognition;
   let r;try{r=new SR();}catch{emit('error','音声入力を準備できません。ブラウザを開き直してください。');return false;}
-  const s={id:++sequence,r,lang:lang.startsWith('en')?preferredEnglish:lang,expected,onResult,interimText:'',finalText:'',allFinal:false,timers:[],stopping:false};
+  const s={id:++sequence,r,lang:lang.startsWith('en')?preferredEnglish:lang,expected,onResult,interimText:'',finalText:'',allFinal:false,timers:[],silenceTimer:null,stopping:false};
   active=s;r.lang=s.lang;r.continuous=false;r.interimResults=true;r.maxAlternatives=5;
   r.onstart=()=>{
    if(active!==s)return;clear(s);
@@ -54,13 +54,15 @@ function create({onState=()=>{}}={}){
   r.onresult=e=>{
    if(active!==s)return;
    s.interimText=best(s,e.results);
+   root.clearTimeout(s.silenceTimer);
+   if(s.interimText&&!s.stopping)s.silenceTimer=timer(s,stop,2000);
    const finals=Array.from(e.results).filter(result=>result.isFinal!==false);
    s.allFinal=finals.length===e.results.length;
    if(finals.length)s.finalText=best(s,finals);
    emit(s.stopping?'stopping':'listening',s.stopping?'認識結果を確認中…':'聞き取り中…',s.interimText);
    if(finals.length===e.results.length&&s.finalText){
     // onend が来ない実装にも対応。連続認識ではないため一発話で確定。
-    timer(s,()=>finish(s),900);
+    timer(s,()=>finish(s),350);
    }
   };
   r.onspeechend=()=>{if(active===s)stop();};

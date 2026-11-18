@@ -47,7 +47,7 @@ test('en-AU非対応時は次のユーザー操作でen-USへ切替、日本語�
  const b=setup();b.start();b.recognizers[0].onerror({error:'language-not-supported'});assert.match(b.last().message,/もう一度/);b.start();assert.equal(b.recognizers[1].lang,'en-US');b.api.cancel();b.start({lang:'ja-JP'});assert.equal(b.recognizers[2].lang,'ja-JP');
 });
 test('確定後onendが来ないブラウザでも一回だけ結果を返す',()=>{
- const b=setup();b.start();const r=b.recognizers[0];r.onresult({results:[b.result('How is it going')]});const t=[...b.timers.values()].find(t=>t.ms===900);t.fn();t.fn();assert.equal(b.outputs.length,1);
+ const b=setup();b.start();const r=b.recognizers[0];r.onresult({results:[b.result('How is it going')]});const t=[...b.timers.values()].find(t=>t.ms===350);t.fn();t.fn();assert.equal(b.outputs.length,1);
 });
 test('停止後にonendが来なくてもタイムアウトで途中結果を回収',()=>{
  const b=setup();b.start();b.recognizers[0].onresult({results:[b.result('How is it going',false)]});b.api.stop();[...b.timers.values()].find(t=>t.ms===1800).fn();assert.equal(b.outputs.length,1);assert.equal(b.api.isActive(),false);
@@ -60,4 +60,11 @@ test('初回の許可待ちに20秒制限を使わず、許可待ちの終了後
 });
 test('非対応・HTTP・開始例外を捕捉し、処理を残さない',()=>{
  for(const options of [{unsupported:true},{insecure:true},{startThrows:true}]){const b=setup(options);assert.equal(b.start(),false);assert.equal(b.api.isActive(),false);assert.equal(b.last().phase,'error');}
+});
+
+test('発話終了を自動検出してstopし、確定結果まで待つ',()=>{
+ const b=setup();b.start();const r=b.recognizers[0];r.onstart();r.onresult({results:[b.result('How is it going',false)]});r.onspeechend();assert.equal(r.stopped,true);assert.equal(b.outputs.length,0);r.onresult({results:[b.result('How is it going')]});r.onend();assert.deepEqual(b.outputs,['How is it going']);
+});
+test('speechendがない実装でも途中結果の更新後の無音待ちで自動停止',()=>{
+ const b=setup();b.start();const r=b.recognizers[0];r.onresult({results:[b.result('How is it going',false)]});[...b.timers.values()].find(t=>t.ms===2000).fn();assert.equal(r.stopped,true);r.onend();assert.deepEqual(b.outputs,['How is it going']);
 });
