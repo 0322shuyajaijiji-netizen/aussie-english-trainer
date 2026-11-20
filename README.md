@@ -1,6 +1,8 @@
 # Aussie English Trainer
 
-**公開URL： https://0322shuyajaijiji-netizen.github.io/aussie-english-trainer/**
+**公開URL： https://english-conversation-six.vercel.app/**
+
+2026-11-20：Vercelの本番公開を確認済みです。GitHub Pagesの停止は管理者による設定操作待ちです。
 
 公開設定・更新方法は [PUBLISHING.md](PUBLISHING.md) を参照してください。
 

@@ -1,8 +1,18 @@
 # 公開と更新（GitHub Pages / Vercel）
 
-このプロジェクトはGitHub Pagesで公開済みです。
+現在の本番URL（Vercel）：
 
-https://0322shuyajaijiji-netizen.github.io/aussie-english-trainer/
+https://english-conversation-six.vercel.app/
+
+2026-11-20にログイン不要の公開と169フレーズの配信を確認しました。GitHub Pagesはまだ有効です。停止APIはGitHub連携の設定変更権限不足（403）で拒否されたため、次の操作を管理者が行ってください。
+
+## GitHub Pagesを停止する
+
+1. 必要な学習記録があれば、旧サイトの **学習記録 → JSONで保存** からバックアップし、Vercel側で復元します。URLごとに保存領域が異なります。
+2. [Settings → Pages](https://github.com/0322shuyajaijiji-netizen/aussie-english-trainer/settings/pages) を開きます。
+3. **Build and deployment → Branch** を **None** に変更し、**Save** を押します。
+
+リポジトリや教材ファイルは削除しません。Vercelの公開とGitHub連携は維持されます。
 
 ## 現在の状態
 
@@ -12,7 +22,7 @@ https://0322shuyajaijiji-netizen.github.io/aussie-english-trainer/
 - 独自の公開ワークフローはありません。GitHub Pagesの設定で `main` / `/(root)` を配信しているため、`main` の更新でサイトも更新されます。
 - ブラウザ実機での表示・マイク・音声認識は未確認。`TEST_REPORT.md` に確認項目があります。
 
-## GitHub Pagesの設定（現在は設定済み）
+## GitHub Pagesを再公開する場合
 
 GitHubの無料プランでGitHub Pagesを使うため、まずリポジトリを **Public（公開）** にします。Publicにするとアプリだけでなくソースコード・教材データ・Git履歴も閲覧可能になります。
 
@@ -31,7 +41,7 @@ GitHubの無料プランでGitHub Pagesを使うため、まずリポジトリ�
 
 ## 公開後の更新
 
-同じリポジトリの `main` を更新すると、GitHub Pagesも更新されます。公開を停止する場合はSettings → Pagesの公開元を無効にします。
+同じリポジトリの `main` を更新すると、GitHub連携したVercelが自動でビルド・公開します。GitHub Pagesは停止するまでmain更新で再配信されるため、上記のBranch設定をNoneにしてください。
 
 教材を変更した場合だけ、次を実行して `phrases.js` も更新してください。
 
@@ -41,6 +51,6 @@ node scripts/check-release.mjs
 node --test tests/*.test.mjs
 ```
 
-## Vercelへの公開準備
+## Vercelの設定
 
-Vercel用の静的出力設定を用意しています。GitHub Pagesの現在の配信元は変更していません。Vercelでは、GitHubリポジトリをインポートし、`vercel.json` に従って `dist/` を配信します。環境変数は不要です。具体的な設定表・手順は [VERCEL.md](VERCEL.md) を参照してください。Vercelのアカウント接続やDeploy操作は実施していません。
+Vercelでは `vercel.json` に従って `dist/` を配信します。環境変数は不要です。具体的な設定表・手順は [VERCEL.md](VERCEL.md) を参照してください。
