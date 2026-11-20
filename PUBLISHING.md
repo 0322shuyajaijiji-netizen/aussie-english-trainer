@@ -1,4 +1,4 @@
-# GitHub Pages 公開直前の手順
+# 公開と更新（GitHub Pages / Vercel）
 
 このプロジェクトはGitHub Pagesで公開済みです。
 
@@ -40,3 +40,7 @@ node scripts/build-data.mjs
 node scripts/check-release.mjs
 node --test tests/*.test.mjs
 ```
+
+## Vercelへの公開準備
+
+Vercel用の静的出力設定を用意しています。GitHub Pagesの現在の配信元は変更していません。Vercelでは、GitHubリポジトリをインポートし、`vercel.json` に従って `dist/` を配信します。環境変数は不要です。具体的な設定表・手順は [VERCEL.md](VERCEL.md) を参照してください。Vercelのアカウント接続やDeploy操作は実施していません。

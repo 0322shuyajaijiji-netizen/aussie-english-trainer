@@ -17,3 +17,6 @@ aussie-learning-progress.json
 *.wav
 *.mp3
 *.m4a
+# Vercelの端末固有設定と生成物
+.vercel/
+dist/

@@ -55,6 +55,12 @@ HTML / CSS / JavaScriptだけの静的アプリです。**有料API、生成AI�
 
 すべて相対パスなので、リポジトリ名がURLに含まれるGitHub Pagesでも使えます。ビルド・Actions・サーバー・環境変数の設定は不要です。GitHub Pagesで公開済みです。生徒への共有は上記の公開URLを使用してください。
 
+## Vercelで公開する場合
+
+Vercelでも静的サイトとして公開できます。GitHubリポジトリをインポートし、Framework Presetは **Other**、Root Directoryは **リポジトリ直下（./）**、Build Commandは `node scripts/build-vercel.mjs`、Output Directoryは `dist` にします。Install Commandは空欄、環境変数は不要です。`vercel.json` に設定を追加済みです。
+
+配信用の13ファイルだけを `dist/` にコピーし、JS/CSS/教材は変換しません。元のルート配置を維持しているため、GitHub Pagesも引き続き使えます。Vercelへの実デプロイは未実施です。手順・無料プランの条件・学習記録の移行は [VERCEL.md](VERCEL.md) を参照してください。
+
 ## 学習の使い方
 
 フレーズ・発音・暗記・会話は、どれも最初にシチュエーションを選びます。選択した場面の教材だけが表示・出題され、「シチュエーションを選び直す」で戻れます。「すべてのフレーズ」も選択できます。発音の前後移動・正解後の自動移動、暗記の誤答優先復習も同じ場面の中で行います。会話の追加分岐は対応する場面がある場合だけ表示します。
