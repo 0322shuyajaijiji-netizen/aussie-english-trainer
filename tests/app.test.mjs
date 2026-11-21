@@ -31,7 +31,7 @@ function boot({stored=null,storageFails=false,media=false,sr=false,hash='',getMe
  speechSynthesis:{cancel(){},getVoices:()=>[{name:'US voice',lang:'en-US'},{name:'Aussie',lang:'en-AU'}],speak:u=>spoken.push(u),addEventListener(){}},
  SpeechSynthesisUtterance:class{constructor(text){this.text=text;}},addEventListener:(t,fn)=>events[t]=fn,scrollTo(){}};
  if(sr)ctx.SpeechRecognition=Recognition;ctx.window=ctx;
- vm.createContext(ctx);for(const f of ['phrases.js','core.js','speech.js','feedback.js','conversation.js','scenarios.js','app.js'])vm.runInContext(read(f),ctx,{filename:f});
+ vm.createContext(ctx);for(const f of ['phrases.js','translations.js','core.js','speech.js','feedback.js','conversation.js','scenarios.js','app.js'])vm.runInContext(read(f),ctx,{filename:f});
  const click=(action,props={})=>events.click({target:{closest:()=>({dataset:{action,...props},disabled:false})}});
  const finishPartner=()=>{spoken.at(-1)?.onend?.();[...timeouts.values()].find(t=>t.ms===300)?.fn();};
  const advanceFeedback=()=>{[...timeouts.values()].find(t=>t.ms===1100)?.fn();};
@@ -322,5 +322,65 @@ test('発音の1・3・5回達成を自動通知し、誤答は段階を進め�
   b.click('recognize');b.recognizers.at(-1).deliver({results:[[{transcript:data.filter(p=>p.category==='カフェ')[i].en}]]});
   if([0,2,4].includes(i)){assert.equal(b.elements.get('result-feedback')['data-kind'],'milestone');assert.match(b.elements.get('result-label').textContent,new RegExp(`${i+1}回クリア`));}
   b.advanceFeedback();assert.equal(b.elements.get('result-feedback').hidden,true);
+ }
+});
+
+test('今日の5分は誤答・苦手・未学習を優先し、重複のない5件を同日固定',()=>{
+ const {ctx}=boot(),C=ctx.AussieCore,s=C.cleanState({done:Object.fromEntries(data.map(p=>[p.id,true])),star:{54:true},quiz:{'67:en':{total:1,correct:0,lastWrong:true}},attempts:{67:10}},data);delete s.done[88];
+ const plan=C.dailyPlan(data,s,'2026-11-21');assert.equal(plan.ids.length,5);assert.equal(new Set(plan.ids).size,5);assert.equal(plan.ids[0],67);assert.equal(plan.ids[1],54);assert.equal(plan.ids[2],88);
+ s.daily={...plan,completed:[67]};s.star[12]=true;
+ assert.equal(JSON.stringify(C.dailyPlan(data,s,'2026-11-21')),JSON.stringify(s.daily));
+ const next=C.dailyPlan(data,s,'2026-11-22');assert.equal(next.completed.length,0);assert.equal(next.date,'2026-11-22');assert.notEqual(JSON.stringify(next.ids),JSON.stringify(plan.ids));
+});
+test('5分コースの不正な保存値を除去し、既存学習記録は保持する',()=>{
+ const {ctx}=boot(),C=ctx.AussieCore;
+ const s=C.cleanState({done:{1:true},daily:{date:'2026-11-21',ids:[1,1,2,3,4,5,999],completed:[1,1,999,2]}},data);
+ assert.deepEqual(Array.from(s.daily.ids),[1,2,3,4,5]);assert.deepEqual(Array.from(s.daily.completed),[1,2]);assert.equal(s.done[1],true);
+ for(const daily of [{date:'invalid',ids:[1,2,3,4,5]},{date:'2026-11-21',ids:[1,2,999]},{date:'2026-11-21',ids:'bad'}])assert.equal(C.cleanState({daily},data).daily,undefined);
+});
+test('5分コースは自己確認で保存し、画面移動・再読み込み後に途中から再開できる',()=>{
+ const b=boot();assert.match(b.html(),/今日の5分コース/);b.click('daily-start');assert.match(b.html(),/1 \/ 5/);const first=b.saved().daily.ids[0];
+ b.click('daily-self');assert.equal(b.saved().done[first],true);assert.equal(b.saved().daily.completed.length,1);assert.equal(b.saved().attempts[first],1);assert.equal(b.saved().quiz?.[`${first}:en`],undefined);
+ b.click('daily-home');assert.match(b.html(),/つづきから/);assert.match(b.html(),/1 \/ 5 完了/);
+ const restored=boot({stored:b.saved()});restored.click('daily-start');assert.match(restored.html(),/2 \/ 5/);assert.equal(restored.saved().daily.completed[0],first);
+});
+test('5分コースは不一致で進まず、一致で保存・自動進行して5件で完了する',()=>{
+ const b=boot({sr:true});b.click('daily-start');b.click('daily-recognize');b.recognizers.at(-1).deliver({results:[[{transcript:'wrong answer'}]]});assert.equal(b.saved().daily.completed.length,0);assert.equal(b.elements.get('result-symbol').textContent,'×');b.advanceFeedback();
+ for(let i=0;i<5;i++){
+  const id=b.saved().daily.ids[i],en=data.find(p=>p.id===id).en.split(/\s*\/\s*/)[0].replace(/(\S+)\s*\([^)]+\)/g,'$1');
+  b.click('daily-recognize');b.recognizers.at(-1).deliver({results:[[{transcript:en}]]});
+  assert.equal(b.saved().daily.completed.length,i+1);b.advanceFeedback();
+ }
+ assert.match(b.html(),/今日の5フレーズ、完了/);assert.equal(b.saved().daily.completed.length,5);assert.equal(b.elements.get('result-label').textContent,'Good on ya!');
+ b.click('daily-home');b.click('daily-start');assert.match(b.html(),/今日の5フレーズ、完了/);b.click('daily-repeat');assert.match(b.html(),/1 \/ 5/);assert.equal(b.saved().daily.completed.length,0);
+});
+test('5分で正解した後に移動すると古い自動遷移を実行しない',()=>{
+ const b=boot({sr:true});b.click('daily-start');const id=b.saved().daily.ids[0];b.click('daily-recognize');b.recognizers.at(-1).deliver({results:[[{transcript:data.find(p=>p.id===id).en.split(/\s*\/\s*/)[0].replace(/(\S+)\s*\([^)]+\)/g,'$1')}]]});
+ const old=[...b.timeouts.values()].find(t=>t.ms===1100);b.click('daily-home');old.fn();assert.match(b.html(),/G’day/);assert.equal(b.saved().daily.completed.length,1);
+});
+test('5分の音声認識中にホームへ戻っても遅延結果は記録されない',()=>{
+ const b=boot({sr:true});b.click('daily-start');const id=b.saved().daily.ids[0];b.click('daily-recognize');const old=b.recognizers.at(-1);b.click('daily-home');old.deliver({results:[[{transcript:data.find(p=>p.id===id).en.split(/\s*\/\s*/)[0].replace(/(\S+)\s*\([^)]+\)/g,'$1')}]]});assert.equal(b.saved().daily.completed.length,0);assert.match(b.html(),/G’day/);
+});
+test('教材の全会話とExtra Practiceに日本語訳が揃い、生成データと一致する',()=>{
+ const b=boot(),dictionary=JSON.parse(read('dialogue-ja.json'));
+ assert.equal(JSON.stringify(b.ctx.DIALOGUE_JA),JSON.stringify(dictionary));
+ const lines=[...data.flatMap(p=>p.dialogue.map(d=>d.text)),...b.ctx.BRANCHES.flatMap(scene=>Object.values(scene.nodes).flatMap(n=>[n.partner,...n.options.map(o=>o.en)]))];
+ for(const en of lines)assert.match(dictionary[en],/[ぁ-んァ-ヶ一-龠]/,en);
+});
+test('教材会話では各英文の下に日本語訳を表示し、両役の練習でも維持する',()=>{
+ const b=boot({sr:true});b.click('tab',{value:'role'});b.click('situation-select',{value:'すべて'});
+ for(const line of data[0].dialogue)assert.ok(b.html().includes(b.ctx.DIALOGUE_JA[line.text]));assert.equal((b.html().match(/class="dialogue-ja"/g)||[]).length,4);
+ b.change('my-role','A');b.click('conversation-start');assert.match(b.html(),/やあ！調子はどう/);b.recognizers[0].deliver({results:[[{transcript:data[0].dialogue[0].text}]]});b.advanceFeedback();assert.match(b.html(),/とてもいいよ/);
+});
+test('分岐会話は相手・選択肢・回答ログにも日本語訳を表示する',()=>{
+ const b=boot({sr:true});b.click('tab',{value:'role'});b.click('situation-select',{value:'カフェ'});b.click('role-branch');assert.match(b.html(),/ご注文は何になさいますか/);assert.match(b.html(),/ラテ/);
+ b.click('conversation-start');b.finishPartner();b.recognizers[0].deliver({results:[[{transcript:'Can I get a latte'}]]});b.advanceFeedback();assert.match(b.html(),/カフェラテをください/);assert.match(b.html(),/店内か持ち帰りか/);
+});
+test('12場面のイラスト参照先が存在し、4モードに個別のテーマを設定する',()=>{
+ const svg=read('assets/scenes.svg'),b=boot();
+ for(const mode of ['learn','speak','quiz','role']){
+  b.click('tab',{value:mode});assert.equal(b.elements.get('app')['data-mode'],mode);
+  assert.equal((b.html().match(/class="scene-art"/g)||[]).length,12);
+  for(let i=0;i<12;i++){assert.ok(b.html().includes(`assets/scenes.svg#scene-${i}`));assert.ok(svg.includes(`id="scene-${i}"`));}
  }
 });

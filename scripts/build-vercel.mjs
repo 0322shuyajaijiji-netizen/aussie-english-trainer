@@ -7,7 +7,7 @@ const output=path.join(root,'dist');
 const files=[
   'index.html','styles.css','app.js','core.js','speech.js','feedback.js',
   'conversation.js','scenarios.js','phrases.js','phrases.json',
-  'assets/mark.svg','assets/australia.svg','.nojekyll'
+  'translations.js','assets/scenes.svg','assets/mark.svg','assets/australia.svg','.nojekyll'
 ];
 // 入力を確認してから出力を更新。設定やソースツリー全体は公開しない。
 for(const file of files){

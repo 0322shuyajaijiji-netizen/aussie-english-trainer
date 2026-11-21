@@ -27,3 +27,46 @@
 @media(max-width:700px){#nav{grid-template-columns:repeat(5,minmax(0,1fr))}.situation-card .eyebrow{font-size:12px}.situation-card strong{font-size:16px}.scene-count,.scene-count>span{font-size:14px}.situation-card{min-height:210px}.scene-intro,.situation-back button{font-size:14px}}
 
 @media(max-width:700px){#nav button{font-size:14px;line-height:1.35;min-height:72px}#nav button>span:last-child{overflow-wrap:anywhere}}
+
+/* Distinct learning modes: coast / coral / sunshine / twilight. */
+#app{--mode:#16616a;--mode-soft:#e7f3f2;--mode-line:#a8cfcc}
+#app[data-mode=learn]{--mode:#16616a;--mode-soft:#e7f3f2;--mode-line:#a8cfcc}
+#app[data-mode=speak]{--mode:#a34330;--mode-soft:#fff0e9;--mode-line:#e5b29e}
+#app[data-mode=quiz]{--mode:#765014;--mode-soft:#fff6da;--mode-line:#d9bf7a}
+#app[data-mode=role]{--mode:#51499a;--mode-soft:#eeecfb;--mode-line:#bdb7e3}
+#app[data-mode] .page-head{border-left:5px solid var(--mode);padding:12px 0 12px 18px;background:linear-gradient(90deg,var(--mode-soft),transparent);border-radius:0 14px 14px 0}
+#app[data-mode] .page-head .eyebrow{color:var(--mode)}
+#app[data-mode] .situation-card{background:#fff;border-color:var(--mode-line);border-top:4px solid var(--mode);padding:16px;gap:0;overflow:hidden}
+#app[data-mode] .situation-card:hover{background:var(--mode-soft)}
+#app[data-mode] .phrase-card,#app[data-mode=role] .panel{border-top:4px solid var(--mode);background:linear-gradient(160deg,var(--mode-soft),#fff 36%)}
+#app[data-mode] button.primary{background:var(--mode);color:#fff;border-color:var(--mode)}
+#app[data-mode] .tag{color:var(--mode);background:var(--mode-soft)}
+#app[data-mode=speak] .speech-controls{border-radius:16px;background:#fff0e9;padding:20px 12px}
+#app[data-mode=quiz] .quiz-prompt{color:var(--mode)}
+#app[data-mode=role] .bubble.mine{background:#eeecfb;border-color:#bdb7e3}
+#nav button[data-value=learn].active{background:#bce2df;color:#164f57}
+#nav button[data-value=speak].active{background:#f4c5ae;color:#743022}
+#nav button[data-value=quiz].active{background:#f3d692;color:#614213}
+#nav button[data-value=role].active{background:#d7d1f3;color:#433783}
+.scene-art{display:block;width:100%;height:auto;aspect-ratio:200 / 112;max-height:142px;margin:0 0 15px}
+.situation-card .scene-count{margin-top:auto;padding-top:6px}.situation-card .scene-arrow{display:none}
+.dialogue-ja{display:block;grid-column:1 / -1;width:100%;font-size:14px!important;line-height:1.8;color:#4b646a;margin-top:8px;padding-top:8px;border-top:1px solid #c9d6d699}
+.full-script .bubble>span[lang=en]{display:block;font-size:16px;line-height:1.7;padding-right:30px}
+.daily-home{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:28px;margin:28px 0 35px;border-radius:20px;background:#153f4a;color:#fff;box-shadow:0 10px 28px #143e4920}
+.daily-home .eyebrow{color:#f4d690;font-size:12px}.daily-home h2{font-size:26px;line-height:1.4;margin:9px 0}.daily-home p{font-size:16px;color:#e0ecea;margin:8px 0}.daily-count{font-size:14px;color:#bdd7d4}
+.daily-home-action{display:flex;flex-direction:column-reverse;align-items:center;gap:14px;min-width:170px}.daily-home-action .scene-art{width:170px;margin:0}.daily-home button.primary{background:#f4d690;color:#173f43;border:0;white-space:nowrap;font-size:16px;min-height:48px}
+.daily-step{display:flex;align-items:center;flex-wrap:wrap;gap:14px;color:var(--mode);font-size:14px}.daily-step>span:first-child{font-size:24px;font-weight:800}.daily-step button{margin-left:auto;font-size:14px}.daily-progress{margin:14px 0 24px}.daily-progress span{background:var(--mode)}
+.daily-lesson details p{font-size:14px;line-height:1.8}.daily-complete{text-align:center}.daily-trophy{font-size:64px;color:#ba8a30}.daily-complete h2{font-size:34px!important}.daily-summary{display:grid;gap:12px;margin:25px 0;text-align:left}.daily-summary>div{padding:14px 16px;background:var(--mode-soft);border-radius:12px}.daily-summary strong,.daily-summary span{display:block;line-height:1.7}.daily-summary strong{font-size:16px}.daily-summary span{font-size:14px;margin-top:4px;color:#4b646a}
+@media(max-width:700px){
+ /* Keep complete menu labels legible; scroll the menu only on narrow screens. */
+ #nav{display:flex;gap:4px;overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:thin;padding-bottom:3px}
+ #nav button{flex:1 0 auto;width:auto;min-width:62px;padding:9px 8px;min-height:64px;font-size:14px}
+ #nav button>span{white-space:nowrap;overflow-wrap:normal!important;word-break:keep-all}
+ .daily-home{padding:20px;gap:12px;align-items:flex-start}.daily-home h2{font-size:22px}.daily-home p{font-size:14px;line-height:1.7}.daily-home-action{min-width:0}.daily-home-action .scene-art{width:104px}.daily-home-action button{white-space:normal!important;min-width:105px;padding:11px 10px;font-size:14px!important}
+ #app[data-mode] .situation-card{padding:12px}.scene-art{margin-bottom:12px}.situation-card strong{font-size:16px}.situation-card .eyebrow{font-size:12px;letter-spacing:.3px}.scene-count,.scene-count>span{font-size:14px}
+ .dialogue-ja{font-size:14px!important}.full-script .bubble>span[lang=en]{font-size:16px}.daily-step{gap:10px}.daily-step button{padding:10px 12px}
+}
+@media(max-width:360px){.daily-home{flex-direction:column}.daily-home-action{width:100%;flex-direction:row}.daily-home-action .scene-art{width:90px}.daily-home-action button{flex:1}}
+
+#app[data-mode=home] .daily-home button.primary{background:#f4d690;color:#173f43;border-color:#f4d690}
+@media(min-width:361px) and (max-width:700px){#nav button{padding-left:4px;padding-right:4px}}

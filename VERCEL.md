@@ -22,7 +22,7 @@ https://github.com/0322shuyajaijiji-netizen/aussie-english-trainer
 
 Root DirectoryはVercelのプロジェクト設定で指定します。それ以外のビルド設定はルートの `vercel.json` に記載済みです。JSONの `framework: null` はOther、`installCommand: ""` は依存パッケージのインストールを省略する指定です。`package.json`、ロックファイル、`npm install` は不要です。
 
-静的ファイルはビルドなしでも公開できますが、今回は必要な13ファイルだけを `dist/` にコピーする構成を採用しています。`original/`、テスト、開発スクリプト、Markdown文書、`.git/`、`.env`、Vercelの端末固有設定は配布物に含めません。アプリのJS・CSS・教材ファイルは変換せずコピーします。
+静的ファイルはビルドなしでも公開できますが、今回は必要な15ファイルだけを `dist/` にコピーする構成を採用しています。`original/`、テスト、開発スクリプト、Markdown文書、`.git/`、`.env`、Vercelの端末固有設定は配布物に含めません。アプリのJS・CSS・教材ファイルは変換せずコピーします。
 
 ## GitHubからVercelに公開する手順
 

@@ -24,7 +24,24 @@
       }
     }
     if(raw.days && typeof raw.days==='object') for(const [day,n] of Object.entries(raw.days)) if(/^\d{4}-\d{2}-\d{2}$/.test(day)) s.days[day]=cleanNumber(n);
+    const valid=new Set(data.map(p=>p.id)),daily=raw.daily;
+    if(daily&&typeof daily==='object'&&/^\d{4}-\d{2}-\d{2}$/.test(daily.date)&&Array.isArray(daily.ids)){
+      const ids=[...new Set(daily.ids.filter(id=>valid.has(id)))].slice(0,5);
+      const completed=Array.isArray(daily.completed)?[...new Set(daily.completed.filter(id=>ids.includes(id)))]:[];
+      if(ids.length===Math.min(5,data.length))s.daily={date:daily.date,ids,completed};
+    }
     return s;
+  }
+  function dailyPlan(data,state,date){
+    const valid=new Set(data.map(p=>p.id)),saved=state.daily;
+    if(saved?.date===date&&saved.ids?.length===Math.min(5,data.length)&&new Set(saved.ids).size===saved.ids.length&&saved.ids.every(id=>valid.has(id))){
+      return {date,ids:[...saved.ids],completed:[...new Set((saved.completed||[]).filter(id=>saved.ids.includes(id)))]};
+    }
+    const seed=[...date].reduce((n,c)=>(n*31+c.charCodeAt(0))>>>0,0);
+    const rank=p=>state.quiz[`${p.id}:en`]?.lastWrong?3:state.star[p.id]?2:!state.done[p.id]?1:0;
+    const tie=p=>{let n=Math.imul(p.id^seed,0x45d9f3b);n=Math.imul(n^(n>>>16),0x45d9f3b);return (n^(n>>>16))>>>0;};
+    const chosen=[...data].sort((a,b)=>rank(b)-rank(a)||(state.attempts[a.id]||0)-(state.attempts[b.id]||0)||tie(a)-tie(b)).slice(0,5);
+    return {date,ids:chosen.map(p=>p.id),completed:[]};
   }
   function reviewOrder(data, state, dir) {
     return [...data].sort((a,b)=>{
@@ -50,5 +67,5 @@
     const results=variants.map(v=>compare(expand(v),expand(actual)));
     return results.reduce((best,r)=>r.score>best.score?r:best,results[0]);
   }
-  root.AussieCore={words,compare,cleanState,reviewOrder,spokenCheck};
+  root.AussieCore={words,compare,cleanState,reviewOrder,spokenCheck,dailyPlan};
 })(typeof window==='undefined'?globalThis:window);

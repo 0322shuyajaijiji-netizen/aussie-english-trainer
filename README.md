@@ -61,7 +61,7 @@ HTML / CSS / JavaScriptだけの静的アプリです。**有料API、生成AI�
 
 Vercelでも静的サイトとして公開できます。GitHubリポジトリをインポートし、Framework Presetは **Other**、Root Directoryは **リポジトリ直下（./）**、Build Commandは `node scripts/build-vercel.mjs`、Output Directoryは `dist` にします。Install Commandは空欄、環境変数は不要です。`vercel.json` に設定を追加済みです。
 
-配信用の13ファイルだけを `dist/` にコピーし、JS/CSS/教材は変換しません。元のルート配置を維持しているため、GitHub Pagesも引き続き使えます。Vercelで本番公開しています。手順・無料プランの条件・学習記録の移行は [VERCEL.md](VERCEL.md) を参照してください。
+配信用の15ファイルだけを `dist/` にコピーし、JS/CSS/教材は変換しません。元のルート配置を維持しているため、GitHub Pagesも引き続き使えます。Vercelで本番公開しています。手順・無料プランの条件・学習記録の移行は [VERCEL.md](VERCEL.md) を参照してください。
 
 ## 学習の使い方
 
@@ -110,6 +110,7 @@ localStorageキーは旧版と同じ `aussie-english-v1` です。同じオリ�
 
 ```sh
 node scripts/build-data.mjs
+node scripts/build-translations.mjs
 node --test tests/*.test.mjs
 node scripts/check-release.mjs
 node --check app.js
@@ -171,3 +172,11 @@ TEST_REPORT.md        自動テスト結果と実機未確認項目
 - 学習記録・苦手一覧・バックアップをホームに統合。旧 `#progress` もホームへ案内。
 - 発音・暗記・会話の音声一致をモードごとに数え、1・3・5・10回、以降10回ごとに応援を自動表示。カウントはアプリを開いている間のみ保持し、失敗では進めません。自己確認は音声一致と区別します。
 - 応援は自動で消え、会話進行を妨げません。実際の発音品質を採点するものではありません。
+
+## 2026-11-21の更新（v2.1）
+
+- ホームに「今日の5分コース」を追加。直近の誤答・苦手・未学習の順で5件を選び、同じ日の選択と途中経過をlocalStorageに保存します。5分は目安です。
+- お手本を聞いて声に出し、一致したら次へ。非対応端末では自己確認で進めます。完了時はGood on ya!と効果音を表示。
+- 12場面にオリジナルの軽量SVGイラストを追加。外部画像配信サービスは不要です。
+- 教材会話とExtra Practiceの全セリフ・返答に日本語訳を追加。既存193件の英文・会話原文は変更しません。訳は `dialogue-ja.json` で管理し、`node scripts/build-translations.mjs` で `translations.js` を生成します。
+- 海の青緑・コーラル・ゴールド・インディゴで4学習モードを区別。スマホのメニュー名を一行に固定し、狭い画面ではメニュー内を横スクロールできます。
