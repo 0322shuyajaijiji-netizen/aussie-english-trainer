@@ -275,3 +275,188 @@ window.BRANCHES.push(...[
     }
   }
 ]);
+
+// ポスターセッション：すべて練習用の研究例です。
+window.BRANCHES.push({
+  "id": "poster-session",
+  "title": "ポスター発表と質疑応答",
+  "icon": "▤",
+  "intro": "実験・シミュレーション・数学の証明から研究例を選び、質問に答えよう。",
+  "start": "start",
+  "nodes": {
+    "start": {
+      "partner": "Hi! What is your research about?",
+      "options": [
+        {
+          "en": "My research is about water quality.",
+          "ja": "私は水質について研究しています。",
+          "next": "experiment-aim"
+        },
+        {
+          "en": "My research is about traffic flow.",
+          "ja": "私の研究は交通の流れについてです。",
+          "next": "simulation-aim"
+        },
+        {
+          "en": "My research is about prime numbers.",
+          "ja": "私の研究は素数についてです。",
+          "next": "proof-aim"
+        }
+      ]
+    },
+    "experiment-aim": {
+      "partner": "What did you want to find out?",
+      "options": [
+        {
+          "en": "We wanted to find out whether light affects plant growth.",
+          "ja": "光が植物の成長に影響するかを調べたいと考えました。",
+          "next": "experiment-method"
+        }
+      ]
+    },
+    "experiment-method": {
+      "partner": "Which conditions did you keep the same?",
+      "options": [
+        {
+          "en": "We kept the amount of water the same.",
+          "ja": "水の量は一定にしました。",
+          "next": "experiment-reliable"
+        }
+      ]
+    },
+    "experiment-reliable": {
+      "partner": "How did you check that your result was repeatable?",
+      "options": [
+        {
+          "en": "We repeated the experiment five times.",
+          "ja": "実験を5回繰り返しました。",
+          "next": "experiment-results"
+        }
+      ]
+    },
+    "experiment-results": {
+      "partner": "What do these results suggest?",
+      "options": [
+        {
+          "en": "These results suggest that light may affect growth.",
+          "ja": "これらの結果は、光が成長に影響する可能性を示唆しています。",
+          "next": "experiment-limit"
+        }
+      ]
+    },
+    "experiment-limit": {
+      "partner": "What is a limitation of your study?",
+      "options": [
+        {
+          "en": "One limitation of our study is the small sample size.",
+          "ja": "この研究の限界の一つは、サンプル数が少ないことです。",
+          "next": "end"
+        }
+      ]
+    },
+    "simulation-aim": {
+      "partner": "What was the aim of your simulation?",
+      "options": [
+        {
+          "en": "We wanted to find out whether a new traffic light pattern could reduce waiting times.",
+          "ja": "新しい信号パターンで待ち時間を減らせるか調べたいと考えました。",
+          "next": "simulation-method"
+        }
+      ]
+    },
+    "simulation-method": {
+      "partner": "How did you investigate that question?",
+      "options": [
+        {
+          "en": "We used a computer simulation to compare two traffic light patterns.",
+          "ja": "コンピューターシミュレーションで2つの信号パターンを比較しました。",
+          "next": "simulation-reliable"
+        }
+      ]
+    },
+    "simulation-reliable": {
+      "partner": "How did you check your model?",
+      "options": [
+        {
+          "en": "We tested the model under several different conditions.",
+          "ja": "いくつかの異なる条件でモデルを試しました。",
+          "next": "simulation-limit"
+        }
+      ]
+    },
+    "simulation-limit": {
+      "partner": "Would it work at every junction?",
+      "options": [
+        {
+          "en": "We haven’t tested that yet, so we can’t say for sure.",
+          "ja": "それはまだ検証していないので、確かなことは言えません。",
+          "next": "simulation-next"
+        }
+      ]
+    },
+    "simulation-next": {
+      "partner": "What would you like to do next?",
+      "options": [
+        {
+          "en": "Our next step is to compare the simulation with real traffic data.",
+          "ja": "次はシミュレーションを実際の交通データと比較する予定です。",
+          "next": "end"
+        }
+      ]
+    },
+    "proof-aim": {
+      "partner": "What did you want to prove?",
+      "options": [
+        {
+          "en": "We wanted to prove a pattern we noticed in prime numbers.",
+          "ja": "素数について気づいた規則性を証明したいと考えました。",
+          "next": "proof-method"
+        }
+      ]
+    },
+    "proof-method": {
+      "partner": "What method did you use?",
+      "options": [
+        {
+          "en": "We used a mathematical proof.",
+          "ja": "数学的な証明を用いました。",
+          "next": "proof-check"
+        }
+      ]
+    },
+    "proof-check": {
+      "partner": "How did you check the proof?",
+      "options": [
+        {
+          "en": "We checked every step and stated our assumptions.",
+          "ja": "各段階を確認し、仮定を明示しました。",
+          "next": "proof-scope"
+        }
+      ]
+    },
+    "proof-scope": {
+      "partner": "Does your proof cover every case?",
+      "options": [
+        {
+          "en": "It only covers cases that meet our assumptions.",
+          "ja": "私たちの仮定を満たす場合のみを扱っています。",
+          "next": "proof-next"
+        }
+      ]
+    },
+    "proof-next": {
+      "partner": "Could your result be extended to a more general case?",
+      "options": [
+        {
+          "en": "That’s an interesting point. We’d like to investigate it further.",
+          "ja": "面白いご指摘です。さらに調べてみたいと思います。",
+          "next": "end"
+        }
+      ]
+    },
+    "end": {
+      "partner": "Thank you for explaining your research. Good luck with your next steps!",
+      "options": []
+    }
+  }
+});

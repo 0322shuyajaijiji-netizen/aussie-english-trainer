@@ -57,8 +57,18 @@
       const a=normalize(expected), b=normalize(actual);
       return {score:a&&b&&a===b?100:0};
     }
-    const contractions={"i'm":"i am","it's":"it is","that's":"that is","how's":"how is","what's":"what is","we're":"we are","you're":"you are","they're":"they are","i'll":"i will","we'll":"we will","i've":"i have","we've":"we have","don't":"do not","doesn't":"does not","didn't":"did not","can't":"cannot","isn't":"is not","aren't":"are not","let's":"let us","i'd":"i would","we'd":"we would"};
-    const expand=s=>words(s).map(w=>contractions[w]||w).join(' ');
+    const contractions={"i'm":"i am","it's":"it is","that's":"that is","how's":"how is","what's":"what is","we're":"we are","you're":"you are","they're":"they are","i'll":"i will","we'll":"we will","i've":"i have","we've":"we have","haven't":"have not","hasn't":"has not","don't":"do not","doesn't":"does not","didn't":"did not","can't":"cannot","isn't":"is not","aren't":"are not","let's":"let us","i'd":"i would","we'd":"we would"};
+    const numberWords={zero:0,one:1,two:2,three:3,four:4,five:5,six:6,seven:7,eight:8,nine:9,ten:10,eleven:11,twelve:12,thirteen:13,fourteen:14,fifteen:15,sixteen:16,seventeen:17,eighteen:18,nineteen:19,twenty:20,thirty:30,forty:40,fifty:50,sixty:60,seventy:70,eighty:80,ninety:90};
+    const expand=s=>{
+      const tokens=words(s).flatMap(w=>(contractions[w]||w).split(' ')),out=[];
+      for(let i=0;i<tokens.length;i++){
+        const n=numberWords[tokens[i]],next=numberWords[tokens[i+1]];
+        if(n===undefined)out.push(tokens[i]);
+        else if(n>=20&&next>=1&&next<=9){out.push(String(n+next));i++;}
+        else out.push(String(n));
+      }
+      return out.join(' ');
+    };
     let variants=String(expected).split(/\s*\/\s*/);
     variants=variants.flatMap(v=>{
       const m=v.match(/(\S+)\s*\(([^)]+)\)/);

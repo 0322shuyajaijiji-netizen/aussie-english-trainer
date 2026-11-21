@@ -4574,5 +4574,804 @@
         "text": "Okay. I'll check with them first."
       }
     ]
+  },
+  {
+    "id": 194,
+    "en": "Hi! Would you like to hear about my research?",
+    "ja": "こんにちは！私の研究について聞いてみませんか？",
+    "category": "ポスターセッション",
+    "section": "発表を始める",
+    "source": "ポスターセッション追加教材",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Hi! This poster looks interesting."
+      },
+      {
+        "role": "B",
+        "text": "Hi! Would you like to hear about my research?"
+      },
+      {
+        "role": "A",
+        "text": "Yes, please. What is it about?"
+      },
+      {
+        "role": "B",
+        "text": "It is about water quality in local rivers."
+      }
+    ]
+  },
+  {
+    "id": 195,
+    "en": "My research is about water quality.",
+    "ja": "私は水質について研究しています。",
+    "category": "ポスターセッション",
+    "section": "発表を始める",
+    "source": "ポスターセッション追加教材",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "What is your research about?"
+      },
+      {
+        "role": "B",
+        "text": "My research is about water quality."
+      },
+      {
+        "role": "A",
+        "text": "Why is that important?"
+      },
+      {
+        "role": "B",
+        "text": "Clean water is important for people and wildlife."
+      }
+    ],
+    "templateEn": "My research is about [water quality]."
+  },
+  {
+    "id": 196,
+    "en": "I chose this topic because I wanted to reduce waste.",
+    "ja": "ごみを減らしたいと思ったので、このテーマを選びました。",
+    "category": "ポスターセッション",
+    "section": "発表を始める",
+    "source": "ポスターセッション追加教材",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Why did you choose this topic?"
+      },
+      {
+        "role": "B",
+        "text": "I chose this topic because I wanted to reduce waste."
+      },
+      {
+        "role": "A",
+        "text": "What kind of waste did you study?"
+      },
+      {
+        "role": "B",
+        "text": "We studied food waste at our school."
+      }
+    ],
+    "templateEn": "I chose this topic because [I wanted to reduce waste]."
+  },
+  {
+    "id": 197,
+    "en": "Let me give you a quick overview.",
+    "ja": "まず、簡単に概要を説明します。",
+    "category": "ポスターセッション",
+    "section": "発表を始める",
+    "source": "ポスターセッション追加教材",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Could you tell me about your maths project?"
+      },
+      {
+        "role": "B",
+        "text": "Let me give you a quick overview."
+      },
+      {
+        "role": "A",
+        "text": "Sure. What did you study?"
+      },
+      {
+        "role": "B",
+        "text": "We studied patterns in prime numbers and developed a proof."
+      }
+    ]
+  },
+  {
+    "id": 198,
+    "en": "Our research question was: \"How does temperature affect growth?\"",
+    "ja": "研究で明らかにしたかった問いは「温度は成長にどう影響するか」です。",
+    "category": "ポスターセッション",
+    "section": "目的・仮説",
+    "source": "ポスターセッション追加教材",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "What question did you investigate?"
+      },
+      {
+        "role": "B",
+        "text": "Our research question was: \"How does temperature affect growth?\""
+      },
+      {
+        "role": "A",
+        "text": "What did you grow?"
+      },
+      {
+        "role": "B",
+        "text": "We grew bean plants at three different temperatures."
+      }
+    ],
+    "templateEn": "Our research question was: \"[How does temperature affect growth?]\""
+  },
+  {
+    "id": 199,
+    "en": "We wanted to find out whether light affects plant growth.",
+    "ja": "光が植物の成長に影響するかを調べたいと考えました。",
+    "category": "ポスターセッション",
+    "section": "目的・仮説",
+    "source": "ポスターセッション追加教材",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "What was the aim of your research?"
+      },
+      {
+        "role": "B",
+        "text": "We wanted to find out whether light affects plant growth."
+      },
+      {
+        "role": "A",
+        "text": "How did you test that?"
+      },
+      {
+        "role": "B",
+        "text": "We grew plants under different amounts of light."
+      }
+    ],
+    "templateEn": "We wanted to find out whether [light affects plant growth]."
+  },
+  {
+    "id": 200,
+    "en": "We predicted that the plants would grow faster.",
+    "ja": "植物の成長が速くなると予想しました。",
+    "category": "ポスターセッション",
+    "section": "目的・仮説",
+    "source": "ポスターセッション追加教材",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "What did you expect with more light?"
+      },
+      {
+        "role": "B",
+        "text": "We predicted that the plants would grow faster."
+      },
+      {
+        "role": "A",
+        "text": "Was your prediction correct?"
+      },
+      {
+        "role": "B",
+        "text": "Not completely. Too much light did not help."
+      }
+    ],
+    "templateEn": "We predicted that [the plants would grow faster]."
+  },
+  {
+    "id": 201,
+    "en": "Previous studies have shown that temperature affects this reaction.",
+    "ja": "先行研究では、温度がこの反応に影響することが示されています。",
+    "category": "ポスターセッション",
+    "section": "目的・仮説",
+    "source": "ポスターセッション追加教材",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "What did you learn from previous research?"
+      },
+      {
+        "role": "B",
+        "text": "Previous studies have shown that temperature affects this reaction."
+      },
+      {
+        "role": "A",
+        "text": "What did your study add?"
+      },
+      {
+        "role": "B",
+        "text": "We tested the reaction at lower temperatures."
+      }
+    ],
+    "templateEn": "Previous studies have shown that [temperature affects this reaction]."
+  },
+  {
+    "id": 202,
+    "en": "To test this, we carried out an experiment.",
+    "ja": "これを確かめるため、実験を行いました。",
+    "category": "ポスターセッション",
+    "section": "方法を説明する",
+    "source": "ポスターセッション追加教材",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "How did you check your prediction?"
+      },
+      {
+        "role": "B",
+        "text": "To test this, we carried out an experiment."
+      },
+      {
+        "role": "A",
+        "text": "What equipment did you use?"
+      },
+      {
+        "role": "B",
+        "text": "We used a thermometer and a stopwatch."
+      }
+    ]
+  },
+  {
+    "id": 203,
+    "en": "We changed the temperature and measured the reaction time.",
+    "ja": "温度を変えて、反応時間を測定しました。",
+    "category": "ポスターセッション",
+    "section": "方法を説明する",
+    "source": "ポスターセッション追加教材",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "What did you change and measure?"
+      },
+      {
+        "role": "B",
+        "text": "We changed the temperature and measured the reaction time."
+      },
+      {
+        "role": "A",
+        "text": "How many temperatures did you test?"
+      },
+      {
+        "role": "B",
+        "text": "We tested three temperatures."
+      }
+    ],
+    "templateEn": "We changed [the temperature] and measured [the reaction time]."
+  },
+  {
+    "id": 204,
+    "en": "We kept the amount of water the same.",
+    "ja": "水の量は一定にしました。",
+    "category": "ポスターセッション",
+    "section": "方法を説明する",
+    "source": "ポスターセッション追加教材",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Which conditions did you keep the same?"
+      },
+      {
+        "role": "B",
+        "text": "We kept the amount of water the same."
+      },
+      {
+        "role": "A",
+        "text": "Why did you do that?"
+      },
+      {
+        "role": "B",
+        "text": "So we could focus on the effect of light."
+      }
+    ],
+    "templateEn": "We kept [the amount of water] the same."
+  },
+  {
+    "id": 205,
+    "en": "We compared group A with group B.",
+    "ja": "A群とB群を比較しました。",
+    "category": "ポスターセッション",
+    "section": "方法を説明する",
+    "source": "ポスターセッション追加教材",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "How did you analyse your simulation results?"
+      },
+      {
+        "role": "B",
+        "text": "We compared group A with group B."
+      },
+      {
+        "role": "A",
+        "text": "What was different between the groups?"
+      },
+      {
+        "role": "B",
+        "text": "Group A used the original model, and group B used our new model."
+      }
+    ],
+    "templateEn": "We compared [group A] with [group B]."
+  },
+  {
+    "id": 206,
+    "en": "We repeated the experiment five times.",
+    "ja": "実験を5回繰り返しました。",
+    "category": "ポスターセッション",
+    "section": "方法を説明する",
+    "source": "ポスターセッション追加教材",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "How did you check that the result was repeatable?"
+      },
+      {
+        "role": "B",
+        "text": "We repeated the experiment five times."
+      },
+      {
+        "role": "A",
+        "text": "Were the results similar each time?"
+      },
+      {
+        "role": "B",
+        "text": "They were similar, but there was some variation."
+      }
+    ],
+    "templateEn": "We repeated the experiment [five] times."
+  },
+  {
+    "id": 207,
+    "en": "This graph shows how the temperature changed over time.",
+    "ja": "このグラフは時間とともに温度がどう変化したかを示しています。",
+    "category": "ポスターセッション",
+    "section": "図・結果を説明する",
+    "source": "ポスターセッション追加教材",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "What does this graph show?"
+      },
+      {
+        "role": "B",
+        "text": "This graph shows how the temperature changed over time."
+      },
+      {
+        "role": "A",
+        "text": "When did the temperature reach its highest point?"
+      },
+      {
+        "role": "B",
+        "text": "After about ten minutes."
+      }
+    ],
+    "templateEn": "This graph shows [how the temperature changed over time]."
+  },
+  {
+    "id": 208,
+    "en": "The horizontal axis shows time, and the vertical axis shows temperature.",
+    "ja": "横軸は時間、縦軸は温度を示しています。",
+    "category": "ポスターセッション",
+    "section": "図・結果を説明する",
+    "source": "ポスターセッション追加教材",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Could you explain the axes?"
+      },
+      {
+        "role": "B",
+        "text": "The horizontal axis shows time, and the vertical axis shows temperature."
+      },
+      {
+        "role": "A",
+        "text": "What units did you use?"
+      },
+      {
+        "role": "B",
+        "text": "Minutes and degrees Celsius."
+      }
+    ],
+    "templateEn": "The horizontal axis shows [time], and the vertical axis shows [temperature]."
+  },
+  {
+    "id": 209,
+    "en": "As the temperature increased, the reaction time decreased.",
+    "ja": "温度が上がるにつれて、反応時間は短くなりました。",
+    "category": "ポスターセッション",
+    "section": "図・結果を説明する",
+    "source": "ポスターセッション追加教材",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "What trend did you observe?"
+      },
+      {
+        "role": "B",
+        "text": "As the temperature increased, the reaction time decreased."
+      },
+      {
+        "role": "A",
+        "text": "Did that happen at every temperature?"
+      },
+      {
+        "role": "B",
+        "text": "It happened within the range we tested."
+      }
+    ],
+    "templateEn": "As [the temperature] increased, [the reaction time] decreased."
+  },
+  {
+    "id": 210,
+    "en": "We found that the two groups had different average values.",
+    "ja": "2つの群の平均値が異なることがわかりました。",
+    "category": "ポスターセッション",
+    "section": "図・結果を説明する",
+    "source": "ポスターセッション追加教材",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "What did you find when you compared the groups?"
+      },
+      {
+        "role": "B",
+        "text": "We found that the two groups had different average values."
+      },
+      {
+        "role": "A",
+        "text": "Does that difference prove your hypothesis?"
+      },
+      {
+        "role": "B",
+        "text": "Not by itself. We also need to consider the variation."
+      }
+    ],
+    "templateEn": "We found that [the two groups had different average values]."
+  },
+  {
+    "id": 211,
+    "en": "The results were different from what we expected.",
+    "ja": "結果は予想と異なりました。",
+    "category": "ポスターセッション",
+    "section": "図・結果を説明する",
+    "source": "ポスターセッション追加教材",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Did the results match your prediction?"
+      },
+      {
+        "role": "B",
+        "text": "The results were different from what we expected."
+      },
+      {
+        "role": "A",
+        "text": "What did you do next?"
+      },
+      {
+        "role": "B",
+        "text": "We checked our method and repeated the measurements."
+      }
+    ]
+  },
+  {
+    "id": 212,
+    "en": "These results suggest that light may affect growth.",
+    "ja": "これらの結果は、光が成長に影響する可能性を示唆しています。",
+    "category": "ポスターセッション",
+    "section": "考察・まとめ",
+    "source": "ポスターセッション追加教材",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "What do your results suggest?"
+      },
+      {
+        "role": "B",
+        "text": "These results suggest that light may affect growth."
+      },
+      {
+        "role": "A",
+        "text": "Can you be certain?"
+      },
+      {
+        "role": "B",
+        "text": "We need more experiments before we can be certain."
+      }
+    ],
+    "templateEn": "These results suggest that [light may affect growth]."
+  },
+  {
+    "id": 213,
+    "en": "One limitation of our study is the small sample size.",
+    "ja": "この研究の限界の一つは、サンプル数が少ないことです。",
+    "category": "ポスターセッション",
+    "section": "考察・まとめ",
+    "source": "ポスターセッション追加教材",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "What is one limitation of your study?"
+      },
+      {
+        "role": "B",
+        "text": "One limitation of our study is the small sample size."
+      },
+      {
+        "role": "A",
+        "text": "How could you improve that?"
+      },
+      {
+        "role": "B",
+        "text": "We could test more samples next time."
+      }
+    ],
+    "templateEn": "One limitation of our study is [the small sample size]."
+  },
+  {
+    "id": 214,
+    "en": "We would need more data to draw a firm conclusion.",
+    "ja": "確かな結論を出すには、さらにデータが必要です。",
+    "category": "ポスターセッション",
+    "section": "考察・まとめ",
+    "source": "ポスターセッション追加教材",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Can you draw a firm conclusion from these results?"
+      },
+      {
+        "role": "B",
+        "text": "We would need more data to draw a firm conclusion."
+      },
+      {
+        "role": "A",
+        "text": "What kind of data would help?"
+      },
+      {
+        "role": "B",
+        "text": "More measurements under the same conditions."
+      }
+    ]
+  },
+  {
+    "id": 215,
+    "en": "Our next step is to test different materials.",
+    "ja": "次は異なる材料を試す予定です。",
+    "category": "ポスターセッション",
+    "section": "考察・まとめ",
+    "source": "ポスターセッション追加教材",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "What are you planning to do next?"
+      },
+      {
+        "role": "B",
+        "text": "Our next step is to test different materials."
+      },
+      {
+        "role": "A",
+        "text": "Why would that be useful?"
+      },
+      {
+        "role": "B",
+        "text": "It could help us understand which material works best."
+      }
+    ],
+    "templateEn": "Our next step is to [test different materials]."
+  },
+  {
+    "id": 216,
+    "en": "Thank you for listening. Do you have any questions?",
+    "ja": "聞いてくださってありがとうございます。質問はありますか？",
+    "category": "ポスターセッション",
+    "section": "考察・まとめ",
+    "source": "ポスターセッション追加教材",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Your explanation was very clear."
+      },
+      {
+        "role": "B",
+        "text": "Thank you for listening. Do you have any questions?"
+      },
+      {
+        "role": "A",
+        "text": "Yes. What was the hardest part?"
+      },
+      {
+        "role": "B",
+        "text": "Keeping the experimental conditions the same."
+      }
+    ]
+  },
+  {
+    "id": 217,
+    "en": "Why did you choose this method?",
+    "ja": "なぜこの方法を選んだのですか？",
+    "category": "ポスターセッション",
+    "section": "質疑応答",
+    "source": "ポスターセッション追加教材",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Do you have any questions about our method?"
+      },
+      {
+        "role": "B",
+        "text": "Why did you choose this method?"
+      },
+      {
+        "role": "A",
+        "text": "It allowed us to control the conditions."
+      },
+      {
+        "role": "B",
+        "text": "I see. Thank you for explaining."
+      }
+    ]
+  },
+  {
+    "id": 218,
+    "en": "We chose this method because it allowed us to control the conditions.",
+    "ja": "条件をそろえられるため、この方法を選びました。",
+    "category": "ポスターセッション",
+    "section": "質疑応答",
+    "source": "ポスターセッション追加教材",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Why did you choose this experimental method?"
+      },
+      {
+        "role": "B",
+        "text": "We chose this method because it allowed us to control the conditions."
+      },
+      {
+        "role": "A",
+        "text": "Which conditions did you control?"
+      },
+      {
+        "role": "B",
+        "text": "The amount of water and the type of plant."
+      }
+    ],
+    "templateEn": "We chose this method because [it allowed us to control the conditions]."
+  },
+  {
+    "id": 219,
+    "en": "How did you make sure your results were reliable?",
+    "ja": "結果の信頼性をどのように確かめましたか？",
+    "category": "ポスターセッション",
+    "section": "質疑応答",
+    "source": "ポスターセッション追加教材",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Would you like to ask about our results?"
+      },
+      {
+        "role": "B",
+        "text": "How did you make sure your results were reliable?"
+      },
+      {
+        "role": "A",
+        "text": "We repeated the experiment and checked our measurements."
+      },
+      {
+        "role": "B",
+        "text": "Did you find any unusual results?"
+      }
+    ]
+  },
+  {
+    "id": 220,
+    "en": "Could you say that again a little more slowly?",
+    "ja": "もう少しゆっくり、もう一度言っていただけますか？",
+    "category": "ポスターセッション",
+    "section": "質疑応答",
+    "source": "ポスターセッション追加教材",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "How did you account for variation between samples?"
+      },
+      {
+        "role": "B",
+        "text": "Could you say that again a little more slowly?"
+      },
+      {
+        "role": "A",
+        "text": "Of course. How did you deal with differences between samples?"
+      },
+      {
+        "role": "B",
+        "text": "We calculated the average and looked at the spread of the data."
+      }
+    ]
+  },
+  {
+    "id": 221,
+    "en": "Do you mean why we used this material?",
+    "ja": "なぜこの材料を使ったか、という意味ですか？",
+    "category": "ポスターセッション",
+    "section": "質疑応答",
+    "source": "ポスターセッション追加教材",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "What was the reason for your choice?"
+      },
+      {
+        "role": "B",
+        "text": "Do you mean why we used this material?"
+      },
+      {
+        "role": "A",
+        "text": "Yes, that is what I mean."
+      },
+      {
+        "role": "B",
+        "text": "We chose it because it was easy to obtain and safe to handle."
+      }
+    ],
+    "templateEn": "Do you mean [why we used this material]?"
+  },
+  {
+    "id": 222,
+    "en": "We haven’t tested that yet, so we can’t say for sure.",
+    "ja": "それはまだ検証していないので、確かなことは言えません。",
+    "category": "ポスターセッション",
+    "section": "質疑応答",
+    "source": "ポスターセッション追加教材",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Would your simulation work with much more traffic?"
+      },
+      {
+        "role": "B",
+        "text": "We haven’t tested that yet, so we can’t say for sure."
+      },
+      {
+        "role": "A",
+        "text": "Would you like to test that next?"
+      },
+      {
+        "role": "B",
+        "text": "Yes. It would help us check the limits of our model."
+      }
+    ]
+  },
+  {
+    "id": 223,
+    "en": "That’s an interesting point. We’d like to investigate it further.",
+    "ja": "面白いご指摘です。さらに調べてみたいと思います。",
+    "category": "ポスターセッション",
+    "section": "質疑応答",
+    "source": "ポスターセッション追加教材",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Could your proof be extended to a more general case?"
+      },
+      {
+        "role": "B",
+        "text": "That’s an interesting point. We’d like to investigate it further."
+      },
+      {
+        "role": "A",
+        "text": "I would be interested to hear what you find."
+      },
+      {
+        "role": "B",
+        "text": "Thank you. We will keep working on it."
+      }
+    ]
   }
 ]

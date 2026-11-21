@@ -70,3 +70,5 @@
 
 #app[data-mode=home] .daily-home button.primary{background:#f4d690;color:#173f43;border-color:#f4d690}
 @media(min-width:361px) and (max-width:700px){#nav button{padding-left:4px;padding-right:4px}}
+
+.poster-guide{margin:16px 0;border:1px solid var(--mode-line);border-radius:12px;padding:12px 14px;background:var(--mode-soft)}.poster-guide summary{font-size:14px}.poster-guide p{font-size:14px;line-height:1.8;margin:12px 0 0}.poster-template{font-size:16px!important;color:var(--ink);overflow-wrap:anywhere}
