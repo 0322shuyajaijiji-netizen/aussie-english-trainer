@@ -22,8 +22,8 @@ function create({show=()=>{},hide=()=>{}}={}){
  }
  function sound(correct){melody(correct?[660,880]:[200,150],{type:correct?'sine':'triangle'});}
  function cancel(){generation++;root.clearTimeout(timeout);timeout=null;hide();}
- function present(correct,onDone){
-  cancel();const id=generation;show({correct,symbol:correct?'○':'×',label:correct?'一致！':'もう一度'});sound(correct);
+ function present(correct,onDone,{label,kind='result'}={}){
+  cancel();const id=generation;show({correct,symbol:correct?'○':'×',label:label||(correct?'一致！':'もう一度'),kind});sound(correct);
   timeout=root.setTimeout(()=>{if(id!==generation)return;timeout=null;hide();if(onDone)onDone();},1100);
  }
  function celebrate(){

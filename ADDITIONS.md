@@ -44,3 +44,32 @@
 | 167 | 観光 | Could I have a receipt, please? | レシートをいただけますか？ |
 | 168 | あいさつ | Would you like to have lunch together? | 一緒にお昼を食べませんか？ |
 | 169 | 聞き返す・断る・感謝する | Could you write that down, please? | それを書いていただけますか？ |
+
+## 2026-11-21：旅行場面の拡充
+
+既存169件の英文・訳・会話は変更せず、ID 170〜193の24件を追加。カフェ、空港・機内、観光に各8件、各フレーズに3ターンの会話例を収録。全193件・12シチュエーション。追加分は全学習モードで利用できます。
+
+- 170 [カフェ] Could I have a small flat white, please? — 小さいサイズのフラットホワイトをいただけますか？
+- 171 [カフェ] Could you make it without sugar? — 砂糖なしで作っていただけますか？
+- 172 [カフェ] Do you have any dairy-free options? — 乳製品を使っていないものはありますか？
+- 173 [カフェ] Does this contain nuts? — これにはナッツが入っていますか？
+- 174 [カフェ] Could I have the dressing on the side? — ドレッシングを別添えにしていただけますか？
+- 175 [カフェ] I ordered a hot chocolate, not a coffee. — 注文したのはコーヒーではなくホットチョコレートです。
+- 176 [カフェ] Is this seat taken? — この席は空いていますか？
+- 177 [カフェ] How long is the wait for food? — 料理が来るまでどのくらいかかりますか？
+- 178 [空港・機内] Where is the baggage claim area? — 手荷物受取所はどこですか？
+- 179 [空港・機内] My suitcase has been damaged. — 私のスーツケースが破損しています。
+- 180 [空港・機内] Where can I fill up my water bottle? — 水筒に水を入れられる場所はどこですか？
+- 181 [空港・機内] Has the boarding gate changed? — 搭乗口は変更になりましたか？
+- 182 [空港・機内] Where is the transfer desk? — 乗り継ぎの案内カウンターはどこですか？
+- 183 [空港・機内] Could you help me find my seat? — 座席を探すのを手伝っていただけますか？
+- 184 [空港・機内] I'm travelling with my school group. — 学校の団体で旅行しています。
+- 185 [空港・機内] I have some food to declare. — 申告する食品があります。
+- 186 [観光] Does this ticket include the guided tour? — このチケットにはガイドツアーが含まれていますか？
+- 187 [観光] Do we need to book in advance? — 事前予約は必要ですか？
+- 188 [観光] What time is the last entry? — 最終入場は何時ですか？
+- 189 [観光] Is photography allowed here? — ここで写真を撮ってもいいですか？
+- 190 [観光] Are there any free walking tours? — 無料のウォーキングツアーはありますか？
+- 191 [観光] How long does the tour take? — ツアーはどのくらい時間がかかりますか？
+- 192 [観光] Where is the meeting point? — 集合場所はどこですか？
+- 193 [観光] Is it safe to swim here? — ここで泳いでも安全ですか？

@@ -16,7 +16,7 @@ for(const match of html.matchAll(/(?:src|href)="([^"#]+)"/g)){
 }
 for(const match of read('app.js').matchAll(/src="(assets\/[^"$]+)"/g))assert.ok(fs.existsSync(path.join(root,match[1])),`動的アセットなし: ${match[1]}`);
 const data=JSON.parse(read('phrases.json'));
-assert.equal(data.length,169);assert.equal(new Set(data.map(x=>x.id)).size,data.length);
+assert.equal(data.length,193);assert.equal(new Set(data.map(x=>x.id)).size,data.length);
 assert.deepEqual(data.slice(0,129),JSON.parse(read('original/phrases.json')));
 const context={window:{}};vm.runInNewContext(read('phrases.js'),context);
 assert.equal(JSON.stringify(data),JSON.stringify(context.window.PHRASES),'教材JSONと生成JSが不一致');
@@ -27,4 +27,4 @@ for(const f of ['index.html','styles.css','app.js','core.js','speech.js','feedba
 }
 assert.equal(fs.existsSync(path.join(root,'.openai')),false,'確認サイト専用設定を含めないでください');
 assert.equal(fs.existsSync(path.join(root,'.github/workflows')),false,'公開前の自動実行ワークフローは不要です');
-console.log('公開準備チェック成功: 必須ファイル・相対パス・元教材129件保持・計169件・外部API依存なし・公開トリガーなし');
+console.log('公開準備チェック成功: 必須ファイル・相対パス・元教材129件保持・計193件・外部API依存なし・公開トリガーなし');

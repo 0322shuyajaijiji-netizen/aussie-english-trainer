@@ -16,7 +16,7 @@ test('Vercel出力は全配信ファイルを元のまま含み、秘密・開�
  const list=files(path.join(root,'dist'));assert.equal(list.length,13);
  for(const name of list){assert.deepEqual(read('dist/'+name),read(name));assert.doesNotMatch(name,/(?:^|\/)(?:\.env|\.git|\.vercel|tests|original|scripts)(?:\.|\/|$)|\.md$/);}
  const html=read('dist/index.html').toString();for(const ref of html.matchAll(/(?:href|src)="([^"#]+)"/g))assert.ok(fs.existsSync(path.join(root,'dist',ref[1])),ref[1]);
- assert.equal(JSON.parse(read('dist/phrases.json')).length,169);
+ assert.equal(JSON.parse(read('dist/phrases.json')).length,193);
 });
 test('再ビルドで古い配布物を除去し、キャッシュに不要ファイルを残さない',()=>{
  fs.mkdirSync(path.join(root,'dist'),{recursive:true});fs.writeFileSync(path.join(root,'dist','stale-secret.txt'),'test fixture, not a secret');execFileSync(process.execPath,['scripts/build-vercel.mjs'],{cwd:root});assert.equal(fs.existsSync(path.join(root,'dist','stale-secret.txt')),false);assert.equal(files(path.join(root,'dist')).length,13);

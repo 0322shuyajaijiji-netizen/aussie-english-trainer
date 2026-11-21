@@ -36,3 +36,9 @@ test('会話完了はGood on ya!と通常の正解音と異なる上昇ファン
 test('会話完了の達成音が使えなくても文字は自動表示・消去',()=>{
  const b=setup({audio:false});b.feedback.celebrate();assert.equal(b.events.at(-1).label,'Good on ya!');[...b.timers.values()][0].fn();assert.equal(b.events.at(-1),'hide');
 });
+
+test('達成ポップアップも通常判定と同じ時間で消え、自動進行を一度だけ呼ぶ',()=>{
+ const b=setup();let next=0;b.feedback.present(true,()=>next++,{label:'3回クリア · いいペース！',kind:'milestone'});
+ assert.equal(b.events.at(-1).kind,'milestone');assert.match(b.events.at(-1).label,/3回クリア/);
+ const t=[...b.timers.values()][0];assert.equal(t.ms,1100);t.fn();assert.equal(next,1);assert.equal(b.events.at(-1),'hide');
+});

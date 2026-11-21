@@ -4095,5 +4095,485 @@ window.PHRASES = [
         "text": "Thank you. That’s very helpful."
       }
     ]
+  },
+  {
+    "id": 170,
+    "en": "Could I have a small flat white, please?",
+    "ja": "小さいサイズのフラットホワイトをいただけますか？",
+    "category": "カフェ",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Could I have a small flat white, please?"
+      },
+      {
+        "role": "B",
+        "text": "Sure. Is that for here or takeaway?"
+      },
+      {
+        "role": "A",
+        "text": "For here, please."
+      }
+    ]
+  },
+  {
+    "id": 171,
+    "en": "Could you make it without sugar?",
+    "ja": "砂糖なしで作っていただけますか？",
+    "category": "カフェ",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Could you make it without sugar?"
+      },
+      {
+        "role": "B",
+        "text": "Sure. Would you like milk?"
+      },
+      {
+        "role": "A",
+        "text": "Yes, please. Just a little."
+      }
+    ]
+  },
+  {
+    "id": 172,
+    "en": "Do you have any dairy-free options?",
+    "ja": "乳製品を使っていないものはありますか？",
+    "category": "カフェ",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Do you have any dairy-free options?"
+      },
+      {
+        "role": "B",
+        "text": "Yes, we have oat milk."
+      },
+      {
+        "role": "A",
+        "text": "Great. I'll have that, please."
+      }
+    ]
+  },
+  {
+    "id": 173,
+    "en": "Does this contain nuts?",
+    "ja": "これにはナッツが入っていますか？",
+    "category": "カフェ",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Does this contain nuts?"
+      },
+      {
+        "role": "B",
+        "text": "Let me check with the kitchen."
+      },
+      {
+        "role": "A",
+        "text": "Thank you. I have a nut allergy."
+      }
+    ]
+  },
+  {
+    "id": 174,
+    "en": "Could I have the dressing on the side?",
+    "ja": "ドレッシングを別添えにしていただけますか？",
+    "category": "カフェ",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Could I have the dressing on the side?"
+      },
+      {
+        "role": "B",
+        "text": "Of course. Anything else?"
+      },
+      {
+        "role": "A",
+        "text": "No, thank you. That's all."
+      }
+    ]
+  },
+  {
+    "id": 175,
+    "en": "I ordered a hot chocolate, not a coffee.",
+    "ja": "注文したのはコーヒーではなくホットチョコレートです。",
+    "category": "カフェ",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "I ordered a hot chocolate, not a coffee."
+      },
+      {
+        "role": "B",
+        "text": "Sorry about that. I'll replace it."
+      },
+      {
+        "role": "A",
+        "text": "Thank you for your help."
+      }
+    ]
+  },
+  {
+    "id": 176,
+    "en": "Is this seat taken?",
+    "ja": "この席は空いていますか？",
+    "category": "カフェ",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Is this seat taken?"
+      },
+      {
+        "role": "B",
+        "text": "No, it's free. Please go ahead."
+      },
+      {
+        "role": "A",
+        "text": "Thank you. My friend will join me soon."
+      }
+    ]
+  },
+  {
+    "id": 177,
+    "en": "How long is the wait for food?",
+    "ja": "料理が来るまでどのくらいかかりますか？",
+    "category": "カフェ",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "How long is the wait for food?"
+      },
+      {
+        "role": "B",
+        "text": "About fifteen minutes."
+      },
+      {
+        "role": "A",
+        "text": "That's fine. Thank you."
+      }
+    ]
+  },
+  {
+    "id": 178,
+    "en": "Where is the baggage claim area?",
+    "ja": "手荷物受取所はどこですか？",
+    "category": "空港・機内",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Where is the baggage claim area?"
+      },
+      {
+        "role": "B",
+        "text": "Go straight and follow the signs."
+      },
+      {
+        "role": "A",
+        "text": "Thank you. I'll head that way."
+      }
+    ]
+  },
+  {
+    "id": 179,
+    "en": "My suitcase has been damaged.",
+    "ja": "私のスーツケースが破損しています。",
+    "category": "空港・機内",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "My suitcase has been damaged."
+      },
+      {
+        "role": "B",
+        "text": "May I see your baggage tag?"
+      },
+      {
+        "role": "A",
+        "text": "Yes. Here it is."
+      }
+    ]
+  },
+  {
+    "id": 180,
+    "en": "Where can I fill up my water bottle?",
+    "ja": "水筒に水を入れられる場所はどこですか？",
+    "category": "空港・機内",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Where can I fill up my water bottle?"
+      },
+      {
+        "role": "B",
+        "text": "There's a refill station near gate ten."
+      },
+      {
+        "role": "A",
+        "text": "Great, thank you."
+      }
+    ]
+  },
+  {
+    "id": 181,
+    "en": "Has the boarding gate changed?",
+    "ja": "搭乗口は変更になりましたか？",
+    "category": "空港・機内",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Has the boarding gate changed?"
+      },
+      {
+        "role": "B",
+        "text": "Yes. It's gate twelve now."
+      },
+      {
+        "role": "A",
+        "text": "Thanks. I'll go there now."
+      }
+    ]
+  },
+  {
+    "id": 182,
+    "en": "Where is the transfer desk?",
+    "ja": "乗り継ぎの案内カウンターはどこですか？",
+    "category": "空港・機内",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Where is the transfer desk?"
+      },
+      {
+        "role": "B",
+        "text": "It's just past the information desk."
+      },
+      {
+        "role": "A",
+        "text": "Thank you for your help."
+      }
+    ]
+  },
+  {
+    "id": 183,
+    "en": "Could you help me find my seat?",
+    "ja": "座席を探すのを手伝っていただけますか？",
+    "category": "空港・機内",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Could you help me find my seat?"
+      },
+      {
+        "role": "B",
+        "text": "Of course. What's your seat number?"
+      },
+      {
+        "role": "A",
+        "text": "It's twenty-four A."
+      }
+    ]
+  },
+  {
+    "id": 184,
+    "en": "I'm travelling with my school group.",
+    "ja": "学校の団体で旅行しています。",
+    "category": "空港・機内",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "I'm travelling with my school group."
+      },
+      {
+        "role": "B",
+        "text": "Is your teacher with you?"
+      },
+      {
+        "role": "A",
+        "text": "Yes. They're just over there."
+      }
+    ]
+  },
+  {
+    "id": 185,
+    "en": "I have some food to declare.",
+    "ja": "申告する食品があります。",
+    "category": "空港・機内",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "I have some food to declare."
+      },
+      {
+        "role": "B",
+        "text": "Please show it to the officer."
+      },
+      {
+        "role": "A",
+        "text": "Of course. It's in this bag."
+      }
+    ]
+  },
+  {
+    "id": 186,
+    "en": "Does this ticket include the guided tour?",
+    "ja": "このチケットにはガイドツアーが含まれていますか？",
+    "category": "観光",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Does this ticket include the guided tour?"
+      },
+      {
+        "role": "B",
+        "text": "Yes. The next tour starts at two."
+      },
+      {
+        "role": "A",
+        "text": "Great. I'll join that tour."
+      }
+    ]
+  },
+  {
+    "id": 187,
+    "en": "Do we need to book in advance?",
+    "ja": "事前予約は必要ですか？",
+    "category": "観光",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Do we need to book in advance?"
+      },
+      {
+        "role": "B",
+        "text": "Yes, especially at weekends."
+      },
+      {
+        "role": "A",
+        "text": "Thanks. We'll book online."
+      }
+    ]
+  },
+  {
+    "id": 188,
+    "en": "What time is the last entry?",
+    "ja": "最終入場は何時ですか？",
+    "category": "観光",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "What time is the last entry?"
+      },
+      {
+        "role": "B",
+        "text": "Last entry is at four o'clock."
+      },
+      {
+        "role": "A",
+        "text": "Great. We still have time."
+      }
+    ]
+  },
+  {
+    "id": 189,
+    "en": "Is photography allowed here?",
+    "ja": "ここで写真を撮ってもいいですか？",
+    "category": "観光",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Is photography allowed here?"
+      },
+      {
+        "role": "B",
+        "text": "Yes, but please don't use flash."
+      },
+      {
+        "role": "A",
+        "text": "Of course. Thank you."
+      }
+    ]
+  },
+  {
+    "id": 190,
+    "en": "Are there any free walking tours?",
+    "ja": "無料のウォーキングツアーはありますか？",
+    "category": "観光",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Are there any free walking tours?"
+      },
+      {
+        "role": "B",
+        "text": "Yes. One leaves from the visitor centre."
+      },
+      {
+        "role": "A",
+        "text": "Thanks. I'll check the details there."
+      }
+    ]
+  },
+  {
+    "id": 191,
+    "en": "How long does the tour take?",
+    "ja": "ツアーはどのくらい時間がかかりますか？",
+    "category": "観光",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "How long does the tour take?"
+      },
+      {
+        "role": "B",
+        "text": "About forty-five minutes."
+      },
+      {
+        "role": "A",
+        "text": "That sounds good. Thank you."
+      }
+    ]
+  },
+  {
+    "id": 192,
+    "en": "Where is the meeting point?",
+    "ja": "集合場所はどこですか？",
+    "category": "観光",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Where is the meeting point?"
+      },
+      {
+        "role": "B",
+        "text": "Outside the main entrance."
+      },
+      {
+        "role": "A",
+        "text": "Okay. I'll meet the group there."
+      }
+    ]
+  },
+  {
+    "id": 193,
+    "en": "Is it safe to swim here?",
+    "ja": "ここで泳いでも安全ですか？",
+    "category": "観光",
+    "dialogue": [
+      {
+        "role": "A",
+        "text": "Is it safe to swim here?"
+      },
+      {
+        "role": "B",
+        "text": "Please ask the lifeguard before you go in."
+      },
+      {
+        "role": "A",
+        "text": "Okay. I'll check with them first."
+      }
+    ]
   }
 ];
